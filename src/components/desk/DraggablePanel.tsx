@@ -55,7 +55,7 @@ export function DraggablePanel({
   );
 }
 
-export function PanelHeader({ title, dot }: { title: string; dot?: string }) {
+export function PanelHeader({ title, dot }: { title: string; dot?: boolean }) {
   return (
     <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border/60">
       <div className="flex gap-1.5">
