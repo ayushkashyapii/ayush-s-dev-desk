@@ -37,7 +37,7 @@ export function CenterIdentity() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
-      className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[44%] flex flex-col items-center text-center px-4"
+      className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[46%] flex flex-col items-center text-center px-4"
       style={{ zIndex: 1 }}
     >
       <h1 className="handwritten text-7xl md:text-[7.5rem] leading-[0.85] text-foreground">

@@ -16,7 +16,7 @@ export function CurlPanel() {
   const [shown, setShown] = useState(false);
 
   return (
-    <Draggable initial={{ x: 60, y: 700 }} rotate={1.4} className="w-[360px]">
+    <Draggable initial={{ x: 290, y: 870 }} rotate={0.8} className="w-[360px]">
       <div className="relative" style={{ filter: "drop-shadow(0 10px 16px rgba(60,40,20,0.18))" }}>
         {/* torn paper decorative top */}
         <img
@@ -35,7 +35,7 @@ export function CurlPanel() {
             <code className="text-foreground/90">curl ayush.dev/about</code>
             <button
               onClick={() => setShown((s) => !s)}
-              className="ml-auto text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 transition"
+              className="ml-auto text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm bg-primary/15 text-primary border border-primary/30 transition"
             >
               {shown ? "Reset" : "Run"}
             </button>

@@ -25,7 +25,7 @@ export function VinylCard() {
   };
 
   return (
-    <Draggable initial={{ x: 24, y: 360 }} rotate={-4} className="w-[200px]">
+    <Draggable initial={{ x: 40, y: 480 }} rotate={-2.2} className="w-[200px]">
       <div
         className="relative bg-paper rounded-md p-5 pt-6 pb-5"
         style={{ boxShadow: "var(--shadow-lift)", border: "1px solid var(--border)" }}
@@ -34,13 +34,13 @@ export function VinylCard() {
           <img
             src={vinyl}
             alt="Vinyl record"
-            className={`w-full h-full pointer-events-none ${playing ? "spin-slow" : ""}`}
+            className={`w-full h-full pointer-events-none desk-image ${playing ? "spin-slow" : ""}`}
             draggable={false}
           />
           <button
             onClick={toggle}
             aria-label={playing ? "Pause" : "Play"}
-            className="absolute -right-1 -bottom-1 h-11 w-11 rounded-full bg-paper border border-border grid place-items-center hover:scale-105 transition"
+            className="absolute -right-1 -bottom-1 h-11 w-11 rounded-full bg-paper border border-border grid place-items-center transition"
             style={{ boxShadow: "var(--shadow-paper)" }}
           >
             {playing ? <Pause className="h-4 w-4 text-foreground" /> : <Play className="h-4 w-4 text-foreground translate-x-0.5" />}

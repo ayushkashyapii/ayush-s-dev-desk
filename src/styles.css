@@ -172,3 +172,13 @@
   font-weight: 600;
   letter-spacing: -0.01em;
 }
+
+/* Gentle visual blending for collage assets */
+.desk-image {
+  filter: saturate(0.78) contrast(0.94) brightness(0.99);
+}
+
+.desk-image-soft {
+  filter: saturate(0.72) contrast(0.92) brightness(0.995);
+  opacity: 0.92;
+}

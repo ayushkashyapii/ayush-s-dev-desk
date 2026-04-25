@@ -12,6 +12,7 @@ import { Stickers } from "@/components/desk/Stickers";
 import { PixelDisplay } from "@/components/desk/PixelDisplay";
 import { Ticket } from "@/components/desk/Ticket";
 import { Moodboard } from "@/components/desk/Moodboard";
+import { FootballTV } from "@/components/desk/FootballTV";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [snakeKey, setSnakeKey] = useState(0);
+  const [openPlayerSignal, setOpenPlayerSignal] = useState(0);
   const snakeRef = useRef<HTMLDivElement>(null);
   return (
     <div className="relative h-screen w-screen overflow-auto">
@@ -38,9 +39,9 @@ function Index() {
         </div>
         {/* Top-right nav-ish labels (decorative) */}
         <div className="absolute top-5 right-8 flex gap-6 text-xs font-mono text-muted-foreground/80 z-[2]">
-          <span className="hover:text-foreground cursor-default transition">about</span>
-          <span className="hover:text-foreground cursor-default transition">work</span>
-          <span className="hover:text-foreground cursor-default transition">play</span>
+          <span className="cursor-default">About</span>
+          <span className="cursor-default">Work</span>
+          <span className="cursor-default">Playground</span>
         </div>
 
         {/* Center identity — stays behind */}
@@ -48,8 +49,7 @@ function Index() {
 
         {/* Decorative leaves scattered */}
         <div ref={snakeRef} className="absolute inset-0">
-          <Leaf x={290} y={620} rotate={-25} size={70} />
-          <Leaf x={1130} y={560} rotate={30} size={80} />
+          <Leaf x={1160} y={530} rotate={20} size={66} />
 
           {/* Hanging ID badge */}
           <LanyardBadge />
@@ -74,10 +74,13 @@ function Index() {
           <Moodboard />
 
           {/* Terminal */}
-          <Terminal onPlay={() => setSnakeKey((k) => k + 1)} />
+          <Terminal onPlay={() => setOpenPlayerSignal((k) => k + 1)} />
 
           {/* Snake retro device */}
-          <SnakeGame key={snakeKey} />
+          <SnakeGame openSignal={openPlayerSignal} />
+
+          {/* Football highlight CRT TV */}
+          <FootballTV />
 
           {/* Curl receipt */}
           <CurlPanel />
@@ -86,7 +89,7 @@ function Index() {
           <StickyNotes />
         </div>
 
-        <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.4em] text-muted-foreground/60">
+        <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.35em] text-muted-foreground/45">
           drag · click · explore
         </div>
       </div>

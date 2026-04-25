@@ -2,31 +2,32 @@ import plantImg from "@/assets/desk/plant.webp";
 import vaseImg from "@/assets/desk/vase-flower.webp";
 import leafImg from "@/assets/desk/leaf.webp";
 import { Draggable } from "./Draggable";
+import { CutoutImage } from "./CutoutImage";
 
 export function Plant() {
   return (
-    <Draggable initial={{ x: 320, y: 90 }} rotate={-2} className="w-[170px]" hover="float">
-      <img src={plantImg} alt="Monstera plant" className="w-full h-auto pointer-events-none" draggable={false} />
+    <Draggable initial={{ x: 300, y: 120 }} rotate={-1.2} className="w-[170px]">
+      <CutoutImage src={plantImg} alt="Monstera plant" className="w-full h-auto pointer-events-none desk-image" draggable={false} />
     </Draggable>
   );
 }
 
 export function Vase() {
   return (
-    <Draggable initial={{ x: 510, y: 380 }} rotate={3} className="w-[120px]" hover="float">
-      <img src={vaseImg} alt="Vase with pink flower" className="w-full h-auto pointer-events-none" draggable={false} />
+    <Draggable initial={{ x: 470, y: 470 }} rotate={1.4} className="w-[120px]">
+      <CutoutImage src={vaseImg} alt="Vase with pink flower" className="w-full h-auto pointer-events-none desk-image-soft" draggable={false} />
     </Draggable>
   );
 }
 
 export function Leaf({ x, y, rotate, size = 90 }: { x: number; y: number; rotate: number; size?: number }) {
   return (
-    <Draggable initial={{ x, y }} rotate={rotate} className="pointer-events-auto" hover="float" swing>
-      <img
+    <Draggable initial={{ x, y }} rotate={rotate} className="pointer-events-auto">
+      <CutoutImage
         src={leafImg}
         alt=""
         style={{ width: size }}
-        className="h-auto pointer-events-none opacity-95"
+        className="h-auto pointer-events-none opacity-90 desk-image-soft"
         draggable={false}
       />
     </Draggable>

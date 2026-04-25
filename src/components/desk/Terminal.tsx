@@ -78,7 +78,7 @@ export function Terminal({ onPlay }: TerminalProps) {
   };
 
   return (
-    <Draggable initial={{ x: 380, y: 470 }} rotate={-1.2} className="w-[440px] max-w-[92vw]">
+    <Draggable initial={{ x: 430, y: 540 }} rotate={-0.7} className="w-[440px] max-w-[92vw]">
       <div className="rounded-lg overflow-hidden bg-paper" style={{ boxShadow: "var(--shadow-lift)", border: "1px solid var(--border)" }}>
         {/* macOS title bar */}
         <div className="flex items-center gap-2 px-3.5 py-2 border-b border-border bg-[oklch(0.96_0.005_75)]">

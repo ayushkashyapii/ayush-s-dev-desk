@@ -25,19 +25,19 @@ const NOTES: Note[] = [
     id: "bt", title: "BitTorrent Client", tag: "go · networking",
     body: "From-scratch BitTorrent peer client. Bencode parser, tracker handshake, piece manager, and parallel block downloads.",
     stack: ["Go", "TCP", "SHA-1"],
-    initial: { x: 460, y: 800 }, rotate: -5, color: "yellow",
+    initial: { x: 390, y: 910 }, rotate: -3, color: "yellow",
   },
   {
     id: "ce", title: "Chess Engine", tag: "c++ · perf",
     body: "Bitboard-based engine with magic bitboards, alpha-beta + transposition tables, UCI protocol. ~2200 elo on lichess-bot.",
     stack: ["C++", "UCI", "Bitboards"],
-    initial: { x: 660, y: 820 }, rotate: 4, color: "pink",
+    initial: { x: 600, y: 930 }, rotate: 2.5, color: "pink",
   },
   {
     id: "vb", title: "Vibe Coder", tag: "react · pwa",
     body: "Pomodoro PWA with curated lofi rooms, ambient soundscapes, and Spotify sync. Offline-first.",
     stack: ["React", "PWA", "Web Audio"],
-    initial: { x: 850, y: 790 }, rotate: -3, color: "mint",
+    initial: { x: 820, y: 905 }, rotate: -1.5, color: "mint",
   },
 ];
 
@@ -57,7 +57,7 @@ export function StickyNotes() {
           >
             <button
               onClick={() => setOpen(n)}
-              className="relative block w-full text-left p-4 pt-5 rounded-sm hover:scale-[1.02] transition"
+              className="relative block w-full text-left p-4 pt-5 rounded-sm transition"
               style={{
                 background: c.bg,
                 boxShadow: "var(--shadow-sticky)",
@@ -123,7 +123,7 @@ export function StickyNotes() {
               </div>
               <button
                 onClick={() => setOpen(null)}
-                className="mt-6 text-xs font-mono text-foreground/60 hover:text-foreground transition"
+                className="mt-6 text-xs font-mono text-foreground/60 transition"
               >
                 ← close
               </button>

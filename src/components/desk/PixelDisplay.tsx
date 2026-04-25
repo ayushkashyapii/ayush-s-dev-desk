@@ -1,10 +1,11 @@
 import { Draggable } from "./Draggable";
 import pixel from "@/assets/desk/pixel-display.webp";
+import { CutoutImage } from "./CutoutImage";
 
 export function PixelDisplay() {
   return (
-    <Draggable initial={{ x: 760, y: 350 }} rotate={4} className="w-[110px]" hover="float">
-      <img src={pixel} alt="Pixel LED display showing the letter A" className="w-full h-auto pointer-events-none" draggable={false} />
+    <Draggable initial={{ x: 760, y: 390 }} rotate={1.6} className="w-[110px]">
+      <CutoutImage src={pixel} alt="Pixel LED display showing the letter A" className="w-full h-auto pointer-events-none desk-image-soft" draggable={false} />
     </Draggable>
   );
 }

@@ -1,26 +1,23 @@
 import { Draggable } from "./Draggable";
-import cat from "@/assets/desk/polaroid-cat.webp";
-import sunflower from "@/assets/desk/polaroid-sunflower.webp";
-import ocean from "@/assets/desk/polaroid-ocean.webp";
-import mountains from "@/assets/desk/polaroid-mountains.webp";
 import leaf from "@/assets/desk/leaf.webp";
 
 const POLAROIDS = [
-  { src: cat,        alt: "polaroid of a ginger cat",   x: 20,  y: 30,  r: -6,  z: 4 },
-  { src: sunflower,  alt: "polaroid of a sunflower",    x: 130, y: 14,  r: 4,   z: 5 },
-  { src: ocean,      alt: "polaroid of a beach",        x: 60,  y: 130, r: 8,   z: 3 },
-  { src: mountains,  alt: "polaroid of red mountains",  x: 165, y: 145, r: -5,  z: 6 },
+  // Use your custom Polaroid asset. Add more files later and swap src per slot.
+  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 1", x: 18, y: 24, r: -7, z: 4 },
+  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 2", x: 138, y: 14, r: 5, z: 5 },
+  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 3", x: 56, y: 150, r: 7, z: 3 },
+  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 4", x: 176, y: 156, r: -6, z: 6 },
 ];
 
 export function Moodboard() {
   return (
-    <Draggable initial={{ x: 720, y: 80 }} rotate={2} className="w-[340px]">
+    <Draggable initial={{ x: 870, y: 240 }} rotate={1} className="w-[350px]">
       {/* Cork board */}
       <div
         className="relative rounded-md p-4 pb-10"
         style={{
-          width: 340,
-          height: 340,
+          width: 350,
+          height: 350,
           background:
             "radial-gradient(circle at 30% 20%, oklch(0.72 0.08 65) 0%, oklch(0.6 0.09 60) 70%)",
           boxShadow: "var(--shadow-lift), inset 0 0 30px oklch(0 0 0 / 0.1)",
@@ -35,7 +32,7 @@ export function Moodboard() {
         {POLAROIDS.map((p) => (
           <div
             key={p.alt}
-            className="absolute transition-transform duration-200 hover:scale-[1.06] hover:-translate-y-1"
+            className="absolute"
             style={{
               left: p.x,
               top: p.y,
@@ -45,7 +42,7 @@ export function Moodboard() {
               filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))",
             }}
           >
-            <img src={p.src} alt={p.alt} className="w-full h-auto pointer-events-none" draggable={false} />
+            <img src={p.src} alt={p.alt} className="w-full h-auto pointer-events-none desk-image" draggable={false} />
             {/* tape */}
             <span
               className="absolute -top-1 left-1/2 -translate-x-1/2 rotate-[-6deg]"
