@@ -1,12 +1,14 @@
 import { Draggable } from "./Draggable";
-import leaf from "@/assets/desk/leaf.webp";
+import polaroid1 from "@/assets/desk/Polaroid.png";
+import polaroid2 from "@/assets/desk/Polaroid2.jpg";
+import polaroid3 from "@/assets/desk/Polaroid3.jpg";
+import barca from "@/assets/desk/barca.png";
+import { CutoutImage } from "./CutoutImage";
 
 const POLAROIDS = [
-  // Use your custom Polaroid asset. Add more files later and swap src per slot.
-  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 1", x: 18, y: 24, r: -7, z: 4 },
-  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 2", x: 138, y: 14, r: 5, z: 5 },
-  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 3", x: 56, y: 150, r: 7, z: 3 },
-  { src: "/assets/desk/Polaroid.png", alt: "polaroid image 4", x: 176, y: 156, r: -6, z: 6 },
+  { src: polaroid1, alt: "polaroid image 1", x: 6, y: 14, r: -5, z: 4, w: 150 },
+  { src: polaroid2, alt: "polaroid image 2", x: 138, y: 14, r: 5, z: 5 },
+  { src: polaroid3, alt: "polaroid image 3", x: 56, y: 150, r: 7, z: 3 },
 ];
 
 export function Moodboard() {
@@ -38,7 +40,7 @@ export function Moodboard() {
               top: p.y,
               transform: `rotate(${p.r}deg)`,
               zIndex: p.z,
-              width: 130,
+              width: p.w ?? 130,
               filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.25))",
             }}
           >
@@ -56,19 +58,12 @@ export function Moodboard() {
           </div>
         ))}
 
-        {/* Leaf accents */}
-        <img
-          src={leaf}
-          alt=""
+        {/* Barca accent */}
+        <CutoutImage
+          src={barca}
+          alt="Barcelona accent"
           className="absolute pointer-events-none"
-          style={{ width: 60, left: 100, top: 110, transform: "rotate(-30deg)", zIndex: 7 }}
-          draggable={false}
-        />
-        <img
-          src={leaf}
-          alt=""
-          className="absolute pointer-events-none"
-          style={{ width: 50, right: 10, top: 200, transform: "rotate(35deg)", zIndex: 7 }}
+          style={{ width: 58, left: 116, top: 114, transform: "rotate(-8deg)", zIndex: 7 }}
           draggable={false}
         />
 

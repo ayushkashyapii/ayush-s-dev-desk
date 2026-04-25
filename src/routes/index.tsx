@@ -7,7 +7,7 @@ import { CurlPanel } from "@/components/desk/CurlPanel";
 import { VinylCard } from "@/components/desk/VinylCard";
 import { StickyNotes } from "@/components/desk/StickyNotes";
 import { LanyardBadge } from "@/components/desk/LanyardBadge";
-import { Plant, Vase, Leaf } from "@/components/desk/Plant";
+import { Plant, Vase } from "@/components/desk/Plant";
 import { Stickers } from "@/components/desk/Stickers";
 import { PixelDisplay } from "@/components/desk/PixelDisplay";
 import { Ticket } from "@/components/desk/Ticket";
@@ -47,10 +47,8 @@ function Index() {
         {/* Center identity — stays behind */}
         <CenterIdentity />
 
-        {/* Decorative leaves scattered */}
+        {/* Desk layout */}
         <div ref={snakeRef} className="absolute inset-0">
-          <Leaf x={1160} y={530} rotate={20} size={66} />
-
           {/* Hanging ID badge */}
           <LanyardBadge />
 

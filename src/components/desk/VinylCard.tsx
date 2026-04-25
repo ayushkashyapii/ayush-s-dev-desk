@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 import { Draggable } from "./Draggable";
+import { CutoutImage } from "./CutoutImage";
 import vinyl from "@/assets/desk/vinyl.webp";
 
 const TRACK = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3";
@@ -31,7 +32,7 @@ export function VinylCard() {
         style={{ boxShadow: "var(--shadow-lift)", border: "1px solid var(--border)" }}
       >
         <div className="relative mx-auto w-[150px] h-[150px]">
-          <img
+          <CutoutImage
             src={vinyl}
             alt="Vinyl record"
             className={`w-full h-full pointer-events-none desk-image ${playing ? "spin-slow" : ""}`}
