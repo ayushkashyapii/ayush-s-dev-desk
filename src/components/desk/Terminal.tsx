@@ -36,7 +36,7 @@ interface TerminalProps {
 
 export function Terminal({ onPlay }: TerminalProps) {
   const [history, setHistory] = useState<Line[]>([
-    { kind: "sys", text: "midnight-desk v1.0.0  ·  type 'help' to begin" },
+    { kind: "sys", text: "desk.terminal v1.0  ·  type 'help' to begin" },
   ]);
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -72,23 +72,22 @@ export function Terminal({ onPlay }: TerminalProps) {
 
   return (
     <DraggablePanel
-      initial={{ x: 40, y: 80 }}
-      rotate={-1.5}
-      className="glass-elevated w-[420px] max-w-[90vw] overflow-hidden"
-      glow="primary"
+      initial={{ x: 48, y: 88 }}
+      rotate={-1.2}
+      className="paper-lift w-[420px] max-w-[90vw] overflow-hidden"
     >
       <PanelHeader title="ayush@desk: ~" dot />
       <div
         ref={scrollRef}
         onClick={() => inputRef.current?.focus()}
-        className="bg-[#0D1117] font-mono text-[13px] leading-relaxed p-4 h-[280px] overflow-y-auto no-scrollbar cursor-text"
+        className="bg-[#F8F8F8] font-mono text-[12.5px] leading-relaxed p-4 h-[280px] overflow-y-auto no-scrollbar cursor-text text-foreground/85"
       >
         {history.map((l, i) => (
           <div key={i} className="whitespace-pre-wrap">
             {l.kind === "in" && (
-              <span><span className="text-secondary">➜</span> <span className="text-terminal-green">~</span>{" "}<span className="text-foreground">{l.text}</span></span>
+              <span><span className="text-primary">›</span> <span className="text-terminal-green">~</span>{" "}<span className="text-foreground">{l.text}</span></span>
             )}
-            {l.kind === "out" && <span className="text-foreground/85">{l.text}</span>}
+            {l.kind === "out" && <span className="text-foreground/80">{l.text}</span>}
             {l.kind === "sys" && <span className="text-muted-foreground italic">{l.text}</span>}
           </div>
         ))}
@@ -96,15 +95,14 @@ export function Terminal({ onPlay }: TerminalProps) {
           onSubmit={(e) => { e.preventDefault(); run(input); setInput(""); }}
           className="flex items-center gap-2 mt-1"
         >
-          <span className="text-secondary">➜</span>
+          <span className="text-primary">›</span>
           <span className="text-terminal-green">~</span>
           <input
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            autoFocus
             spellCheck={false}
-            className="flex-1 bg-transparent outline-none border-none text-foreground placeholder:text-muted-foreground/40"
+            className="flex-1 bg-transparent outline-none border-none text-foreground placeholder:text-muted-foreground/50"
             placeholder="type a command…"
           />
         </form>

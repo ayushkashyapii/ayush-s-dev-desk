@@ -13,10 +13,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Ayush Kashyap — Midnight Desk OS" },
-      { name: "description", content: "Interactive developer portfolio of Ayush Kashyap. A draggable desktop OS with terminal, mini-game, API playground and more." },
-      { property: "og:title", content: "Ayush Kashyap — Midnight Desk OS" },
-      { property: "og:description", content: "Step into a developer's desk. Drag windows, run commands, play snake, vibe to lofi." },
+      { title: "Ayush Kashyap — Desk" },
+      { name: "description", content: "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore — terminal, sticky notes, vinyl, and more." },
+      { property: "og:title", content: "Ayush Kashyap — Desk" },
+      { property: "og:description", content: "A calm, tactile developer workspace. Drag windows, run commands, leave notes." },
     ],
   }),
 });
@@ -38,7 +38,7 @@ function Index() {
           <ScoreCard />
         </div>
       </div>
-      <div className="pointer-events-none fixed bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.4em] text-muted-foreground/40">
+      <div className="pointer-events-none fixed bottom-4 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.4em] text-muted-foreground/60">
         drag · click · explore
       </div>
     </div>

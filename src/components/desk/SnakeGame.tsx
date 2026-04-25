@@ -77,20 +77,25 @@ export function SnakeGame() {
 
   return (
     <DraggablePanel
-      initial={{ x: typeof window !== "undefined" ? window.innerWidth - 320 : 800, y: 90 }}
+      initial={{ x: 760, y: 96 }}
       rotate={2}
-      className="glass-elevated w-[280px] overflow-hidden"
-      glow="secondary"
+      className="paper-lift w-[280px] overflow-hidden"
     >
       <PanelHeader title="snake.exe" />
-      <div className="p-3">
-        <div className="flex items-center justify-between text-xs font-mono mb-2">
-          <span className="text-muted-foreground">SCORE <span className="text-secondary font-bold">{score}</span></span>
-          <span className="text-muted-foreground">HI <span className="text-primary font-bold">{hi}</span></span>
+      <div className="p-3 bg-paper-warm rounded-b-xl">
+        <div className="flex items-center justify-between text-[11px] font-mono mb-2 text-muted-foreground">
+          <span>SCORE <span className="text-foreground font-semibold">{score}</span></span>
+          <span>HI <span className="text-primary font-semibold">{hi}</span></span>
         </div>
         <div
-          className="relative bg-[#0D1117] rounded-lg border border-border mx-auto"
-          style={{ width: SIZE * CELL, height: SIZE * CELL }}
+          className="relative rounded-md mx-auto"
+          style={{
+            width: SIZE * CELL,
+            height: SIZE * CELL,
+            background: "oklch(0.93 0.01 75)",
+            border: "1px solid var(--border)",
+            boxShadow: "inset 0 1px 3px oklch(0 0 0 / 0.08)",
+          }}
         >
           {snake.map((s, i) => (
             <div
@@ -98,9 +103,8 @@ export function SnakeGame() {
               className="absolute rounded-[2px]"
               style={{
                 left: s.x * CELL, top: s.y * CELL,
-                width: CELL - 1, height: CELL - 1,
-                background: i === 0 ? "var(--secondary)" : "var(--primary)",
-                boxShadow: i === 0 ? "0 0 8px var(--secondary)" : "none",
+                width: CELL - 2, height: CELL - 2,
+                background: i === 0 ? "var(--primary)" : "oklch(0.78 0.06 145)",
               }}
             />
           ))}
@@ -109,20 +113,19 @@ export function SnakeGame() {
             style={{
               left: food.x * CELL + 2, top: food.y * CELL + 2,
               width: CELL - 5, height: CELL - 5,
-              background: "oklch(0.78 0.18 25)",
-              boxShadow: "0 0 8px oklch(0.78 0.18 25)",
+              background: "oklch(0.7 0.16 30)",
             }}
           />
         </div>
         <div className="flex gap-2 mt-3">
           <button
             onClick={() => { if (!running) reset(); setRunning(!running); }}
-            className="flex-1 py-1.5 text-xs font-mono rounded-md bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 transition"
+            className="flex-1 py-1.5 text-[11px] font-mono uppercase tracking-wider rounded-md bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 transition"
           >
-            {running ? "PAUSE" : score > 0 ? "RESTART" : "START"}
+            {running ? "Pause" : score > 0 ? "Restart" : "Start"}
           </button>
         </div>
-        <p className="mt-2 text-[10px] font-mono text-center text-muted-foreground/60">arrows · wasd</p>
+        <p className="mt-2 text-[10px] font-mono text-center text-muted-foreground/70">arrows · wasd</p>
       </div>
     </DraggablePanel>
   );
