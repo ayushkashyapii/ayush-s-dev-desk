@@ -6,7 +6,7 @@ import { CutoutImage } from "./CutoutImage";
 
 export function Plant() {
   return (
-    <Draggable initial={{ x: 300, y: 120 }} rotate={-1.2} className="w-[170px]">
+    <Draggable initial={{ x: 36, y: 368 }} rotate={-1.2} className="w-[170px]">
       <CutoutImage src={plantImg} alt="Monstera plant" className="w-full h-auto pointer-events-none desk-image" draggable={false} />
     </Draggable>
   );

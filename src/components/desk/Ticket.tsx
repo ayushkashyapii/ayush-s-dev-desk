@@ -4,7 +4,7 @@ import ticket from "@/assets/desk/ticket.webp";
 
 export function Ticket() {
   return (
-    <Draggable initial={{ x: 600, y: 110 }} rotate={1.6} className="w-[360px]">
+    <Draggable initial={{ x: 555, y: 96 }} rotate={1.4} className="w-[445px]" zIndex={14}>
       <div className="block">
         <CutoutImage
           src={ticket}

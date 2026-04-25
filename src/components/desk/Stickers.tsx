@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Draggable } from "./Draggable";
-import flower from "@/assets/desk/sticker-flower.webp";
+//import flower from "@/assets/desk/sticker-flower.webp";
 import laptop from "@/assets/desk/sticker-laptop.webp";
 import books from "@/assets/desk/sticker-books.webp";
 import folderOpenImg from "@/assets/desk/folderopen.png";
@@ -16,7 +16,7 @@ export function Stickers() {
 
   return (
     <>
-      <Draggable initial={{ x: 520, y: 250 }} rotate={-8} className="pointer-events-auto">
+      {/* <Draggable initial={{ x: 520, y: 250 }} rotate={-8} className="pointer-events-auto">
         <CutoutImage
           src={flower}
           alt="flower sticker"
@@ -24,7 +24,7 @@ export function Stickers() {
           className="h-auto pointer-events-none desk-image-soft drop-shadow-[0_3px_5px_rgba(0,0,0,0.1)]"
           draggable={false}
         />
-      </Draggable>
+      </Draggable> */}
 
       <Draggable initial={{ x: 610, y: 298 }} rotate={6} className="pointer-events-auto">
         <div

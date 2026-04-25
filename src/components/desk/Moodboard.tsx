@@ -1,25 +1,25 @@
 import { Draggable } from "./Draggable";
 import polaroid1 from "@/assets/desk/Polaroid.png";
-import polaroid2 from "@/assets/desk/Polaroid2.jpg";
-import polaroid3 from "@/assets/desk/Polaroid3.jpg";
-import barca from "@/assets/desk/barca.png";
-import { CutoutImage } from "./CutoutImage";
+import polaroid2 from "@/assets/desk/Polaroid2.png";
+import polaroid3 from "@/assets/desk/Polaroid3.png";
+import polaroid4 from "@/assets/desk/Polaroid4.jpg";
 
 const POLAROIDS = [
-  { src: polaroid1, alt: "polaroid image 1", x: 6, y: 14, r: -5, z: 4, w: 150 },
-  { src: polaroid2, alt: "polaroid image 2", x: 138, y: 14, r: 5, z: 5 },
-  { src: polaroid3, alt: "polaroid image 3", x: 56, y: 150, r: 7, z: 3 },
+  { src: polaroid1, alt: "polaroid image 1", x: -4, y: 6, r: -5, z: 4, w: 188 },
+  { src: polaroid2, alt: "polaroid image 2", x: 164, y: 8, r: 4, z: 5, w: 138 },
+  { src: polaroid3, alt: "polaroid image 3", x: 26, y: 165, r: 7, z: 6, w: 148 },
+  { src: polaroid4, alt: "polaroid image 4", x: 184, y: 176, r: -6, z: 7, w: 138 },
 ];
 
 export function Moodboard() {
   return (
-    <Draggable initial={{ x: 870, y: 240 }} rotate={1} className="w-[350px]">
+    <Draggable initial={{ x: 1080, y: 92 }} rotate={0.8} className="w-[372px]" zIndex={16}>
       {/* Cork board */}
       <div
         className="relative rounded-md p-4 pb-10"
         style={{
-          width: 350,
-          height: 350,
+          width: 372,
+          height: 372,
           background:
             "radial-gradient(circle at 30% 20%, oklch(0.72 0.08 65) 0%, oklch(0.6 0.09 60) 70%)",
           boxShadow: "var(--shadow-lift), inset 0 0 30px oklch(0 0 0 / 0.1)",
@@ -58,22 +58,13 @@ export function Moodboard() {
           </div>
         ))}
 
-        {/* Barca accent */}
-        <CutoutImage
-          src={barca}
-          alt="Barcelona accent"
-          className="absolute pointer-events-none"
-          style={{ width: 58, left: 116, top: 114, transform: "rotate(-8deg)", zIndex: 7 }}
-          draggable={false}
-        />
-
         {/* handwritten label */}
-        <p
+        {/* <p
           className="handwritten absolute right-4 bottom-2 text-2xl text-foreground/80"
           style={{ zIndex: 10 }}
         >
           capture moments
-        </p>
+        </p> */}
       </div>
     </Draggable>
   );
