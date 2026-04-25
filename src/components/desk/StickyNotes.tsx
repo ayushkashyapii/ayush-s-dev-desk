@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { DraggablePanel } from "./DraggablePanel";
+import { Draggable } from "./Draggable";
 
 interface Note {
   id: string;
@@ -24,20 +24,20 @@ const NOTES: Note[] = [
   {
     id: "bt", title: "BitTorrent Client", tag: "go · networking",
     body: "From-scratch BitTorrent peer client. Bencode parser, tracker handshake, piece manager, and parallel block downloads.",
-    stack: ["Go", "TCP", "SHA-1", "Bencode"],
-    initial: { x: 120, y: 120 }, rotate: -4, color: "yellow",
+    stack: ["Go", "TCP", "SHA-1"],
+    initial: { x: 460, y: 800 }, rotate: -5, color: "yellow",
   },
   {
     id: "ce", title: "Chess Engine", tag: "c++ · perf",
     body: "Bitboard-based engine with magic bitboards, alpha-beta + transposition tables, UCI protocol. ~2200 elo on lichess-bot.",
     stack: ["C++", "UCI", "Bitboards"],
-    initial: { x: 540, y: 560 }, rotate: 3, color: "pink",
+    initial: { x: 660, y: 820 }, rotate: 4, color: "pink",
   },
   {
     id: "vb", title: "Vibe Coder", tag: "react · pwa",
     body: "Pomodoro PWA with curated lofi rooms, ambient soundscapes, and Spotify sync. Offline-first.",
     stack: ["React", "PWA", "Web Audio"],
-    initial: { x: 80, y: 580 }, rotate: -2, color: "mint",
+    initial: { x: 850, y: 790 }, rotate: -3, color: "mint",
   },
 ];
 
@@ -49,36 +49,33 @@ export function StickyNotes() {
       {NOTES.map((n) => {
         const c = COLOR[n.color];
         return (
-          <DraggablePanel
+          <Draggable
             key={n.id}
             initial={n.initial}
             rotate={n.rotate}
-            className="w-[210px]"
+            className="w-[180px]"
           >
             <button
               onClick={() => setOpen(n)}
-              className="relative block w-full text-left p-4 pt-5 rounded-sm hover:scale-[1.015] transition"
+              className="relative block w-full text-left p-4 pt-5 rounded-sm hover:scale-[1.02] transition"
               style={{
                 background: c.bg,
                 boxShadow: "var(--shadow-sticky)",
-                fontFamily: "var(--font-display)",
               }}
             >
-              {/* tape strip */}
               <span
                 className="absolute -top-2 left-1/2 -translate-x-1/2 rotate-[-4deg]"
                 style={{
-                  width: 64, height: 18,
+                  width: 56, height: 16,
                   background: c.tape,
                   border: "1px solid oklch(0.7 0.02 80 / 0.3)",
-                  boxShadow: "0 1px 2px oklch(0 0 0 / 0.08)",
                 }}
               />
-              <p className="text-[10px] font-mono uppercase tracking-wider text-foreground/55">
+              <p className="text-[9px] font-mono uppercase tracking-wider text-foreground/55">
                 {n.tag}
               </p>
               <h3 className="mt-1 handwritten text-2xl leading-tight text-foreground">{n.title}</h3>
-              <div className="mt-3 flex flex-wrap gap-1">
+              <div className="mt-2 flex flex-wrap gap-1">
                 {n.stack.slice(0, 3).map((s) => (
                   <span key={s} className="text-[10px] font-mono px-1.5 py-0.5 rounded-sm bg-foreground/5 text-foreground/70">
                     {s}
@@ -86,7 +83,7 @@ export function StickyNotes() {
                 ))}
               </div>
             </button>
-          </DraggablePanel>
+          </Draggable>
         );
       })}
 
@@ -101,8 +98,8 @@ export function StickyNotes() {
               initial={{ scale: 0.94, y: 14 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.94, y: 14 }}
               transition={{ type: "spring", stiffness: 240, damping: 24 }}
               onClick={(e) => e.stopPropagation()}
-              className="paper-lift rounded-md max-w-lg w-full p-7 relative"
-              style={{ background: COLOR[open.color].bg }}
+              className="rounded-md max-w-lg w-full p-7 relative"
+              style={{ background: COLOR[open.color].bg, boxShadow: "var(--shadow-lift)" }}
             >
               <span
                 className="absolute -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg]"

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { DraggablePanel } from "./DraggablePanel";
+import { Draggable } from "./Draggable";
+import tornPaper from "@/assets/desk/torn-paper.webp";
 
 const RESPONSE = {
   name: "Ayush Kashyap",
@@ -8,7 +9,6 @@ const RESPONSE = {
   location: "India",
   skills: ["TypeScript", "Go", "C++", "Distributed Systems"],
   interests: ["Compilers", "Lofi", "Football", "Mech Keyboards"],
-  experience_years: 4,
   status: "shipping",
 };
 
@@ -16,27 +16,16 @@ export function CurlPanel() {
   const [shown, setShown] = useState(false);
 
   return (
-    <DraggablePanel
-      initial={{ x: 60, y: 470 }}
-      rotate={1.2}
-      className="w-[360px]"
-    >
-      {/* Receipt-style printed paper */}
-      <div
-        className="relative bg-paper-warm rounded-sm overflow-hidden"
-        style={{
-          boxShadow: "var(--shadow-lift)",
-          backgroundImage: "repeating-linear-gradient(transparent 0 26px, oklch(0.85 0.005 75 / 0.4) 26px 27px)",
-        }}
-      >
-        {/* perforated top edge */}
-        <div className="h-2 bg-paper-warm" style={{
-          maskImage: "radial-gradient(circle 4px at 8px 0, transparent 98%, black 100%)",
-          WebkitMaskImage: "radial-gradient(circle 4px at 8px 0, transparent 98%, black 100%)",
-          maskSize: "16px 8px",
-          WebkitMaskSize: "16px 8px",
-        }} />
-        <div className="px-5 pt-2 pb-5 font-mono text-[12.5px]">
+    <Draggable initial={{ x: 60, y: 700 }} rotate={1.4} className="w-[360px]">
+      <div className="relative" style={{ filter: "drop-shadow(0 10px 16px rgba(60,40,20,0.18))" }}>
+        {/* torn paper decorative top */}
+        <img
+          src={tornPaper}
+          alt=""
+          className="absolute -top-3 left-0 right-0 w-full pointer-events-none opacity-90"
+          draggable={false}
+        />
+        <div className="relative bg-paper-warm rounded-sm pt-5 pb-4 px-5 font-mono text-[12.5px]">
           <div className="text-center border-b border-dashed border-border pb-2 mb-3">
             <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">api · receipt</p>
             <p className="text-[10px] text-muted-foreground/70 mt-0.5">— ayush.dev/about —</p>
@@ -51,7 +40,7 @@ export function CurlPanel() {
               {shown ? "Reset" : "Run"}
             </button>
           </div>
-          <div className="min-h-[180px] text-[12px] leading-[1.65] text-foreground/85">
+          <div className="min-h-[170px] text-[12px] leading-[1.65] text-foreground/85">
             <AnimatePresence mode="wait">
               {!shown ? (
                 <motion.div
@@ -78,7 +67,6 @@ export function CurlPanel() {
   "interests": [`}{RESPONSE.interests.map((s, i) => (
     <span key={s}><span className="text-foreground font-medium">"{s}"</span>{i < RESPONSE.interests.length - 1 && ", "}</span>
   ))}{`],
-  "experience_years": `}<span className="text-[oklch(0.55_0.14_50)]">{RESPONSE.experience_years}</span>{`,
   "status": `}<span className="text-terminal-green">"{RESPONSE.status}"</span>{`
 }`}
                 </motion.pre>
@@ -87,17 +75,16 @@ export function CurlPanel() {
           </div>
           <div className="border-t border-dashed border-border mt-3 pt-2 text-center">
             <p className="text-[10px] text-muted-foreground/70">200 OK · application/json · 42ms</p>
-            <p className="text-[10px] text-muted-foreground/50 mt-0.5">— thank you —</p>
           </div>
         </div>
-        {/* perforated bottom edge */}
-        <div className="h-2 bg-paper-warm" style={{
-          maskImage: "radial-gradient(circle 4px at 8px 8px, transparent 98%, black 100%)",
-          WebkitMaskImage: "radial-gradient(circle 4px at 8px 8px, transparent 98%, black 100%)",
-          maskSize: "16px 8px",
-          WebkitMaskSize: "16px 8px",
-        }} />
+        {/* torn paper decorative bottom */}
+        <img
+          src={tornPaper}
+          alt=""
+          className="absolute -bottom-3 left-0 right-0 w-full pointer-events-none opacity-90 scale-y-[-1]"
+          draggable={false}
+        />
       </div>
-    </DraggablePanel>
+    </Draggable>
   );
 }

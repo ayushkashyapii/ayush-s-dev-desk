@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { DraggablePanel, PanelHeader } from "./DraggablePanel";
+import { Draggable } from "./Draggable";
 
 type Line = { kind: "in" | "out" | "sys"; text: string };
 
@@ -12,7 +12,7 @@ const HELP = `Available commands:
   play        — launch snake game
   clear       — wipe the screen`;
 
-const PROJECTS = `• bittorrent-go      — peer-to-peer file client (Go)
+const PROJECTS = `• bittorrent-go      — peer-to-peer client (Go)
 • chess-engine       — bitboard engine + UCI (C++)
 • desk-os            — this portfolio (React + TS)
 • vibe-coder         — lofi pomodoro PWA`;
@@ -30,13 +30,20 @@ site    : ayush.dev`;
 const ABOUT = `Engineer. Tinkerer. Late-night shipper.
 Currently building developer-first tooling.`;
 
+const WHOAMI = `Software Engineer with 4+ years experience
+Currently shipping developer-first tooling.`;
+
 interface TerminalProps {
   onPlay: () => void;
 }
 
 export function Terminal({ onPlay }: TerminalProps) {
   const [history, setHistory] = useState<Line[]>([
-    { kind: "sys", text: "desk.terminal v1.0  ·  type 'help' to begin" },
+    { kind: "in",  text: "whoami" },
+    { kind: "out", text: WHOAMI },
+    { kind: "in",  text: "ls interests/" },
+    { kind: "out", text: "AI/  designs/  doodles/  photography/" },
+    { kind: "sys", text: "type 'help' to begin" },
   ]);
   const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,7 +60,7 @@ export function Terminal({ onPlay }: TerminalProps) {
       case "":
         break;
       case "help": out.push({ kind: "out", text: HELP }); break;
-      case "about": out.push({ kind: "out", text: ABOUT }); break;
+      case "about": case "whoami": out.push({ kind: "out", text: ABOUT }); break;
       case "projects": out.push({ kind: "out", text: PROJECTS }); break;
       case "skills": out.push({ kind: "out", text: SKILLS }); break;
       case "contact": out.push({ kind: "out", text: CONTACT }); break;
@@ -71,42 +78,51 @@ export function Terminal({ onPlay }: TerminalProps) {
   };
 
   return (
-    <DraggablePanel
-      initial={{ x: 48, y: 88 }}
-      rotate={-1.2}
-      className="paper-lift w-[420px] max-w-[90vw] overflow-hidden"
-    >
-      <PanelHeader title="ayush@desk: ~" dot />
-      <div
-        ref={scrollRef}
-        onClick={() => inputRef.current?.focus()}
-        className="bg-[#F8F8F8] font-mono text-[12.5px] leading-relaxed p-4 h-[280px] overflow-y-auto no-scrollbar cursor-text text-foreground/85"
-      >
-        {history.map((l, i) => (
-          <div key={i} className="whitespace-pre-wrap">
-            {l.kind === "in" && (
-              <span><span className="text-primary">›</span> <span className="text-terminal-green">~</span>{" "}<span className="text-foreground">{l.text}</span></span>
-            )}
-            {l.kind === "out" && <span className="text-foreground/80">{l.text}</span>}
-            {l.kind === "sys" && <span className="text-muted-foreground italic">{l.text}</span>}
+    <Draggable initial={{ x: 380, y: 470 }} rotate={-1.2} className="w-[440px] max-w-[92vw]">
+      <div className="rounded-lg overflow-hidden bg-paper" style={{ boxShadow: "var(--shadow-lift)", border: "1px solid var(--border)" }}>
+        {/* macOS title bar */}
+        <div className="flex items-center gap-2 px-3.5 py-2 border-b border-border bg-[oklch(0.96_0.005_75)]">
+          <div className="flex gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-[oklch(0.74_0.16_25)]" />
+            <span className="h-3 w-3 rounded-full bg-[oklch(0.85_0.14_85)]" />
+            <span className="h-3 w-3 rounded-full bg-[oklch(0.78_0.13_150)]" />
           </div>
-        ))}
-        <form
-          onSubmit={(e) => { e.preventDefault(); run(input); setInput(""); }}
-          className="flex items-center gap-2 mt-1"
+          <div className="flex-1 text-center text-[11px] font-mono text-muted-foreground">
+            ayush — zsh
+          </div>
+          <div className="w-12" />
+        </div>
+        <div
+          ref={scrollRef}
+          onClick={() => inputRef.current?.focus()}
+          className="bg-paper font-mono text-[12.5px] leading-relaxed p-4 h-[260px] overflow-y-auto no-scrollbar cursor-text text-foreground/85"
         >
-          <span className="text-primary">›</span>
-          <span className="text-terminal-green">~</span>
-          <input
-            ref={inputRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            spellCheck={false}
-            className="flex-1 bg-transparent outline-none border-none text-foreground placeholder:text-muted-foreground/50"
-            placeholder="type a command…"
-          />
-        </form>
+          {history.map((l, i) => (
+            <div key={i} className="whitespace-pre-wrap">
+              {l.kind === "in" && (
+                <span><span className="text-terminal-green">~</span>{" "}<span className="text-primary">$</span>{" "}<span className="text-foreground">{l.text}</span></span>
+              )}
+              {l.kind === "out" && <span className="text-foreground/80">{l.text}</span>}
+              {l.kind === "sys" && <span className="text-muted-foreground italic">{l.text}</span>}
+            </div>
+          ))}
+          <form
+            onSubmit={(e) => { e.preventDefault(); run(input); setInput(""); }}
+            className="flex items-center gap-2 mt-1"
+          >
+            <span className="text-terminal-green">~</span>
+            <span className="text-primary">$</span>
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              spellCheck={false}
+              className="flex-1 bg-transparent outline-none border-none text-foreground placeholder:text-muted-foreground/50"
+              placeholder="type a command…"
+            />
+          </form>
+        </div>
       </div>
-    </DraggablePanel>
+    </Draggable>
   );
 }

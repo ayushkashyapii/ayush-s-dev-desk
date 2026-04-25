@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { DraggablePanel, PanelHeader } from "./DraggablePanel";
+import { Draggable } from "./Draggable";
 
-const SIZE = 16;
-const CELL = 14;
+const SIZE = 14;
+const CELL = 13;
 
 type P = { x: number; y: number };
 
 export function SnakeGame() {
-  const [snake, setSnake] = useState<P[]>([{ x: 8, y: 8 }]);
+  const [snake, setSnake] = useState<P[]>([{ x: 7, y: 7 }]);
   const [dir, setDir] = useState<P>({ x: 1, y: 0 });
   const [food, setFood] = useState<P>({ x: 4, y: 4 });
   const [score, setScore] = useState(0);
@@ -22,7 +22,7 @@ export function SnakeGame() {
   }, []);
 
   const reset = useCallback(() => {
-    setSnake([{ x: 8, y: 8 }]);
+    setSnake([{ x: 7, y: 7 }]);
     setDir({ x: 1, y: 0 });
     setFood({ x: 4, y: 4 });
     setScore(0);
@@ -48,10 +48,7 @@ export function SnakeGame() {
         const ate = nx === food.x && ny === food.y;
         if (ate) {
           setScore((s) => s + 1);
-          setFood({
-            x: Math.floor(Math.random() * SIZE),
-            y: Math.floor(Math.random() * SIZE),
-          });
+          setFood({ x: Math.floor(Math.random() * SIZE), y: Math.floor(Math.random() * SIZE) });
         }
         return ate ? [next, ...prev] : [next, ...prev.slice(0, -1)];
       });
@@ -67,44 +64,45 @@ export function SnakeGame() {
         w: { x: 0, y: -1 }, s: { x: 0, y: 1 }, a: { x: -1, y: 0 }, d: { x: 1, y: 0 },
       };
       const nd = map[e.key];
-      if (nd && (nd.x !== -dirRef.current.x || nd.y !== -dirRef.current.y)) {
-        setDir(nd);
-      }
+      if (nd && (nd.x !== -dirRef.current.x || nd.y !== -dirRef.current.y)) setDir(nd);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   return (
-    <DraggablePanel
-      initial={{ x: 760, y: 96 }}
-      rotate={2}
-      className="paper-lift w-[280px] overflow-hidden"
-    >
-      <PanelHeader title="snake.exe" />
-      <div className="p-3 bg-paper-warm rounded-b-xl">
-        <div className="flex items-center justify-between text-[11px] font-mono mb-2 text-muted-foreground">
+    <Draggable initial={{ x: 880, y: 470 }} rotate={2} className="w-[230px]">
+      {/* Retro device shell */}
+      <div
+        className="rounded-2xl p-3 pt-2"
+        style={{
+          background: "linear-gradient(160deg, oklch(0.86 0.02 75), oklch(0.78 0.02 75))",
+          boxShadow: "var(--shadow-lift), inset 0 1px 0 oklch(1 0 0 / 0.6)",
+          border: "1px solid oklch(0.7 0.02 75)",
+        }}
+      >
+        <div className="flex items-center justify-between text-[10px] font-mono mb-1.5 text-foreground/70 px-1">
           <span>SCORE <span className="text-foreground font-semibold">{score}</span></span>
+          <span className="handwritten text-base text-foreground/80">snake</span>
           <span>HI <span className="text-primary font-semibold">{hi}</span></span>
         </div>
         <div
           className="relative rounded-md mx-auto"
           style={{
-            width: SIZE * CELL,
-            height: SIZE * CELL,
-            background: "oklch(0.93 0.01 75)",
-            border: "1px solid var(--border)",
-            boxShadow: "inset 0 1px 3px oklch(0 0 0 / 0.08)",
+            width: SIZE * CELL, height: SIZE * CELL,
+            background: "oklch(0.92 0.02 130)",
+            border: "1px solid oklch(0.55 0.02 75)",
+            boxShadow: "inset 0 1px 4px oklch(0 0 0 / 0.18)",
           }}
         >
           {snake.map((s, i) => (
             <div
               key={i}
-              className="absolute rounded-[2px]"
+              className="absolute rounded-[1px]"
               style={{
                 left: s.x * CELL, top: s.y * CELL,
                 width: CELL - 2, height: CELL - 2,
-                background: i === 0 ? "var(--primary)" : "oklch(0.78 0.06 145)",
+                background: i === 0 ? "oklch(0.4 0.05 145)" : "oklch(0.55 0.07 145)",
               }}
             />
           ))}
@@ -113,20 +111,18 @@ export function SnakeGame() {
             style={{
               left: food.x * CELL + 2, top: food.y * CELL + 2,
               width: CELL - 5, height: CELL - 5,
-              background: "oklch(0.7 0.16 30)",
+              background: "oklch(0.6 0.18 30)",
             }}
           />
         </div>
-        <div className="flex gap-2 mt-3">
-          <button
-            onClick={() => { if (!running) reset(); setRunning(!running); }}
-            className="flex-1 py-1.5 text-[11px] font-mono uppercase tracking-wider rounded-md bg-primary/15 text-primary border border-primary/30 hover:bg-primary/25 transition"
-          >
-            {running ? "Pause" : score > 0 ? "Restart" : "Start"}
-          </button>
-        </div>
-        <p className="mt-2 text-[10px] font-mono text-center text-muted-foreground/70">arrows · wasd</p>
+        <button
+          onClick={() => { if (!running) reset(); setRunning(!running); }}
+          className="mt-2 w-full py-1.5 text-[11px] font-mono uppercase tracking-wider rounded-md bg-foreground/10 text-foreground border border-foreground/15 hover:bg-foreground/15 transition"
+        >
+          {running ? "Pause" : score > 0 ? "Restart" : "Start"}
+        </button>
+        <p className="mt-1.5 text-[9px] font-mono text-center text-foreground/50">arrows · wasd</p>
       </div>
-    </DraggablePanel>
+    </Draggable>
   );
 }
