@@ -26,7 +26,7 @@ export function Stickers() {
         />
       </Draggable> */}
 
-      <Draggable initial={{ x: 610, y: 298 }} rotate={6} className="pointer-events-auto">
+      <Draggable initial={{ x: 610, y: 598 }} rotate={6} className="pointer-events-auto">
         <div
           onMouseEnter={() => setFolderOpen(true)}
           onMouseLeave={() => setFolderOpen(false)}

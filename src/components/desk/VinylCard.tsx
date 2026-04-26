@@ -48,10 +48,10 @@ export function VinylCard() {
           </button>
         </div>
         <div className="mt-4 text-center">
-          <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">Playlist</p>
-          <p className="handwritten text-3xl text-foreground leading-none mt-1">Vibe Coding</p>
-          <p className="text-xs text-muted-foreground mt-1">21 projects and counting</p>
-          <p className="text-[11px] italic text-muted-foreground/70 mt-0.5">learning by building</p>
+          {/* <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground">Playlist</p> */}
+          <p className="handwritten text-3xl text-foreground leading-none mt-1">Welcome</p>
+          {/* <p className="text-xs text-muted-foreground mt-1">21 projects and counting</p>
+          <p className="text-[11px] italic text-muted-foreground/70 mt-0.5">learning by building</p> */}
         </div>
       </div>
     </Draggable>

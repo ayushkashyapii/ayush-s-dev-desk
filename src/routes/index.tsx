@@ -10,8 +10,9 @@ import { LanyardBadge } from "@/components/desk/LanyardBadge";
 import { Plant, Vase } from "@/components/desk/Plant";
 import { Stickers } from "@/components/desk/Stickers";
 import { PixelDisplay } from "@/components/desk/PixelDisplay";
-import { Ticket } from "@/components/desk/Ticket";
 import { Moodboard } from "@/components/desk/Moodboard";
+import { TablePlant } from "@/components/desk/TablePlant";
+import { MusicSticker } from "@/components/desk/MusicSticker";
 import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { FootballTV } from "@/components/desk/FootballTV";
 
@@ -54,11 +55,8 @@ function Index() {
           <LanyardBadge />
 
           {/* Plants */}
-          <Plant />
+          {/* <Plant /> */}
           <Vase />
-
-          {/* Decorative paper ticket */}
-          <Ticket />
 
           {/* Pixel display */}
           <PixelDisplay />
@@ -69,10 +67,14 @@ function Index() {
           {/* Vinyl music card */}
           <VinylCard />
 
+          <MusicSticker />
+
           {/* Moodboard polaroids */}
           <Moodboard />
 
-          {/* Tokyo, cat, Liberty, coffee — polaroids in open desk space */}
+          <TablePlant />
+
+          {/* Tokyo, cat, coffee, Liberty — Liberty overlaps hero name */}
           <DeskExtraPhotos />
 
           {/* Terminal */}
