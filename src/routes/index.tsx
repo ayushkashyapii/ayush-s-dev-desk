@@ -5,9 +5,8 @@ import { Terminal } from "@/components/desk/Terminal";
 import { SnakeGame } from "@/components/desk/SnakeGame";
 import { CurlPanel } from "@/components/desk/CurlPanel";
 import { VinylCard } from "@/components/desk/VinylCard";
-import { StickyNotes } from "@/components/desk/StickyNotes";
 import { LanyardBadge } from "@/components/desk/LanyardBadge";
-import { Plant, Vase } from "@/components/desk/Plant";
+import { Vase } from "@/components/desk/Plant";
 import { Stickers } from "@/components/desk/Stickers";
 import { PixelDisplay } from "@/components/desk/PixelDisplay";
 import { Moodboard } from "@/components/desk/Moodboard";
@@ -15,15 +14,23 @@ import { TablePlant } from "@/components/desk/TablePlant";
 import { MusicSticker } from "@/components/desk/MusicSticker";
 import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { FootballTV } from "@/components/desk/FootballTV";
+import { AboutSection, WorkSection, BlogsSection } from "@/components/desk/DeskScrollSections";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
       { title: "Ayush Kashyap — Desk" },
-      { name: "description", content: "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore — terminal, polaroids, vinyl, sticky notes and more." },
+      {
+        name: "description",
+        content:
+          "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore — terminal, polaroids, vinyl, and more.",
+      },
       { property: "og:title", content: "Ayush Kashyap — Desk" },
-      { property: "og:description", content: "A calm, tactile developer workspace. Drag windows, run commands, leave notes." },
+      {
+        property: "og:description",
+        content: "A calm, tactile developer workspace. Drag windows, run commands, explore.",
+      },
     ],
   }),
 });
@@ -32,70 +39,62 @@ function Index() {
   const [openPlayerSignal, setOpenPlayerSignal] = useState(0);
   const snakeRef = useRef<HTMLDivElement>(null);
   return (
-    <div className="relative h-screen w-screen overflow-auto">
-      {/* The desk surface — fixed canvas size, scroll on small screens */}
-      <div className="relative" style={{ width: 1280, minWidth: "100%", height: 1080 }}>
-        {/* Top-left mini brand */}
-        <div className="absolute top-4 left-6 handwritten text-xl text-foreground/80 z-[2]">
+    <div className="relative min-h-screen w-screen overflow-y-auto scroll-smooth">
+      {/* Hero — interactive desk */}
+      <section
+        id="hero"
+        className="relative"
+        style={{ width: 1280, minWidth: "100%", height: 1080 }}
+        aria-label="Hero desk"
+      >
+        <a
+          href="#hero"
+          className="absolute top-4 left-6 z-[30] handwritten text-xl text-foreground/80 transition-opacity hover:opacity-80"
+        >
           Ayush
-        </div>
-        {/* Top-right nav-ish labels (decorative) */}
-        <div className="absolute top-5 right-8 flex gap-6 text-xs font-mono text-muted-foreground/80 z-[2]">
-          <span className="cursor-default">About</span>
-          <span className="cursor-default">Work</span>
-          <span className="cursor-default">Playground</span>
-        </div>
+        </a>
+        <nav
+          className="absolute top-5 right-8 z-[30] flex gap-6 text-xs font-mono text-muted-foreground/80"
+          aria-label="Page sections"
+        >
+          <a href="#about" className="transition-colors hover:text-foreground">
+            About
+          </a>
+          <a href="#work" className="transition-colors hover:text-foreground">
+            Work
+          </a>
+          <a href="#blogs" className="transition-colors hover:text-foreground">
+            Blogs
+          </a>
+        </nav>
 
-        {/* Center identity — stays behind */}
         <CenterIdentity />
 
-        {/* Desk layout */}
         <div ref={snakeRef} className="absolute inset-0">
-          {/* Hanging ID badge */}
           <LanyardBadge />
-
-          {/* Plants */}
-          {/* <Plant /> */}
           <Vase />
-
-          {/* Pixel display */}
           <PixelDisplay />
-
-          {/* Stickers cluster near center */}
           <Stickers />
-
-          {/* Vinyl music card */}
           <VinylCard />
-
           <MusicSticker />
-
-          {/* Moodboard polaroids */}
           <Moodboard />
-
           <TablePlant />
-
-          {/* Tokyo, cat, coffee, Liberty — Liberty overlaps hero name */}
           <DeskExtraPhotos />
-
-          {/* Terminal */}
           <Terminal onPlay={() => setOpenPlayerSignal((k) => k + 1)} />
-
-          {/* Snake retro device */}
           <SnakeGame openSignal={openPlayerSignal} />
-
-          {/* Football highlight CRT TV */}
           <FootballTV />
-
-          {/* Curl receipt */}
           <CurlPanel />
-
-          {/* Sticky notes */}
-          <StickyNotes />
         </div>
 
         <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.35em] text-muted-foreground/45">
           drag · click · explore
         </div>
+      </section>
+
+      <div className="mx-auto w-full max-w-[1280px] border-x border-border/30 border-dashed">
+        <AboutSection />
+        <WorkSection />
+        <BlogsSection />
       </div>
     </div>
   );

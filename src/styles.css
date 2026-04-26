@@ -173,6 +173,13 @@
   letter-spacing: -0.01em;
 }
 
+/* About section — warm editorial serif (pairs with handwritten + desk) */
+.font-newsreader {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
 /* Gentle visual blending for collage assets */
 .desk-image {
   filter: saturate(0.78) contrast(0.94) brightness(0.99);

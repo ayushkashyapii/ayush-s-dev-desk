@@ -1,6 +1,5 @@
 import { Draggable } from "./Draggable";
 import tokyoImg from "@/assets/desk/tokyo.jpg";
-import catImg from "@/assets/desk/cat.jpg";
 import coffeeImg from "@/assets/desk/coffee.png";
 import libertyImg from "@/assets/desk/liberty.png";
 
@@ -66,16 +65,6 @@ const EXTRA_PHOTOS: ReadonlyArray<ExtraPhotoPolaroid | ExtraPhotoPlain> = [
     rotate: -4.1,
     z: 12,
     w: 152,
-  },
-  {
-    display: "plain",
-    id: "cat",
-    src: catImg,
-    alt: "Cat photo",
-    initial: { x: 952, y: 458 },
-    rotate: 0,
-    z: 17,
-    w: 88,
   },
   {
     display: "plain",
