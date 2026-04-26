@@ -12,6 +12,7 @@ import { Stickers } from "@/components/desk/Stickers";
 import { PixelDisplay } from "@/components/desk/PixelDisplay";
 import { Ticket } from "@/components/desk/Ticket";
 import { Moodboard } from "@/components/desk/Moodboard";
+import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { FootballTV } from "@/components/desk/FootballTV";
 
 export const Route = createFileRoute("/")({
@@ -70,6 +71,9 @@ function Index() {
 
           {/* Moodboard polaroids */}
           <Moodboard />
+
+          {/* Tokyo, cat, Liberty, coffee — polaroids in open desk space */}
+          <DeskExtraPhotos />
 
           {/* Terminal */}
           <Terminal onPlay={() => setOpenPlayerSignal((k) => k + 1)} />
