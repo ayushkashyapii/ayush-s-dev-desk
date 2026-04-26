@@ -1,5 +1,11 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import catImg from "@/assets/desk/cat.jpg";
+import laptop from "@/assets/desk/sticker-laptop.webp";
+import books from "@/assets/desk/sticker-books.webp";
+import folderOpenImg from "@/assets/desk/folderopen.png";
+import folderCloseImg from "@/assets/desk/folderclose.png";
+import { CutoutImage } from "./CutoutImage";
 
 const ABOUT_COPY =
   "Software engineer and systems builder focused on scalable backend infrastructure, AI-powered applications, and developer-first products. Experienced in full-stack development, LLM systems, and performance-driven engineering, with a passion for building thoughtful, high-impact technology.";
@@ -27,13 +33,16 @@ function SectionShell({
 }
 
 export function AboutSection() {
+  const [folderOpen, setFolderOpen] = useState(false);
+  const [panel, setPanel] = useState<"laptop" | "books" | null>(null);
+
   return (
     <section
       id="about"
       className="scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24"
     >
-      <div className="mx-auto max-w-4xl">
-        <div className="flex flex-col items-stretch gap-10 sm:flex-row sm:items-start sm:gap-12 md:gap-14">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid items-start gap-10 lg:grid-cols-[220px_1fr_260px] lg:gap-12">
           <figure className="mx-auto w-[min(220px,78vw)] shrink-0 sm:mx-0 sm:w-[200px] md:w-[228px]">
             <div
               className="relative rounded-[3px] bg-[oklch(0.99_0.005_90)] p-2.5 pb-7 shadow-[0_10px_28px_rgba(40,35,30,0.12),0_1px_0_oklch(0_0_0_/0.05)] ring-1 ring-foreground/[0.06]"
@@ -71,8 +80,118 @@ export function AboutSection() {
               {ABOUT_COPY}
             </p>
           </div>
+
+          <div className="relative mx-auto w-full max-w-[260px] lg:mx-0 lg:pt-4">
+            <div
+              onMouseEnter={() => setFolderOpen(true)}
+              onMouseLeave={() => setFolderOpen(false)}
+              className="relative h-[170px] rounded-lg px-3 pt-3"
+            >
+              <div className="relative mx-auto w-[118px]">
+                <CutoutImage
+                  src={folderOpen ? folderOpenImg : folderCloseImg}
+                  alt="folder sticker"
+                  className="w-full h-auto desk-image-soft"
+                  draggable={false}
+                />
+                <motion.button
+                  type="button"
+                  onClick={() => setPanel("laptop")}
+                  animate={{
+                    opacity: folderOpen ? 1 : 0.25,
+                    y: folderOpen ? -48 : -16,
+                    x: folderOpen ? 56 : 24,
+                    scale: folderOpen ? 1 : 0.9,
+                  }}
+                  transition={{ duration: 0.22 }}
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{ pointerEvents: folderOpen ? "auto" : "none" }}
+                >
+                  <CutoutImage
+                    src={laptop}
+                    alt="Laptop token"
+                    className="h-auto w-[68px] desk-image-soft drop-shadow-[0_3px_5px_rgba(0,0,0,0.15)]"
+                    draggable={false}
+                  />
+                </motion.button>
+                <motion.button
+                  type="button"
+                  onClick={() => setPanel("books")}
+                  animate={{
+                    opacity: folderOpen ? 1 : 0.25,
+                    y: folderOpen ? 16 : -2,
+                    x: folderOpen ? -56 : -24,
+                    scale: folderOpen ? 1 : 0.9,
+                  }}
+                  transition={{ duration: 0.22 }}
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{ pointerEvents: folderOpen ? "auto" : "none" }}
+                >
+                  <CutoutImage
+                    src={books}
+                    alt="Books token"
+                    className="h-auto w-[62px] desk-image-soft drop-shadow-[0_3px_5px_rgba(0,0,0,0.15)]"
+                    draggable={false}
+                  />
+                </motion.button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {panel && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setPanel(null)}
+            className="fixed inset-0 z-[9999] grid place-items-center bg-foreground/30 p-4 backdrop-blur-[2px]"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 10 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 10 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-xl rounded-lg border border-border bg-paper p-6"
+              style={{ boxShadow: "var(--shadow-lift)" }}
+            >
+              {panel === "laptop" ? (
+                <>
+                  <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-muted-foreground">Current laptop</p>
+                  <h3 className="mt-2 handwritten text-4xl text-foreground">My Setup</h3>
+                  <div className="mt-4 space-y-2 text-sm text-foreground/80">
+                    <p><strong>Model:</strong> HP Pavilion</p>
+                    <p><strong>Processor:</strong> 11th Gen Intel Core i5-11300H @ 3.10GHz</p>
+                    <p><strong>RAM:</strong> 8 GB (7.7 GB usable)</p>
+                    <p><strong>System:</strong> 64-bit OS, x64-based processor</p>
+                    <p><strong>OS:</strong> Windows 11 Home Single Language (25H2)</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-muted-foreground">Books & Notes</p>
+                  <h3 className="mt-2 handwritten text-4xl text-foreground">What I Read</h3>
+                  <div className="mt-4 space-y-3 text-sm text-foreground/85">
+                    <p>
+                      <strong>Designing Data-Intensive Applications</strong>{" "}
+                      <span className="rounded bg-primary/12 px-2 py-0.5 text-[11px] font-mono uppercase tracking-wide text-primary">read</span>
+                    </p>
+                    <p>
+                      <strong>Understanding Distributed Systems</strong>{" "}
+                      <span className="rounded bg-primary/12 px-2 py-0.5 text-[11px] font-mono uppercase tracking-wide text-primary">read</span>
+                    </p>
+                  </div>
+                </>
+              )}
+              <button onClick={() => setPanel(null)} className="mt-6 text-xs font-mono text-foreground/60">
+                close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

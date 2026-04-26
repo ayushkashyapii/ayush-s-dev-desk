@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { CenterIdentity } from "@/components/desk/CenterIdentity";
-import { Terminal } from "@/components/desk/Terminal";
+// import { Terminal } from "@/components/desk/Terminal";
 import { SnakeGame } from "@/components/desk/SnakeGame";
-import { CurlPanel } from "@/components/desk/CurlPanel";
+// import { CurlPanel } from "@/components/desk/CurlPanel";
 import { VinylCard } from "@/components/desk/VinylCard";
 import { LanyardBadge } from "@/components/desk/LanyardBadge";
 import { Vase } from "@/components/desk/Plant";
-import { Stickers } from "@/components/desk/Stickers";
 import { PixelDisplay } from "@/components/desk/PixelDisplay";
 import { Moodboard } from "@/components/desk/Moodboard";
 import { TablePlant } from "@/components/desk/TablePlant";
@@ -74,21 +73,20 @@ function Index() {
           <LanyardBadge />
           <Vase />
           <PixelDisplay />
-          <Stickers />
           <VinylCard />
           <MusicSticker />
           <Moodboard />
           <TablePlant />
           <DeskExtraPhotos />
-          <Terminal onPlay={() => setOpenPlayerSignal((k) => k + 1)} />
+          {/* <Terminal onPlay={() => setOpenPlayerSignal((k) => k + 1)} /> */}
           <SnakeGame openSignal={openPlayerSignal} />
           <FootballTV />
-          <CurlPanel />
+          {/* <CurlPanel /> */}
         </div>
 
-        <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.35em] text-muted-foreground/45">
+        {/* <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.35em] text-muted-foreground/45">
           drag · click · explore
-        </div>
+        </div> */}
       </section>
 
       <div className="mx-auto w-full max-w-[1280px] border-x border-border/30 border-dashed">
