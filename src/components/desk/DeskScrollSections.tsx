@@ -36,6 +36,7 @@ import pacmanProjectImg from "@/assets/desk/pacman.png";
 import terminalProjectImg from "@/assets/desk/terminal.png";
 import tetrisProjectImg from "@/assets/desk/tetris.png";
 import torrentProjectImg from "@/assets/desk/torrent.png";
+import constructureImg from "@/assets/desk/constructure.png";
 import { CutoutImage } from "./CutoutImage";
 
 const ABOUT_COPY =
@@ -447,8 +448,136 @@ export function WorkSection() {
       iconTone: "text-[#8d4f3d]",
     },
   ] as const;
+  const blogFolders = [
+    {
+      id: "bittorrent-protocol",
+      title: "BitTorrent Protocol",
+      subtitle: "The protocol that quietly solved internet-scale file distribution.",
+      previews: [{ src: torrentProjectImg, alt: "BitTorrent protocol blog visual" }],
+      intro:
+        "When most people hear BitTorrent, they immediately think of piracy. But once you actually study the protocol, you realize BitTorrent is one of the most elegant distributed systems ever designed - a system that fundamentally rethought how large-scale data distribution should work on the internet.",
+      sections: [
+        {
+          heading: "The Original Problem",
+          content:
+            "Before BitTorrent, large file distribution followed a centralized model: one server to many users. At internet scale this led to overloaded servers, high bandwidth cost, slow downloads, and single points of failure.",
+          bullets: [
+            "Servers became overloaded under sudden demand",
+            "Bandwidth costs scaled linearly with traffic",
+            "Downloads slowed dramatically",
+            "Single points of failure emerged",
+          ],
+        },
+        {
+          heading: "Bram Cohen's Breakthrough",
+          content:
+            "In 2001, Bram Cohen introduced BitTorrent and flipped the model. Every downloader also becomes an uploader, turning distribution into a decentralized swarm where demand increases capacity.",
+          bullets: [
+            "Files split into small verifiable pieces",
+            "Peers download from multiple peers simultaneously",
+            "Peers upload pieces they already have",
+            "Network strength grows as participation grows",
+          ],
+        },
+        {
+          heading: "How BitTorrent Works",
+          content:
+            "A client reads torrent metadata, discovers peers through trackers, communicates via peer wire protocol, downloads pieces in parallel, and verifies each piece using SHA-1.",
+          bullets: [
+            "Torrent metadata: structure, piece hashes, tracker URLs, InfoHash",
+            "Tracker discovery: peer list + swarm formation",
+            "Peer protocol: handshake, bitfield, choke/unchoke, piece requests",
+            "Parallel piece downloading + integrity verification",
+          ],
+        },
+        {
+          heading: "Why BitTorrent Is Brilliant",
+          content:
+            "BitTorrent solves multiple distributed systems challenges at once: scalability, reliability, efficiency, and incentive alignment.",
+          bullets: [
+            "Scalability: more peers means more throughput",
+            "Fault tolerance: no central serving bottleneck",
+            "Efficiency: bandwidth cost distributed across users",
+            "Reliability: cryptographic piece verification",
+            "Incentives: tit-for-tat encourages contribution",
+          ],
+        },
+        {
+          heading: "Beyond Piracy",
+          content:
+            "The architecture is used in legitimate large-scale distribution contexts such as game updates, Linux ISO distribution, internal deployment pipelines, scientific datasets, and open-data delivery.",
+          bullets: [
+            "Blizzard game update distribution patterns",
+            "Linux distributions sharing ISOs",
+            "P2P-inspired deployment strategies in large tech systems",
+            "University-scale scientific dataset distribution",
+          ],
+        },
+        {
+          heading: "What Learning BitTorrent Taught Me",
+          content:
+            "Implementing a torrent client from scratch provided practical depth in networking, distributed coordination, concurrency, and performance engineering.",
+          bullets: [
+            "TCP connections and protocol serialization",
+            "Peer state management and swarm coordination",
+            "Goroutines and worker orchestration",
+            "Pipelined requests and throughput optimization",
+            "Hash verification and protocol integrity",
+          ],
+        },
+      ],
+      takeaway:
+        "BitTorrent didn't just make downloads faster. It redefined how the internet could distribute data.",
+      accent: "bg-[#f0b8a8] ring-[#df9c88]/70",
+      iconTone: "text-[#8d4f3d]",
+    },
+  ] as const;
+  const historyFolders = [
+    {
+      id: "work-ex",
+      title: "Work Ex",
+      subtitle: "Internships and professional experience",
+      accent: "bg-[#c7b7e9] ring-[#b09ad8]/70",
+      iconTone: "text-[#5f4c86]",
+      entries: [
+        {
+          id: "constructure-ai",
+          company: "Constructure AI",
+          role: "Software Engineer Intern",
+          period: "Dec 2025 - Apr 2026",
+          overview:
+            "Worked on backend systems and AI infrastructure for LLM-driven applications, large-scale construction data pipelines, and retrieval-based workflows. Focused on building scalable services, improving system performance, and developing production-ready tools that connected data, models, and external systems.",
+          contributions: [
+            "Built backend APIs for AI-powered applications",
+            "Developed scalable data ingestion pipelines",
+            "Implemented hybrid RAG retrieval systems",
+            "Designed multi-agent workflow orchestration",
+            "Optimized latency through caching and async processing",
+          ],
+          tech: ["Node.js", "Python", "LangChain", "Redis", "PostgreSQL", "Docker"],
+          takeaways: [
+            "Production AI systems",
+            "Backend scalability",
+            "Retrieval engineering",
+            "Workflow orchestration",
+            "Performance optimization",
+          ],
+          tagline: "My first step into building real-world AI infrastructure at scale.",
+          preview: { src: constructureImg, alt: "Constructure AI experience visual" },
+        },
+      ],
+    },
+  ] as const;
+
+  const [activePane, setActivePane] = useState<"projects" | "blogs" | "history">("projects");
   const [activeProjectId, setActiveProjectId] = useState<(typeof projectFolders)[number]["id"] | null>(null);
   const activeProject = projectFolders.find((folder) => folder.id === activeProjectId) ?? null;
+  const [activeBlogId, setActiveBlogId] = useState<(typeof blogFolders)[number]["id"] | null>(null);
+  const activeBlog = blogFolders.find((blog) => blog.id === activeBlogId) ?? null;
+  const [activeHistoryFolderId, setActiveHistoryFolderId] = useState<(typeof historyFolders)[number]["id"] | null>(
+    null,
+  );
+  const activeHistoryFolder = historyFolders.find((folder) => folder.id === activeHistoryFolderId) ?? null;
 
   return (
     <SectionShell id="work" title="Work" containerClassName="max-w-6xl">
@@ -469,15 +598,36 @@ export function WorkSection() {
               Favorites
             </p>
             <div className="space-y-1.5">
-              <button className="flex w-full items-center gap-2 rounded-md bg-primary/12 px-2 py-1.5 text-left text-[11px] text-foreground/85">
+              <button
+                onClick={() => setActivePane("projects")}
+                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] ${
+                  activePane === "projects"
+                    ? "bg-primary/12 text-foreground/85"
+                    : "text-foreground/70 hover:bg-foreground/[0.05]"
+                }`}
+              >
                 <Folder className="h-3.5 w-3.5 text-primary/80" />
                 Projects
               </button>
-              <button className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] text-foreground/70 hover:bg-foreground/[0.05]">
+              <button
+                onClick={() => setActivePane("blogs")}
+                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] ${
+                  activePane === "blogs"
+                    ? "bg-primary/12 text-foreground/85"
+                    : "text-foreground/70 hover:bg-foreground/[0.05]"
+                }`}
+              >
                 <BookOpen className="h-3.5 w-3.5 text-foreground/60" />
                 Read Blogs
               </button>
-              <button className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] text-foreground/70 hover:bg-foreground/[0.05]">
+              <button
+                onClick={() => setActivePane("history")}
+                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] ${
+                  activePane === "history"
+                    ? "bg-primary/12 text-foreground/85"
+                    : "text-foreground/70 hover:bg-foreground/[0.05]"
+                }`}
+              >
                 <History className="h-3.5 w-3.5 text-foreground/60" />
                 History
               </button>
@@ -485,144 +635,275 @@ export function WorkSection() {
           </aside>
 
           <div className="h-full overflow-hidden p-5 sm:p-6">
-            {!activeProject ? (
-              <>
-                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
-                  {projectFolders.map((project) => (
-                    <button
-                      key={project.id}
-                      onClick={() => setActiveProjectId(project.id)}
-                      className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
-                    >
-                      <div
-                        className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${project.accent}`}
+            {activePane === "projects" ? (
+              !activeProject ? (
+                <>
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+                    {projectFolders.map((project) => (
+                      <button
+                        key={project.id}
+                        onClick={() => setActiveProjectId(project.id)}
+                        className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                       >
-                        <Folder className={`h-5 w-5 ${project.iconTone}`} />
-                      </div>
-                      <p className="mt-2 text-sm text-foreground/88">{project.title}</p>
+                        <div
+                          className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${project.accent}`}
+                        >
+                          <Folder className={`h-5 w-5 ${project.iconTone}`} />
+                        </div>
+                        <p className="mt-2 text-sm text-foreground/88">{project.title}</p>
+                      </button>
+                    ))}
+                  </div>
+                  <div></div>
+                </>
+              ) : (
+                <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <button
+                      onClick={() => setActiveProjectId(null)}
+                      className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+                    >
+                      ← Back to folders
                     </button>
-                  ))}
-                </div>
-                {/* <div className="mt-5 rounded-md border border-border/55 bg-paper/60 px-3 py-2">
-                  {/* <p className="text-[11px] text-foreground/70">
-                    Open a project folder to view details in this pane.
-                  </p> */}
-                {/* //</div>  */}
-                <div></div>
-              </>
-            ) : (
-              <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <button
-                    onClick={() => setActiveProjectId(null)}
-                    className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
-                  >
-                    ← Back to folders
-                  </button>
-                  <div className="flex items-center gap-3">
-                    {activeProject.liveUrl ? (
+                    <div className="flex items-center gap-3">
+                      {activeProject.liveUrl ? (
+                        <a
+                          href={activeProject.liveUrl}
+                          className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Live
+                        </a>
+                      ) : null}
                       <a
-                        href={activeProject.liveUrl}
+                        href={activeProject.githubUrl}
                         className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Live
+                        <Star className="h-3.5 w-3.5" />
+                        GitHub
                       </a>
-                    ) : null}
-                    <a
-                      href={activeProject.githubUrl}
-                      className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
-                      target="_blank"
-                      rel="noreferrer"
+                    </div>
+                  </div>
+
+                  <div className="mt-3">
+                    <p className="text-xs font-mono uppercase tracking-[0.2em] text-foreground/90">
+                      {activeProject.rank}
+                    </p>
+                    <h3 className="mt-1 handwritten text-4xl text-foreground">{activeProject.title}</h3>
+                  </div>
+
+                  <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
+
+                  {activeProject.previews.length > 0 ? (
+                    <div
+                      className={`mt-4 grid gap-3 ${activeProject.previews.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}
                     >
-                      <Star className="h-3.5 w-3.5" />
-                      GitHub
-                    </a>
+                      {activeProject.previews.map((preview) => (
+                        <img
+                          key={preview.alt}
+                          src={preview.src}
+                          alt={preview.alt}
+                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 ${activeProject.previews.length === 1 ? "h-64 sm:h-72" : "h-48 sm:h-56"}`}
+                          draggable={false}
+                        />
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <p className="mt-4 text-sm leading-6 text-foreground/78">{activeProject.overview}</p>
+
+                  <div className="mt-5 grid gap-5 md:grid-cols-2">
+                    <div>
+                      <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                        Key Highlights
+                      </p>
+                      <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                        {activeProject.highlights.map((point) => (
+                          <li key={point}>- {point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                        What I Learned
+                      </p>
+                      <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                        {activeProject.learned.map((point) => (
+                          <li key={point}>- {point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                      Tech Stack
+                    </p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {activeProject.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-md border border-border/60 bg-paper px-2.5 py-1 text-[11px] text-foreground/82"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                <div className="mt-3">
-                  <p className="text-[10px] font-mono uppercase tracking-[0.24em] text-muted-foreground/80">
-                    {activeProject.rank}
-                  </p>
-                  <h3 className="mt-1 handwritten text-4xl text-foreground">{activeProject.title}</h3>
+              )
+            ) : activePane === "blogs" ? (
+              !activeBlog ? (
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                  {blogFolders.map((blog) => (
+                    <button
+                      key={blog.id}
+                      onClick={() => setActiveBlogId(blog.id)}
+                      className="group w-full rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                    >
+                      <div className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${blog.accent}`}>
+                        <BookOpen className={`h-5 w-5 ${blog.iconTone}`} />
+                      </div>
+                      <p className="mt-2 text-sm text-foreground/88">{blog.title}</p>
+                      <p className="mt-1 text-[11px] text-muted-foreground/85">{blog.subtitle}</p>
+                    </button>
+                  ))}
                 </div>
-
-                <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
-
-                {activeProject.previews.length > 0 ? (
-                  <div
-                    className={`mt-4 grid gap-3 ${activeProject.previews.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}
+              ) : (
+                <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+                  <button
+                    onClick={() => setActiveBlogId(null)}
+                    className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
                   >
-                    {activeProject.previews.map((preview) => (
+                    ← Back to blogs
+                  </button>
+                  <h3 className="mt-3 handwritten text-4xl text-foreground">
+                    BitTorrent: The Protocol That Quietly Solved Internet-Scale File Distribution
+                  </h3>
+                  <p className="mt-4 text-sm leading-6 text-foreground/80">{activeBlog.intro}</p>
+                  {activeBlog.previews.length > 0 ? (
+                    <div className="mt-4">
+                      {activeBlog.previews.map((preview) => (
+                        <img
+                          key={preview.alt}
+                          src={preview.src}
+                          alt={preview.alt}
+                          className="h-64 w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 sm:h-72"
+                          draggable={false}
+                        />
+                      ))}
+                    </div>
+                  ) : null}
+
+                  {activeBlog.sections.map((section) => (
+                    <div key={section.heading} className="mt-5">
+                      <h4 className="text-sm font-mono uppercase tracking-[0.14em] text-foreground/95">
+                        {section.heading}
+                      </h4>
+                      <p className="mt-2 text-sm leading-6 text-foreground/80">{section.content}</p>
+                      <ul className="mt-2 space-y-1.5 text-sm text-foreground/78">
+                        {section.bullets.map((item) => (
+                          <li key={item}>- {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+
+                  <div className="mt-6 rounded-md border border-primary/25 bg-primary/8 px-3 py-2">
+                    <p className="text-sm text-foreground/85">
+                      <span className="font-medium">Key Takeaway:</span> {activeBlog.takeaway}
+                    </p>
+                  </div>
+                </div>
+              )
+            ) : !activeHistoryFolder ? (
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                {historyFolders.map((folder) => (
+                  <button
+                    key={folder.id}
+                    onClick={() => setActiveHistoryFolderId(folder.id)}
+                    className="group w-full rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                  >
+                    <div className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${folder.accent}`}>
+                      <Folder className={`h-5 w-5 ${folder.iconTone}`} />
+                    </div>
+                    <p className="mt-2 text-sm text-foreground/88">{folder.title}</p>
+                    <p className="mt-1 text-[11px] text-muted-foreground/85">{folder.subtitle}</p>
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+                <button
+                  onClick={() => setActiveHistoryFolderId(null)}
+                  className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+                >
+                  ← Back to history
+                </button>
+
+                {activeHistoryFolder.entries.map((entry) => (
+                  <div key={entry.id} className="mt-3">
+                    <div className="flex items-center gap-3">
                       <img
-                        key={preview.alt}
-                        src={preview.src}
-                        alt={preview.alt}
-                        className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 ${activeProject.previews.length === 1 ? "h-64 sm:h-72" : "h-48 sm:h-56"}`}
+                        src={entry.preview.src}
+                        alt={entry.preview.alt}
+                        className="h-10 w-10 rounded-md border border-border/60 bg-white/80 object-contain p-1"
                         draggable={false}
                       />
-                    ))}
-                  </div>
-                ) : null}
+                      <h3 className="handwritten text-4xl text-foreground">{entry.company}</h3>
+                    </div>
+                    <p className="mt-1 text-sm text-foreground/85">{entry.role}</p>
+                    <p className="text-xs font-mono uppercase tracking-[0.16em] text-foreground/80">{entry.period}</p>
 
-                <p className="mt-4 text-sm leading-6 text-foreground/78">{activeProject.overview}</p>
+                    <p className="mt-4 text-sm leading-6 text-foreground/80">{entry.overview}</p>
 
-                <div className="mt-5 grid gap-5 md:grid-cols-2">
-                  <div>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
-                      Key Highlights
-                    </p>
-                    <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
-                      {activeProject.highlights.map((point) => (
-                        <li key={point}>- {point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
-                      What I Learned
-                    </p>
-                    <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
-                      {activeProject.learned.map((point) => (
-                        <li key={point}>- {point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                    <div className="mt-5 grid gap-5 md:grid-cols-2">
+                      <div>
+                        <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                          Key Contributions
+                        </p>
+                        <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                          {entry.contributions.map((point) => (
+                            <li key={point}>- {point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                          Key Takeaways
+                        </p>
+                        <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                          {entry.takeaways.map((point) => (
+                            <li key={point}>- {point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
 
-                <div className="mt-5">
-                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
-                    Tech Stack
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {activeProject.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-md border border-border/60 bg-paper px-2.5 py-1 text-[11px] text-foreground/82"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                    <div className="mt-5">
+                      <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">Tech Stack</p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {entry.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="rounded-md border border-border/60 bg-paper px-2.5 py-1 text-[11px] text-foreground/82"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
 
-                {/* <div className="mt-5">
-                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
-                    Best For Showing
-                  </p>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {activeProject.showcase.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-md border border-primary/25 bg-primary/8 px-2.5 py-1 text-[11px] text-foreground/82"
-                      >
-                        {item}
-                      </span>
-                    ))}
+                    <div className="mt-6 rounded-md border border-primary/25 bg-primary/8 px-3 py-2">
+                      <p className="text-sm text-foreground/85">
+                        <span className="font-medium">Folder Tagline:</span> {entry.tagline}
+                      </p>
+                    </div>
                   </div>
-                </div> */}
+                ))}
               </div>
             )}
           </div>
