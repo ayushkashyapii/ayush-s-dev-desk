@@ -13,7 +13,7 @@ import { TablePlant } from "@/components/desk/TablePlant";
 import { MusicSticker } from "@/components/desk/MusicSticker";
 import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { FootballTV } from "@/components/desk/FootballTV";
-import { AboutSection, WorkSection, BlogsSection } from "@/components/desk/DeskScrollSections";
+import { AboutSection, WorkSection, BlogsSection, ContactSection, SkillsSection } from "@/components/desk/DeskScrollSections";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -65,6 +65,9 @@ function Index() {
           <a href="#blogs" className="transition-colors hover:text-foreground">
             Blogs
           </a>
+          <a href="#contact" className="transition-colors hover:text-foreground">
+            Contact
+          </a>
         </nav>
 
         <CenterIdentity />
@@ -91,8 +94,12 @@ function Index() {
 
       <div className="mx-auto w-full max-w-[1280px] border-x border-border/30 border-dashed">
         <AboutSection />
+        <SkillsSection />
         <WorkSection />
-        <BlogsSection />
+        <div className="grid lg:grid-cols-2">
+          <BlogsSection />
+          <ContactSection />
+        </div>
       </div>
     </div>
   );

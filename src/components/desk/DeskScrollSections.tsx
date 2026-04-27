@@ -1,5 +1,30 @@
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import type { IconType } from "react-icons";
+import {
+  SiCplusplus,
+  SiDocker,
+  SiSharp,
+  SiExpress,
+  SiFirebase,
+  SiGit,
+  SiGo,
+  SiJavascript,
+  SiLangchain,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiOpencv,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiRedis,
+  SiTensorflow,
+  SiTypescript,
+  SiVercel,
+  SiWebassembly,
+} from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 import catImg from "@/assets/desk/cat.jpg";
 import laptop from "@/assets/desk/sticker-laptop.webp";
 import books from "@/assets/desk/sticker-books.webp";
@@ -10,19 +35,67 @@ import { CutoutImage } from "./CutoutImage";
 const ABOUT_COPY =
   "Software engineer and systems builder focused on scalable backend infrastructure, AI-powered applications, and developer-first products. Experienced in full-stack development, LLM systems, and performance-driven engineering, with a passion for building thoughtful, high-impact technology.";
 
+const SKILL_ICONS: Record<string, IconType> = {
+  JavaScript: SiJavascript,
+  TypeScript: SiTypescript,
+  Go: SiGo,
+  Python: SiPython,
+  "C++": SiCplusplus,
+  "C#": SiSharp,
+  Java: FaJava,
+  React: SiReact,
+  "Next.js": SiNextdotjs,
+  "Node.js": SiNodedotjs,
+  "Express.js": SiExpress,
+  "React Native": SiReact,
+  TensorFlow: SiTensorflow,
+  OpenCV: SiOpencv,
+  LangChain: SiLangchain,
+  LangGraph: SiLangchain,
+  "Reinforcement Learning": SiTensorflow,
+  Git: SiGit,
+  Docker: SiDocker,
+  Redis: SiRedis,
+  PostgreSQL: SiPostgresql,
+  Firebase: SiFirebase,
+  Vercel: SiVercel,
+  WebAssembly: SiWebassembly,
+};
+
+const SKILL_GROUPS = [
+  {
+    title: "Languages",
+    items: ["JavaScript", "TypeScript", "Go", "Python", "C++", "C#", "Java"],
+  },
+  {
+    title: "Frameworks",
+    items: ["React", "Next.js", "Node.js", "Express.js", "React Native"],
+  },
+  {
+    title: "AI / ML",
+    items: ["TensorFlow", "OpenCV", "LangChain", "LangGraph", "Reinforcement Learning"],
+  },
+  {
+    title: "Systems & Tools",
+    items: ["Git", "Docker", "Redis", "PostgreSQL", "Firebase", "Vercel", "WebAssembly"],
+  },
+] as const;
+
 function SectionShell({
   id,
   title,
   children,
+  className,
 }: {
   id: string;
   title: string;
   children: ReactNode;
+  className?: string;
 }) {
   return (
     <section
       id={id}
-      className="scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24"
+      className={`scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24 ${className ?? ""}`}
     >
       <div className="mx-auto max-w-3xl">
         <h2 className="handwritten text-4xl text-foreground sm:text-5xl">{title}</h2>
@@ -39,7 +112,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24"
+      className="scroll-mt-1 border-t border-border/60 px-6 pt-20 pb-12 sm:px-10 sm:pt-10 sm:pb-14"
     >
       <div className="mx-auto max-w-6xl">
         <div className="grid items-start gap-10 lg:grid-cols-[220px_1fr_260px] lg:gap-12">
@@ -235,6 +308,107 @@ export function BlogsSection() {
         </a>
         .
       </p>
+    </SectionShell>
+  );
+}
+
+export function ContactSection() {
+  const contactItems = [
+    {
+      label: "X / Twitter",
+      href: "https://x.com/AyushKashyapII",
+      icon: Twitter,
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/AyushKashyapII",
+      icon: Github,
+    },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/ayush-kashyap-9492422a8/",
+      icon: Linkedin,
+    },
+    {
+      label: "Email",
+      href: "mailto:kashyap11ayush02@gmail.com",
+      icon: Mail,
+    },
+  ];
+
+  return (
+    <section
+      id="contact"
+      className="scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24 lg:border-l lg:border-t-0"
+    >
+      <div className="mx-auto max-w-3xl">
+        <h2 className="handwritten text-4xl text-foreground sm:text-5xl">Contact</h2>
+        <p className="mt-4 text-foreground/80">
+          Reach out any time. I am active on social and usually reply quickly.
+        </p>
+
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {contactItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target={item.label === "Email" ? undefined : "_blank"}
+                rel={item.label === "Email" ? undefined : "noreferrer"}
+                className="group flex items-center gap-3 rounded-md border border-border/60 bg-paper/60 px-4 py-3 transition-colors hover:border-primary/50 hover:bg-primary/5"
+              >
+                <Icon className="h-4 w-4 text-foreground/75 transition-colors group-hover:text-primary" />
+                <span className="text-sm text-foreground/85">{item.label}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function SkillsSection() {
+  return (
+    <SectionShell id="skills" title="Skills" className="pt-10 sm:pt-12">
+      <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
+        Tech stack
+      </p>
+      <p className="mt-4 text-foreground/80">
+        A compact map of the languages, frameworks, and tools I use to build products.
+      </p>
+
+      <div className="mt-8 space-y-6">
+        {SKILL_GROUPS.map((group) => (
+          <div key={group.title}>
+            <h3 className="text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground/90">
+              {group.title}
+            </h3>
+            <div className="mt-3 flex flex-wrap gap-2.5">
+              {group.items.map((skill) => (
+                <span
+                  key={skill}
+                  className="inline-flex items-center rounded-md border border-border/65 bg-paper/70 px-3 py-1.5 text-xs text-foreground/85 shadow-[0_1px_0_oklch(0_0_0_/0.04)] transition-colors hover:border-primary/45 hover:bg-primary/6 hover:text-foreground"
+                >
+                  {(() => {
+                    const SkillIcon = SKILL_ICONS[skill];
+                    return SkillIcon ? (
+                      <SkillIcon className="mr-2 h-3.5 w-3.5 text-foreground/70" aria-hidden />
+                    ) : (
+                      <span
+                        className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary/55"
+                        aria-hidden
+                      />
+                    );
+                  })()}
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </SectionShell>
   );
 }
