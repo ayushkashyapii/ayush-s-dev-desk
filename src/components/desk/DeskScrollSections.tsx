@@ -112,7 +112,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="scroll-mt-1 border-t border-border/60 px-6 pt-20 pb-12 sm:px-10 sm:pt-10 sm:pb-14"
+      className="scroll-mt-1 border-t border-border/60 px-6 pt-10 pb-12 sm:px-1 sm:pt-6 sm:pb-14"
     >
       <div className="mx-auto max-w-6xl">
         <div className="grid items-start gap-10 lg:grid-cols-[220px_1fr_260px] lg:gap-12">

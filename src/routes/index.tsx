@@ -14,6 +14,7 @@ import { MusicSticker } from "@/components/desk/MusicSticker";
 import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { FootballTV } from "@/components/desk/FootballTV";
 import { AboutSection, WorkSection, BlogsSection, ContactSection, SkillsSection } from "@/components/desk/DeskScrollSections";
+import tornPaperImg from "@/assets/desk/tornpaper.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -82,9 +83,16 @@ function Index() {
           <TablePlant />
           <DeskExtraPhotos />
           {/* <Terminal onPlay={() => setOpenPlayerSignal((k) => k + 1)} /> */}
-          <SnakeGame openSignal={openPlayerSignal} />
-          <FootballTV />
+          {/* <SnakeGame openSignal={openPlayerSignal} />
+          <FootballTV /> */}
           {/* <CurlPanel /> */}
+        </div>
+
+        <div className="pointer-events-none absolute bottom-[-8px] left-1/2 z-[25] w-[min(82vw,980px)] -translate-x-1/2">
+          <img src={tornPaperImg} alt="" className="h-auto w-full opacity-95" draggable={false} />
+          <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-mono text-[13px] uppercase tracking-[0.38em] text-foreground/85 sm:text-[15px]">
+            I think, then I build
+          </p>
         </div>
 
         {/* <div className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono uppercase tracking-[0.35em] text-muted-foreground/45">

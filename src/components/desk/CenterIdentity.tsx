@@ -43,9 +43,6 @@ export function CenterIdentity() {
       <h1 className="handwritten text-7xl md:text-[7.5rem] leading-[0.85] text-foreground">
         Ayush Kashyap
       </h1>
-      <p className="mt-3 text-[11px] md:text-xs font-mono uppercase tracking-[0.45em] text-muted-foreground">
-        I think, then I build
-      </p>
       <p className="mt-5 font-mono text-xs text-foreground/70 min-h-[1.5em]">
         <span className="text-primary">›</span> {text}
         <span className="caret text-foreground/60">▍</span>
