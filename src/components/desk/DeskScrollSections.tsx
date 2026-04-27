@@ -27,10 +27,15 @@ import {
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import catImg from "@/assets/desk/cat.jpg";
+import chessProjectImg from "@/assets/desk/chess.png";
 import laptop from "@/assets/desk/sticker-laptop.webp";
 import books from "@/assets/desk/sticker-books.webp";
 import folderOpenImg from "@/assets/desk/folderopen.png";
 import folderCloseImg from "@/assets/desk/folderclose.png";
+import pacmanProjectImg from "@/assets/desk/pacman.png";
+import terminalProjectImg from "@/assets/desk/terminal.png";
+import tetrisProjectImg from "@/assets/desk/tetris.png";
+import torrentProjectImg from "@/assets/desk/torrent.png";
 import { CutoutImage } from "./CutoutImage";
 
 const ABOUT_COPY =
@@ -291,6 +296,7 @@ export function WorkSection() {
         "Improved move generation speed using parallel processing",
       ],
       tech: ["Go", "WebAssembly", "JavaScript", "Chess Algorithms", "Web Workers"],
+      previews: [{ src: chessProjectImg, alt: "GoChess engine preview" }],
       learned: [
         "Search optimization",
         "State caching",
@@ -320,6 +326,7 @@ export function WorkSection() {
         "Developed practical understanding of versioned file systems",
       ],
       tech: ["Python", "Git Internals", "SHA-1", "CLI Development", "File Systems"],
+      previews: [],
       learned: [
         "Version control internals",
         "Hashing systems",
@@ -354,6 +361,7 @@ export function WorkSection() {
         "Improved policy stability through iterative tuning",
       ],
       tech: ["Python", "TensorFlow", "Reinforcement Learning", "OpenCV"],
+      previews: [{ src: pacmanProjectImg, alt: "Pacman AI gameplay preview" }],
       learned: [
         "Reinforcement learning systems",
         "Agent optimization",
@@ -384,6 +392,10 @@ export function WorkSection() {
         "Structured the project for future extensibility (games, blog, SSH, themes)",
       ],
       tech: ["Go", "Bubble Tea", "Lip Gloss", "HTTP Servers", "Docker", "Fly.io", "ANSI Rendering"],
+      previews: [
+        { src: terminalProjectImg, alt: "Terminal portfolio interface" },
+        { src: tetrisProjectImg, alt: "Embedded terminal tetris mode" },
+      ],
       learned: [
         "Terminal UI architecture",
         "State-driven CLI design",
@@ -417,6 +429,7 @@ export function WorkSection() {
         "Added graceful shutdown and interrupt handling",
       ],
       tech: ["Go", "TCP Networking", "Distributed Systems", "BitTorrent Protocol", "Concurrency", "SHA-1"],
+      previews: [{ src: torrentProjectImg, alt: "GoPherSwarm BitTorrent client preview" }],
       learned: [
         "Distributed system design",
         "P2P networking",
@@ -450,7 +463,7 @@ export function WorkSection() {
           <span className="w-10" />
         </div>
 
-        <div className="grid min-h-[500px] grid-cols-[150px_1fr]">
+        <div className="grid h-[500px] grid-cols-[150px_1fr]">
           <aside className="border-r border-border/60 bg-paper/45 px-3 py-4">
             <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.18em] text-muted-foreground/85">
               Favorites
@@ -471,7 +484,7 @@ export function WorkSection() {
             </div>
           </aside>
 
-          <div className="p-5 sm:p-6">
+          <div className="h-full overflow-hidden p-5 sm:p-6">
             {!activeProject ? (
               <>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
@@ -498,7 +511,7 @@ export function WorkSection() {
                 <div></div>
               </>
             ) : (
-              <div className="h-full rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+              <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
                 <div className="flex items-center justify-between gap-3">
                   <button
                     onClick={() => setActiveProjectId(null)}
@@ -537,6 +550,23 @@ export function WorkSection() {
                 </div>
 
                 <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
+
+                {activeProject.previews.length > 0 ? (
+                  <div
+                    className={`mt-4 grid gap-3 ${activeProject.previews.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}
+                  >
+                    {activeProject.previews.map((preview) => (
+                      <img
+                        key={preview.alt}
+                        src={preview.src}
+                        alt={preview.alt}
+                        className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 ${activeProject.previews.length === 1 ? "h-64 sm:h-72" : "h-48 sm:h-56"}`}
+                        draggable={false}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+
                 <p className="mt-4 text-sm leading-6 text-foreground/78">{activeProject.overview}</p>
 
                 <div className="mt-5 grid gap-5 md:grid-cols-2">
