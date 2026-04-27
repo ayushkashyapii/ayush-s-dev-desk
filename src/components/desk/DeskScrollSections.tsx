@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { BookOpen, Folder, Github, History, Linkedin, Mail, Star, Twitter } from "lucide-react";
 import type { IconType } from "react-icons";
 import {
   SiCplusplus,
@@ -15,6 +15,7 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiOpencv,
+  SiPytorch,
   SiPostgresql,
   SiPython,
   SiReact,
@@ -49,6 +50,7 @@ const SKILL_ICONS: Record<string, IconType> = {
   "Express.js": SiExpress,
   "React Native": SiReact,
   TensorFlow: SiTensorflow,
+  PyTorch: SiPytorch,
   OpenCV: SiOpencv,
   LangChain: SiLangchain,
   LangGraph: SiLangchain,
@@ -73,7 +75,7 @@ const SKILL_GROUPS = [
   },
   {
     title: "AI / ML",
-    items: ["TensorFlow", "OpenCV", "LangChain", "LangGraph", "Reinforcement Learning"],
+    items: ["TensorFlow", "PyTorch", "OpenCV", "LangChain", "LangGraph", "Reinforcement Learning"],
   },
   {
     title: "Systems & Tools",
@@ -86,18 +88,20 @@ function SectionShell({
   title,
   children,
   className,
+  containerClassName,
 }: {
   id: string;
   title: string;
   children: ReactNode;
   className?: string;
+  containerClassName?: string;
 }) {
   return (
     <section
       id={id}
-      className={`scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24 ${className ?? ""}`}
+      className={`scroll-mt-2 border-t border-border/60 px-6 py-12 sm:px-10 sm:py-14 ${className ?? ""}`}
     >
-      <div className="mx-auto max-w-3xl">
+      <div className={`mx-auto max-w-3xl ${containerClassName ?? ""}`}>
         <h2 className="handwritten text-4xl text-foreground sm:text-5xl">{title}</h2>
         <div className="mt-8">{children}</div>
       </div>
@@ -270,44 +274,330 @@ export function AboutSection() {
 }
 
 export function WorkSection() {
-  return (
-    <SectionShell id="work" title="Work">
-      <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
-        Selected projects
-      </p>
-      <p className="mt-4 text-foreground/80">
-        Highlights from shipping backend systems, tooling, and product work will live here. For now,
-        explore the desk above or find code on{" "}
-        <a
-          href="https://github.com/ayushkashyap"
-          className="text-primary underline-offset-4 hover:underline"
-          target="_blank"
-          rel="noreferrer"
-        >
-          GitHub
-        </a>
-        .
-      </p>
-    </SectionShell>
-  );
-}
+  const projectFolders = [
+    {
+      id: "gochess",
+      rank: "FOLDER 01",
+      title: "GoChess Engine",
+      subtitle:
+        "A high-performance chess engine built in Go, designed to bring classical search algorithms, optimization strategies, and browser deployment together in one seamless system.",
+      overview:
+        "GoChess started as a deep dive into systems thinking, algorithmic optimization, and game engine architecture. Built from scratch, the engine leverages advanced search techniques like Minimax with Alpha-Beta Pruning, Zobrist Hashing, and Transposition Tables to evaluate positions efficiently while minimizing redundant calculations. To push performance further, the engine was compiled to WebAssembly for browser deployment and enhanced with Web Workers for parallelized move computation, allowing strong performance directly in the browser.",
+      highlights: [
+        "Engineered advanced move-search logic using Minimax + Alpha-Beta pruning",
+        "Reduced unnecessary recomputation through Zobrist hashing and transposition caching",
+        "Integrated Quiescence Search for improved tactical stability",
+        "Deployed engine in-browser using WebAssembly",
+        "Improved move generation speed using parallel processing",
+      ],
+      tech: ["Go", "WebAssembly", "JavaScript", "Chess Algorithms", "Web Workers"],
+      learned: [
+        "Search optimization",
+        "State caching",
+        "Browser-native systems deployment",
+        "Performance engineering",
+        "Low-level algorithm design",
+      ],
+      showcase: ["Demo gameplay", "Search visualization", "Architecture diagram", "WASM integration"],
+      githubUrl: "https://github.com/AyushKashyapII/Chess",
+      liveUrl: "https://chess-dzbr1y3df-ayush-kashyaps-projects-9064ed5b.vercel.app",
+      accent: "bg-[#9ecdf1] ring-[#86badf]/70",
+      iconTone: "text-[#2b6289]",
+    },
+    {
+      id: "pygit",
+      rank: "FOLDER 02",
+      title: "PyGit",
+      subtitle:
+        "A ground-up reimplementation of Git's internal architecture, focused on understanding version control systems through content-addressable storage and commit graph mechanics.",
+      overview:
+        "PyGit was built to explore how modern version control systems work beneath the surface. Rather than relying on existing abstractions, this project reconstructs Git's core object model - including blobs, trees, and commits - while implementing SHA-1 hashing, object storage, and commit traversal from scratch. The result is a functional CLI tool capable of initializing repositories, staging changes, creating commits, and traversing commit history while mirroring key Git design principles.",
+      highlights: [
+        "Rebuilt Git's Blob, Tree, and Commit architecture",
+        "Designed SHA-1 based content-addressable storage",
+        "Implemented commit DAG traversal",
+        "Created command-line support for essential Git operations",
+        "Developed practical understanding of versioned file systems",
+      ],
+      tech: ["Python", "Git Internals", "SHA-1", "CLI Development", "File Systems"],
+      learned: [
+        "Version control internals",
+        "Hashing systems",
+        "File system architecture",
+        "Commit graph design",
+        "Developer tooling",
+      ],
+      showcase: [
+        "Terminal screenshots",
+        "Commit tree visualization",
+        "Object storage structure",
+        "CLI workflows",
+      ],
+      githubUrl: "https://github.com/AyushKashyapII/Git_Local",
+      liveUrl: null,
+      accent: "bg-[#eacaa0] ring-[#d6b183]/70",
+      iconTone: "text-[#8b6431]",
+    },
+    {
+      id: "pacman-ai",
+      rank: "FOLDER 03",
+      title: "Pacman AI",
+      subtitle:
+        "A reinforcement learning project focused on autonomous gameplay through Q-Learning and policy optimization.",
+      overview:
+        "Pacman AI was built to explore machine learning through practical game environments. By implementing reinforcement learning techniques like Q-Learning and Deep Q-Networks, the project trains an agent to make increasingly intelligent decisions based on environmental rewards, penalties, and state transitions. Special focus was placed on reward shaping, state representation, and policy convergence to improve learning efficiency and overall gameplay performance.",
+      highlights: [
+        "Developed RL agent for autonomous decision making",
+        "Implemented Q-Learning / DQN frameworks",
+        "Optimized reward structures for improved convergence",
+        "Designed state-action pipelines",
+        "Improved policy stability through iterative tuning",
+      ],
+      tech: ["Python", "TensorFlow", "Reinforcement Learning", "OpenCV"],
+      learned: [
+        "Reinforcement learning systems",
+        "Agent optimization",
+        "Reward engineering",
+        "Policy learning",
+        "AI experimentation",
+      ],
+      showcase: ["Gameplay demo", "Training metrics", "Reward progression graphs", "AI performance comparisons"],
+      githubUrl: "https://github.com/AyushKashyapII/Pacman",
+      liveUrl: null,
+      accent: "bg-[#c7b7e9] ring-[#b09ad8]/70",
+      iconTone: "text-[#5f4c86]",
+    },
+    {
+      id: "terminal-portfolio",
+      rank: "FOLDER 04",
+      title: "Terminal Portfolio",
+      subtitle:
+        "A developer-first portfolio built in Go, combining an interactive terminal UI, curl-accessible HTTP mode, and embedded retro gameplay into one cohesive personal system.",
+      overview:
+        "This project reimagines the traditional developer portfolio as a terminal-native experience. Built using Go and Bubble Tea, the portfolio functions both as a local interactive TUI and a deployable HTTP service, allowing users to either navigate a full-screen terminal interface or access a styled ANSI-rendered portfolio directly through curl. The system blends software engineering, systems design, and playful interactivity by integrating full-screen terminal navigation, resume and portfolio content, browser-openable links, ANSI HTTP rendering, and terminal-based Tetris gameplay.",
+      highlights: [
+        "Built a full interactive terminal portfolio using Bubble Tea",
+        "Created dual-mode architecture: local full-screen TUI and HTTP curl-based public portfolio",
+        "Designed ANSI-styled output for remote terminal viewing",
+        "Added embedded playable Tetris mode directly inside terminal",
+        "Included Docker + Fly.io deployment support",
+        "Structured the project for future extensibility (games, blog, SSH, themes)",
+      ],
+      tech: ["Go", "Bubble Tea", "Lip Gloss", "HTTP Servers", "Docker", "Fly.io", "ANSI Rendering"],
+      learned: [
+        "Terminal UI architecture",
+        "State-driven CLI design",
+        "ANSI rendering systems",
+        "HTTP service deployment",
+        "Interactive developer tooling",
+        "Retro game integration",
+        "Product personalization",
+      ],
+      showcase: ["Interactive TUI", "Curl endpoint", "Terminal Tetris", "Docker deploy setup"],
+      githubUrl: "https://github.com/AyushKashyapII/Terminal",
+      liveUrl: "https://ayush-terminal.fly.dev/terminal",
+      accent: "bg-[#9fc4b9] ring-[#87ad9f]/70",
+      iconTone: "text-[#365f53]",
+    },
+    {
+      id: "gopherswarm",
+      rank: "FOLDER 05",
+      title: "GoPherSwarm",
+      subtitle:
+        "A fully functional BitTorrent client built from scratch in Go, designed to explore distributed systems, peer-to-peer networking, and concurrent protocol engineering.",
+      overview:
+        "GoPherSwarm is a deep systems engineering project focused on rebuilding the BitTorrent protocol from the ground up. Rather than relying on external abstractions, this client implements core BitTorrent infrastructure manually - from Bencode parsing and tracker communication to peer wire protocol execution, concurrent downloading, and piece verification. By leveraging Go's goroutines and channels, GoPherSwarm uses a scalable Foreman-Worker architecture to coordinate peer connections, optimize throughput, and maintain data integrity across downloads.",
+      highlights: [
+        "Built full .torrent parser with custom Bencode implementation",
+        "Implemented HTTP tracker communication for peer discovery",
+        "Recreated complete BitTorrent peer wire protocol (handshake, bitfield, choke/unchoke, piece pipeline)",
+        "Designed concurrent multi-peer download orchestration",
+        "Implemented pipelined block requests for throughput optimization",
+        "Verified downloaded pieces using SHA-1 hashing",
+        "Added graceful shutdown and interrupt handling",
+      ],
+      tech: ["Go", "TCP Networking", "Distributed Systems", "BitTorrent Protocol", "Concurrency", "SHA-1"],
+      learned: [
+        "Distributed system design",
+        "P2P networking",
+        "TCP/IP protocol engineering",
+        "Concurrency orchestration",
+        "Work scheduling",
+        "Throughput optimization",
+        "Protocol serialization",
+        "Fault tolerance",
+      ],
+      showcase: ["Protocol flow", "Foreman-worker architecture", "Concurrent downloader", "Integrity checks"],
+      githubUrl: "https://github.com/AyushKashyapII/BitTorrent",
+      liveUrl: null,
+      accent: "bg-[#f0b8a8] ring-[#df9c88]/70",
+      iconTone: "text-[#8d4f3d]",
+    },
+  ] as const;
+  const [activeProjectId, setActiveProjectId] = useState<(typeof projectFolders)[number]["id"] | null>(null);
+  const activeProject = projectFolders.find((folder) => folder.id === activeProjectId) ?? null;
 
-export function BlogsSection() {
   return (
-    <SectionShell id="blogs" title="Blogs">
-      <p className="text-foreground/80">
-        Long-form notes on engineering, systems, and building are on the way. Check back soon, or say
-        hello on{" "}
-        <a
-          href="https://x.com/ayushbuilds"
-          className="text-primary underline-offset-4 hover:underline"
-          target="_blank"
-          rel="noreferrer"
-        >
-          @ayushbuilds
-        </a>
-        .
-      </p>
+    <SectionShell id="work" title="Work" containerClassName="max-w-6xl">
+      <div className="overflow-hidden rounded-xl border border-border/70 bg-[oklch(0.98_0.004_90)] shadow-[0_10px_34px_rgba(60,52,40,0.08)]">
+        <div className="flex items-center justify-between border-b border-border/60 bg-paper/80 px-4 py-2">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#f87171]/85" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#facc15]/85" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#4ade80]/85" />
+          </div>
+          <p className="text-center text-[11px] font-mono text-muted-foreground/85">~/ayush/workspace</p>
+          <span className="w-10" />
+        </div>
+
+        <div className="grid min-h-[500px] grid-cols-[150px_1fr]">
+          <aside className="border-r border-border/60 bg-paper/45 px-3 py-4">
+            <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.18em] text-muted-foreground/85">
+              Favorites
+            </p>
+            <div className="space-y-1.5">
+              <button className="flex w-full items-center gap-2 rounded-md bg-primary/12 px-2 py-1.5 text-left text-[11px] text-foreground/85">
+                <Folder className="h-3.5 w-3.5 text-primary/80" />
+                Projects
+              </button>
+              <button className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] text-foreground/70 hover:bg-foreground/[0.05]">
+                <BookOpen className="h-3.5 w-3.5 text-foreground/60" />
+                Read Blogs
+              </button>
+              <button className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] text-foreground/70 hover:bg-foreground/[0.05]">
+                <History className="h-3.5 w-3.5 text-foreground/60" />
+                History
+              </button>
+            </div>
+          </aside>
+
+          <div className="p-5 sm:p-6">
+            {!activeProject ? (
+              <>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
+                  {projectFolders.map((project) => (
+                    <button
+                      key={project.id}
+                      onClick={() => setActiveProjectId(project.id)}
+                      className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                    >
+                      <div
+                        className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${project.accent}`}
+                      >
+                        <Folder className={`h-5 w-5 ${project.iconTone}`} />
+                      </div>
+                      <p className="mt-2 text-sm text-foreground/88">{project.title}</p>
+                    </button>
+                  ))}
+                </div>
+                {/* <div className="mt-5 rounded-md border border-border/55 bg-paper/60 px-3 py-2">
+                  {/* <p className="text-[11px] text-foreground/70">
+                    Open a project folder to view details in this pane.
+                  </p> */}
+                {/* //</div>  */}
+                <div></div>
+              </>
+            ) : (
+              <div className="h-full rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <button
+                    onClick={() => setActiveProjectId(null)}
+                    className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+                  >
+                    ← Back to folders
+                  </button>
+                  <div className="flex items-center gap-3">
+                    {activeProject.liveUrl ? (
+                      <a
+                        href={activeProject.liveUrl}
+                        className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Live
+                      </a>
+                    ) : null}
+                    <a
+                      href={activeProject.githubUrl}
+                      className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Star className="h-3.5 w-3.5" />
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mt-3">
+                  <p className="text-[10px] font-mono uppercase tracking-[0.24em] text-muted-foreground/80">
+                    {activeProject.rank}
+                  </p>
+                  <h3 className="mt-1 handwritten text-4xl text-foreground">{activeProject.title}</h3>
+                </div>
+
+                <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
+                <p className="mt-4 text-sm leading-6 text-foreground/78">{activeProject.overview}</p>
+
+                <div className="mt-5 grid gap-5 md:grid-cols-2">
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
+                      Key Highlights
+                    </p>
+                    <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                      {activeProject.highlights.map((point) => (
+                        <li key={point}>- {point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
+                      What I Learned
+                    </p>
+                    <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                      {activeProject.learned.map((point) => (
+                        <li key={point}>- {point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-5">
+                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
+                    Tech Stack
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {activeProject.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-md border border-border/60 bg-paper px-2.5 py-1 text-[11px] text-foreground/82"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* <div className="mt-5">
+                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground/85">
+                    Best For Showing
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {activeProject.showcase.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-md border border-primary/25 bg-primary/8 px-2.5 py-1 text-[11px] text-foreground/82"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div> */}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </SectionShell>
   );
 }
@@ -339,7 +629,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-2 border-t border-border/60 px-6 py-20 sm:px-10 sm:py-24 lg:border-l lg:border-t-0"
+      className="scroll-mt-2 border-t border-border/60 px-6 py-12 sm:px-10 sm:py-14"
     >
       <div className="mx-auto max-w-3xl">
         <h2 className="handwritten text-4xl text-foreground sm:text-5xl">Contact</h2>
@@ -371,7 +661,7 @@ export function ContactSection() {
 
 export function SkillsSection() {
   return (
-    <SectionShell id="skills" title="Skills" className="pt-10 sm:pt-12">
+    <SectionShell id="skills" title="Skills" className="pt-6 sm:pt-8">
       <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
         Tech stack
       </p>
