@@ -20,13 +20,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Ayush Kashyap — Desk" },
+      { title: "Ayush Kashyap - Software Engineer" },
       {
         name: "description",
         content:
           "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore — terminal, polaroids, vinyl, and more.",
       },
-      { property: "og:title", content: "Ayush Kashyap — Desk" },
+      { property: "og:title", content: "Ayush Kashyap -Software Engineer" },
       {
         property: "og:description",
         content: "A calm, tactile developer workspace. Drag windows, run commands, explore.",

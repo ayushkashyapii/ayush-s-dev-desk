@@ -306,6 +306,8 @@ export function WorkSection() {
         "Low-level algorithm design",
       ],
       showcase: ["Demo gameplay", "Search visualization", "Architecture diagram", "WASM integration"],
+      note: null,
+      curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Chess",
       liveUrl: "https://chess-dzbr1y3df-ayush-kashyaps-projects-9064ed5b.vercel.app",
       accent: "bg-[#9ecdf1] ring-[#86badf]/70",
@@ -341,6 +343,8 @@ export function WorkSection() {
         "Object storage structure",
         "CLI workflows",
       ],
+      note: null,
+      curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Git_Local",
       liveUrl: null,
       accent: "bg-[#eacaa0] ring-[#d6b183]/70",
@@ -371,6 +375,8 @@ export function WorkSection() {
         "AI experimentation",
       ],
       showcase: ["Gameplay demo", "Training metrics", "Reward progression graphs", "AI performance comparisons"],
+      note: null,
+      curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Pacman",
       liveUrl: null,
       accent: "bg-[#c7b7e9] ring-[#b09ad8]/70",
@@ -388,6 +394,7 @@ export function WorkSection() {
         "Built a full interactive terminal portfolio using Bubble Tea",
         "Created dual-mode architecture: local full-screen TUI and HTTP curl-based public portfolio",
         "Designed ANSI-styled output for remote terminal viewing",
+        "Try it: curl.exe -sS https://ayush-terminal.fly.dev/terminal",
         "Added embedded playable Tetris mode directly inside terminal",
         "Included Docker + Fly.io deployment support",
         "Structured the project for future extensibility (games, blog, SSH, themes)",
@@ -407,6 +414,9 @@ export function WorkSection() {
         "Product personalization",
       ],
       showcase: ["Interactive TUI", "Curl endpoint", "Terminal Tetris", "Docker deploy setup"],
+      note:
+        "You can curl it in your terminal to see my static terminal based resume: curl.exe -sS https://ayush-terminal.fly.dev/terminal",
+      curlCommand: "curl.exe -sS https://ayush-terminal.fly.dev/terminal",
       githubUrl: "https://github.com/AyushKashyapII/Terminal",
       liveUrl: "https://ayush-terminal.fly.dev/terminal",
       accent: "bg-[#9fc4b9] ring-[#87ad9f]/70",
@@ -442,6 +452,8 @@ export function WorkSection() {
         "Fault tolerance",
       ],
       showcase: ["Protocol flow", "Foreman-worker architecture", "Concurrent downloader", "Integrity checks"],
+      note: null,
+      curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/BitTorrent",
       liveUrl: null,
       accent: "bg-[#f0b8a8] ring-[#df9c88]/70",
@@ -696,6 +708,22 @@ export function WorkSection() {
                   </div>
 
                   <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
+                {activeProject.note ? (
+                  <div className="mt-3 flex items-start gap-2 rounded-md border border-primary/25 bg-primary/8 px-3 py-2 text-xs text-foreground/85">
+                    <p className="flex-1">{activeProject.note}</p>
+                    {activeProject.curlCommand ? (
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(activeProject.curlCommand);
+                        }}
+                        className="rounded border border-border/60 px-2 py-1 text-[11px] text-foreground/80 hover:bg-foreground/[0.05]"
+                      >
+                        Copy
+                      </button>
+                    ) : null}
+                  </div>
+                ) : null}
 
                   {activeProject.previews.length > 0 ? (
                     <div
@@ -757,18 +785,17 @@ export function WorkSection() {
               )
             ) : activePane === "blogs" ? (
               !activeBlog ? (
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
                   {blogFolders.map((blog) => (
                     <button
                       key={blog.id}
                       onClick={() => setActiveBlogId(blog.id)}
-                      className="group w-full rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                      className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                     >
                       <div className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${blog.accent}`}>
                         <BookOpen className={`h-5 w-5 ${blog.iconTone}`} />
                       </div>
                       <p className="mt-2 text-sm text-foreground/88">{blog.title}</p>
-                      <p className="mt-1 text-[11px] text-muted-foreground/85">{blog.subtitle}</p>
                     </button>
                   ))}
                 </div>
@@ -820,18 +847,17 @@ export function WorkSection() {
                 </div>
               )
             ) : !activeHistoryFolder ? (
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
                 {historyFolders.map((folder) => (
                   <button
                     key={folder.id}
                     onClick={() => setActiveHistoryFolderId(folder.id)}
-                    className="group w-full rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                    className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                   >
                     <div className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${folder.accent}`}>
                       <Folder className={`h-5 w-5 ${folder.iconTone}`} />
                     </div>
                     <p className="mt-2 text-sm text-foreground/88">{folder.title}</p>
-                    <p className="mt-1 text-[11px] text-muted-foreground/85">{folder.subtitle}</p>
                   </button>
                 ))}
               </div>

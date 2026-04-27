@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import browserIcon from "@/assets/desk/browser.ico";
 
 function NotFoundComponent() {
   return (
@@ -39,6 +40,8 @@ export const Route = createRootRoute({
       { name: "twitter:site", content: "@ayushbuilds" },
     ],
     links: [
+      { rel: "icon", type: "image/x-icon", href: browserIcon },
+      { rel: "shortcut icon", type: "image/x-icon", href: browserIcon },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
