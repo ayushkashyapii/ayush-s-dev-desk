@@ -41,6 +41,7 @@ import { CutoutImage } from "./CutoutImage";
 
 const ABOUT_COPY =
   "Software engineer and systems builder focused on scalable backend infrastructure, AI-powered applications, and developer-first products. Experienced in full-stack development, LLM systems, and performance-driven engineering, with a passion for building thoughtful, high-impact technology.";
+const resumePdf = "/resume.pdf";
 
 const SKILL_ICONS: Record<string, IconType> = {
   JavaScript: SiJavascript,
@@ -584,6 +585,30 @@ export function WorkSection() {
         },
       ],
     },
+    {
+      id: "resume",
+      title: "Resume",
+      subtitle: "View and download resume",
+      accent: "bg-[#9ecdf1] ring-[#86badf]/70",
+      iconTone: "text-[#2b6289]",
+      entries: [
+        {
+          id: "resume-view",
+          company: "Ayush Kashyap Resume",
+          role: "",
+          period: "",
+          overview: "",
+          contributions: [],
+          tech: [],
+          takeaways: [],
+          tagline: "",
+          preview: { src: "", alt: "" },
+          previewPdfUrl: resumePdf,
+          downloadUrl: resumePdf,
+          downloadFileName: "Ayush_Kashyap_Resume.pdf",
+        },
+      ],
+    },
   ] as const;
 
   const [activePane, setActivePane] = useState<"projects" | "blogs" | "history">("projects");
@@ -877,62 +902,84 @@ export function WorkSection() {
 
                 {activeHistoryFolder.entries.map((entry) => (
                   <div key={entry.id} className="mt-3">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={entry.preview.src}
-                        alt={entry.preview.alt}
-                        className="h-10 w-10 rounded-md border border-border/60 bg-white/80 object-contain p-1"
-                        draggable={false}
-                      />
-                      <h3 className="handwritten text-4xl text-foreground">{entry.company}</h3>
-                    </div>
-                    <p className="mt-1 text-sm text-foreground/85">{entry.role}</p>
-                    <p className="text-xs font-mono uppercase tracking-[0.16em] text-foreground/80">{entry.period}</p>
-
-                    <p className="mt-4 text-sm leading-6 text-foreground/80">{entry.overview}</p>
-
-                    <div className="mt-5 grid gap-5 md:grid-cols-2">
-                      <div>
-                        <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
-                          Key Contributions
-                        </p>
-                        <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
-                          {entry.contributions.map((point) => (
-                            <li key={point}>- {point}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
-                          Key Takeaways
-                        </p>
-                        <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
-                          {entry.takeaways.map((point) => (
-                            <li key={point}>- {point}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="mt-5">
-                      <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">Tech Stack</p>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {entry.tech.map((tech) => (
-                          <span
-                            key={tech}
-                            className="rounded-md border border-border/60 bg-paper px-2.5 py-1 text-[11px] text-foreground/82"
+                    {entry.id === "resume-view" ? (
+                      <>
+                        <div className="flex items-center justify-between gap-3">
+                          <h3 className="handwritten text-4xl text-foreground">{entry.company}</h3>
+                          <a
+                            href={entry.downloadUrl}
+                            download={entry.downloadFileName ?? "resume.pdf"}
+                            className="rounded-md border border-border/60 bg-paper px-3 py-1.5 text-xs text-foreground/85 transition-colors hover:bg-foreground/[0.05]"
                           >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                            Download Resume
+                          </a>
+                        </div>
+                        <iframe
+                          src={`${entry.previewPdfUrl}#view=FitH`}
+                          title="Resume PDF preview"
+                          className="mt-4 h-[920px] w-full rounded-md border border-border/60 bg-white"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={entry.preview.src}
+                            alt={entry.preview.alt}
+                            className="h-10 w-10 rounded-md border border-border/60 bg-white/80 object-contain p-1"
+                            draggable={false}
+                          />
+                          <h3 className="handwritten text-4xl text-foreground">{entry.company}</h3>
+                        </div>
+                        <p className="mt-1 text-sm text-foreground/85">{entry.role}</p>
+                        <p className="text-xs font-mono uppercase tracking-[0.16em] text-foreground/80">{entry.period}</p>
 
-                    <div className="mt-6 rounded-md border border-primary/25 bg-primary/8 px-3 py-2">
-                      <p className="text-sm text-foreground/85">
-                        <span className="font-medium"></span> {entry.tagline}
-                      </p>
-                    </div>
+                        <p className="mt-4 text-sm leading-6 text-foreground/80">{entry.overview}</p>
+
+                        <div className="mt-5 grid gap-5 md:grid-cols-2">
+                          <div>
+                            <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                              Key Contributions
+                            </p>
+                            <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                              {entry.contributions.map((point) => (
+                                <li key={point}>- {point}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                              Key Takeaways
+                            </p>
+                            <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
+                              {entry.takeaways.map((point) => (
+                                <li key={point}>- {point}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="mt-5">
+                          <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">Tech Stack</p>
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {entry.tech.map((tech) => (
+                              <span
+                                key={tech}
+                                className="rounded-md border border-border/60 bg-paper px-2.5 py-1 text-[11px] text-foreground/82"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="mt-6 rounded-md border border-primary/25 bg-primary/8 px-3 py-2">
+                          <p className="text-sm text-foreground/85">
+                            <span className="font-medium"></span> {entry.tagline}
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </div>
                 ))}
               </div>
