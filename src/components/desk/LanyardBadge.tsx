@@ -11,7 +11,7 @@ export function LanyardBadge() {
   const [hoverBroken, setHoverBroken] = useState(false);
 
   return (
-    <Draggable initial={{ x: 20, y: -10 }} rotate={0} className="w-[210px]" zIndex={22}>
+    <Draggable initial={{ x: 20, y: -10 }} rotate={0} className="w-[210px]" zIndex={22} hoverEffect={false}>
       <motion.div
         aria-label="Hanging lanyard badge"
         animate={{ rotate: [-4, 4, -4] }}

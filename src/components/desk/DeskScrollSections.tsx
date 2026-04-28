@@ -147,9 +147,6 @@ export function AboutSection() {
                 draggable={false}
               />
             </div>
-            <figcaption className="mt-3 text-center font-mono text-[9px] uppercase tracking-[0.28em] text-muted-foreground/75">
-              Desk buddy
-            </figcaption>
           </figure>
 
           <div className="min-w-0 flex-1 pt-0 sm:pt-1">
@@ -264,6 +261,14 @@ export function AboutSection() {
                     <p>
                       <strong>Understanding Distributed Systems</strong>{" "}
                       <span className="rounded bg-primary/12 px-2 py-0.5 text-[11px] font-mono uppercase tracking-wide text-primary">read</span>
+                    </p>
+                    <p>
+                      <strong>Designing Macine Learning Systems</strong>{" "}
+                      <span className="rounded bg-primary/12 px-2 py-0.5 text-[11px] font-mono uppercase tracking-wide text-primary">read</span>
+                    </p>
+                    <p>
+                      <strong>Computer Systems: A Programmer's Perspective</strong>{" "}
+                      <span className="rounded bg-secondary/12 px-2 py-0.5 text-[11px] font-mono uppercase tracking-wide text-primary">want to read</span>
                     </p>
                   </div>
                 </>
@@ -655,10 +660,10 @@ export function WorkSection() {
                       <button
                         key={project.id}
                         onClick={() => setActiveProjectId(project.id)}
-                        className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                        className="group w-full min-h-[132px] rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                       >
                         <div
-                          className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${project.accent}`}
+                          className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${project.accent}`}
                         >
                           <Folder className={`h-5 w-5 ${project.iconTone}`} />
                         </div>
@@ -790,9 +795,9 @@ export function WorkSection() {
                     <button
                       key={blog.id}
                       onClick={() => setActiveBlogId(blog.id)}
-                      className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                      className="group w-full min-h-[132px] rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                     >
-                      <div className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${blog.accent}`}>
+                      <div className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${blog.accent}`}>
                         <BookOpen className={`h-5 w-5 ${blog.iconTone}`} />
                       </div>
                       <p className="mt-2 text-sm text-foreground/88">{blog.title}</p>
@@ -852,9 +857,9 @@ export function WorkSection() {
                   <button
                     key={folder.id}
                     onClick={() => setActiveHistoryFolderId(folder.id)}
-                    className="group w-full rounded-lg border border-border/65 bg-paper/60 p-2.5 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
+                    className="group w-full min-h-[132px] rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                   >
-                    <div className={`flex h-14 w-full items-center justify-center rounded-md ring-1 ${folder.accent}`}>
+                    <div className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${folder.accent}`}>
                       <Folder className={`h-5 w-5 ${folder.iconTone}`} />
                     </div>
                     <p className="mt-2 text-sm text-foreground/88">{folder.title}</p>
@@ -925,7 +930,7 @@ export function WorkSection() {
 
                     <div className="mt-6 rounded-md border border-primary/25 bg-primary/8 px-3 py-2">
                       <p className="text-sm text-foreground/85">
-                        <span className="font-medium">Folder Tagline:</span> {entry.tagline}
+                        <span className="font-medium"></span> {entry.tagline}
                       </p>
                     </div>
                   </div>
