@@ -636,7 +636,7 @@ export function WorkSection() {
 
         <div className="grid h-[500px] grid-cols-[150px_1fr]">
           <aside className="border-r border-border/60 bg-paper/45 px-3 py-4">
-            <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.18em] text-muted-foreground/85">
+            <p className="mb-2 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-foreground/80">
               Favorites
             </p>
             <div className="space-y-1.5">
@@ -692,7 +692,7 @@ export function WorkSection() {
                         >
                           <Folder className={`h-5 w-5 ${project.iconTone}`} />
                         </div>
-                        <p className="mt-2 text-sm text-foreground/88">{project.title}</p>
+                        <p className="handwritten mt-2 text-[1.15rem] leading-none text-foreground/90">{project.title}</p>
                       </button>
                     ))}
                   </div>
@@ -734,7 +734,7 @@ export function WorkSection() {
                     <p className="text-xs font-mono uppercase tracking-[0.2em] text-foreground/90">
                       {activeProject.rank}
                     </p>
-                    <h3 className="mt-1 handwritten text-4xl text-foreground">{activeProject.title}</h3>
+                    <h3 className="font-newsreader mt-1 text-3xl font-bold text-foreground">{activeProject.title}</h3>
                   </div>
 
                   <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
@@ -825,7 +825,7 @@ export function WorkSection() {
                       <div className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${blog.accent}`}>
                         <BookOpen className={`h-5 w-5 ${blog.iconTone}`} />
                       </div>
-                      <p className="mt-2 text-sm text-foreground/88">{blog.title}</p>
+                      <p className="handwritten mt-2 text-[1.15rem] leading-none text-foreground/90">{blog.title}</p>
                     </button>
                   ))}
                 </div>
@@ -837,7 +837,7 @@ export function WorkSection() {
                   >
                     ← Back to blogs
                   </button>
-                  <h3 className="mt-3 handwritten text-4xl text-foreground">
+                  <h3 className="font-newsreader mt-3 text-3xl font-bold text-foreground">
                     BitTorrent: The Protocol That Quietly Solved Internet-Scale File Distribution
                   </h3>
                   <p className="mt-4 text-sm leading-6 text-foreground/80">{activeBlog.intro}</p>
@@ -887,7 +887,7 @@ export function WorkSection() {
                     <div className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${folder.accent}`}>
                       <Folder className={`h-5 w-5 ${folder.iconTone}`} />
                     </div>
-                    <p className="mt-2 text-sm text-foreground/88">{folder.title}</p>
+                    <p className="handwritten mt-2 text-[1.15rem] leading-none text-foreground/90">{folder.title}</p>
                   </button>
                 ))}
               </div>
@@ -905,7 +905,7 @@ export function WorkSection() {
                     {entry.id === "resume-view" ? (
                       <>
                         <div className="flex items-center justify-between gap-3">
-                          <h3 className="handwritten text-4xl text-foreground">{entry.company}</h3>
+                          <h3 className="font-newsreader text-3xl font-bold text-foreground">{entry.company}</h3>
                           <a
                             href={entry.downloadUrl}
                             download={entry.downloadFileName ?? "resume.pdf"}
@@ -929,7 +929,7 @@ export function WorkSection() {
                             className="h-10 w-10 rounded-md border border-border/60 bg-white/80 object-contain p-1"
                             draggable={false}
                           />
-                          <h3 className="handwritten text-4xl text-foreground">{entry.company}</h3>
+                          <h3 className="font-newsreader text-3xl font-bold text-foreground">{entry.company}</h3>
                         </div>
                         <p className="mt-1 text-sm text-foreground/85">{entry.role}</p>
                         <p className="text-xs font-mono uppercase tracking-[0.16em] text-foreground/80">{entry.period}</p>
