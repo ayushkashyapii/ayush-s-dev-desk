@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, Folder, Github, History, Linkedin, Mail, Star, Twitter } from "lucide-react";
+import { BookOpen, FileText, Folder, Github, History, Linkedin, Mail, Star, Twitter } from "lucide-react";
 import type { IconType } from "react-icons";
 import {
   SiCplusplus,
@@ -610,7 +610,7 @@ export function WorkSection() {
       entries: [
         {
           id: "resume-view",
-          company: "Ayush Kashyap Resume",
+          company: "My Resume",
           role: "",
           period: "",
           overview: "",
@@ -936,11 +936,25 @@ export function WorkSection() {
                             Download Resume
                           </a>
                         </div>
+                        {/* Desktop: embedded PDF. Mobile browsers (esp. iOS Safari) often show a blank iframe — open in native viewer instead. */}
                         <iframe
                           src={`${entry.previewPdfUrl}#view=FitH`}
                           title="Resume PDF preview"
-                          className="mt-4 h-[min(70vh,520px)] w-full rounded-md border border-border/60 bg-white md:h-[920px]"
+                          className="mt-4 hidden h-[920px] w-full rounded-md border border-border/60 bg-white md:block"
                         />
+                        <div className="mt-4 rounded-md border border-border/60 bg-paper/80 p-4 text-center md:hidden">
+                          <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:justify-center">
+                            <a
+                              href={entry.previewPdfUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center justify-center gap-2 rounded-md border border-primary/45 bg-primary/70 px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/85"
+                            >
+                              <FileText className="h-4 w-4 shrink-0 opacity-90" aria-hidden />
+                              Open resume
+                            </a>
+                          </div>
+                        </div>
                       </>
                     ) : (
                       <>
