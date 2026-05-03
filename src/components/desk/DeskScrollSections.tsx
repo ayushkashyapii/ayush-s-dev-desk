@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, Folder, Github, History, Linkedin, Mail, Star, Twitter } from "lucide-react";
 import type { IconType } from "react-icons";
@@ -117,8 +118,11 @@ function SectionShell({
 }
 
 export function AboutSection() {
+  const isMobile = useIsMobile();
   const [folderOpen, setFolderOpen] = useState(false);
+  const [mobileFolderOpen, setMobileFolderOpen] = useState(false);
   const [panel, setPanel] = useState<"laptop" | "books" | null>(null);
+  const folderExpanded = isMobile ? mobileFolderOpen : folderOpen;
 
   return (
     <section
@@ -164,29 +168,38 @@ export function AboutSection() {
 
           <div className="relative mx-auto w-full max-w-[260px] lg:mx-0 lg:pt-4">
             <div
-              onMouseEnter={() => setFolderOpen(true)}
-              onMouseLeave={() => setFolderOpen(false)}
-              className="relative h-[170px] rounded-lg px-3 pt-3"
+              onMouseEnter={() => !isMobile && setFolderOpen(true)}
+              onMouseLeave={() => !isMobile && setFolderOpen(false)}
+              onClick={() => isMobile && setMobileFolderOpen((o) => !o)}
+              className="relative min-h-[188px] rounded-lg px-3 pt-2 md:h-[170px] md:min-h-0 md:pt-3"
             >
-              <div className="relative mx-auto w-[118px]">
+              {isMobile ? (
+                <p className="mb-1 text-center font-mono text-[10px] uppercase tracking-wide text-muted-foreground/90">
+                  Tap folder to open
+                </p>
+              ) : null}
+              <div className="relative mx-auto w-[118px] pb-1">
                 <CutoutImage
-                  src={folderOpen ? folderOpenImg : folderCloseImg}
+                  src={folderExpanded ? folderOpenImg : folderCloseImg}
                   alt="folder sticker"
                   className="w-full h-auto desk-image-soft"
                   draggable={false}
                 />
                 <motion.button
                   type="button"
-                  onClick={() => setPanel("laptop")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setPanel("laptop");
+                  }}
                   animate={{
-                    opacity: folderOpen ? 1 : 0.25,
-                    y: folderOpen ? -48 : -16,
-                    x: folderOpen ? 56 : 24,
-                    scale: folderOpen ? 1 : 0.9,
+                    opacity: folderExpanded ? 1 : 0.25,
+                    y: folderExpanded ? -48 : -16,
+                    x: folderExpanded ? 56 : 24,
+                    scale: folderExpanded ? 1 : 0.9,
                   }}
                   transition={{ duration: 0.22 }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ pointerEvents: folderOpen ? "auto" : "none" }}
+                  style={{ pointerEvents: folderExpanded ? "auto" : "none" }}
                 >
                   <CutoutImage
                     src={laptop}
@@ -197,16 +210,19 @@ export function AboutSection() {
                 </motion.button>
                 <motion.button
                   type="button"
-                  onClick={() => setPanel("books")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setPanel("books");
+                  }}
                   animate={{
-                    opacity: folderOpen ? 1 : 0.25,
-                    y: folderOpen ? 16 : -2,
-                    x: folderOpen ? -56 : -24,
-                    scale: folderOpen ? 1 : 0.9,
+                    opacity: folderExpanded ? 1 : 0.25,
+                    y: folderExpanded ? 16 : -2,
+                    x: folderExpanded ? -56 : -24,
+                    scale: folderExpanded ? 1 : 0.9,
                   }}
                   transition={{ duration: 0.22 }}
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ pointerEvents: folderOpen ? "auto" : "none" }}
+                  style={{ pointerEvents: folderExpanded ? "auto" : "none" }}
                 >
                   <CutoutImage
                     src={books}
@@ -634,15 +650,16 @@ export function WorkSection() {
           <span className="w-10" />
         </div>
 
-        <div className="grid h-[500px] grid-cols-[150px_1fr]">
-          <aside className="border-r border-border/60 bg-paper/45 px-3 py-4">
-            <p className="mb-2 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-foreground/80">
+        <div className="grid min-h-0 grid-cols-1 md:h-[500px] md:grid-cols-[150px_1fr]">
+          <aside className="flex flex-row gap-1 overflow-x-auto border-b border-border/60 bg-paper/45 px-2 py-2 md:flex-col md:gap-0 md:overflow-visible md:border-b-0 md:border-r md:px-3 md:py-4">
+            <p className="mb-0 shrink-0 self-center pr-2 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-foreground/80 md:mb-2 md:self-start md:pr-0 md:text-[11px] md:tracking-[0.16em]">
               Favorites
             </p>
-            <div className="space-y-1.5">
+            <div className="flex min-w-0 flex-1 flex-row gap-1.5 md:flex-col">
               <button
+                type="button"
                 onClick={() => setActivePane("projects")}
-                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] ${
+                className={`flex w-auto shrink-0 items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] md:w-full ${
                   activePane === "projects"
                     ? "bg-primary/12 text-foreground/85"
                     : "text-foreground/70 hover:bg-foreground/[0.05]"
@@ -652,8 +669,9 @@ export function WorkSection() {
                 Projects
               </button>
               <button
+                type="button"
                 onClick={() => setActivePane("blogs")}
-                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] ${
+                className={`flex w-auto shrink-0 items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] md:w-full ${
                   activePane === "blogs"
                     ? "bg-primary/12 text-foreground/85"
                     : "text-foreground/70 hover:bg-foreground/[0.05]"
@@ -663,8 +681,9 @@ export function WorkSection() {
                 Read Blogs
               </button>
               <button
+                type="button"
                 onClick={() => setActivePane("history")}
-                className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] ${
+                className={`flex w-auto shrink-0 items-center gap-2 rounded-md px-2 py-1.5 text-left text-[11px] md:w-full ${
                   activePane === "history"
                     ? "bg-primary/12 text-foreground/85"
                     : "text-foreground/70 hover:bg-foreground/[0.05]"
@@ -676,7 +695,7 @@ export function WorkSection() {
             </div>
           </aside>
 
-          <div className="h-full overflow-hidden p-5 sm:p-6">
+          <div className="min-h-[260px] overflow-hidden p-4 sm:p-5 md:h-full md:min-h-0 md:p-6">
             {activePane === "projects" ? (
               !activeProject ? (
                 <>
@@ -699,9 +718,10 @@ export function WorkSection() {
                   <div></div>
                 </>
               ) : (
-                <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+                <div className="max-h-[min(72vh,640px)] min-h-[200px] overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5 md:h-full md:max-h-none">
                   <div className="flex items-center justify-between gap-3">
                     <button
+                      type="button"
                       onClick={() => setActiveProjectId(null)}
                       className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
                     >
@@ -830,8 +850,9 @@ export function WorkSection() {
                   ))}
                 </div>
               ) : (
-                <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+                <div className="max-h-[min(72vh,640px)] min-h-[200px] overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5 md:h-full md:max-h-none">
                   <button
+                    type="button"
                     onClick={() => setActiveBlogId(null)}
                     className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
                   >
@@ -892,8 +913,9 @@ export function WorkSection() {
                 ))}
               </div>
             ) : (
-              <div className="h-full overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5">
+              <div className="max-h-[min(72vh,640px)] min-h-[200px] overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5 md:h-full md:max-h-none">
                 <button
+                  type="button"
                   onClick={() => setActiveHistoryFolderId(null)}
                   className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
                 >
@@ -917,7 +939,7 @@ export function WorkSection() {
                         <iframe
                           src={`${entry.previewPdfUrl}#view=FitH`}
                           title="Resume PDF preview"
-                          className="mt-4 h-[920px] w-full rounded-md border border-border/60 bg-white"
+                          className="mt-4 h-[min(70vh,520px)] w-full rounded-md border border-border/60 bg-white md:h-[920px]"
                         />
                       </>
                     ) : (
@@ -1026,7 +1048,7 @@ export function ContactSection() {
           Reach out any time. I am active on social and usually reply quickly.
         </p>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+        <div className="mt-8 grid grid-cols-2 gap-2.5 sm:gap-3">
           {contactItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -1035,10 +1057,10 @@ export function ContactSection() {
                 href={item.href}
                 target={item.label === "Email" ? undefined : "_blank"}
                 rel={item.label === "Email" ? undefined : "noreferrer"}
-                className="group flex items-center gap-3 rounded-md border border-border/60 bg-paper/60 px-4 py-3 transition-colors hover:border-primary/50 hover:bg-primary/5"
+                className="group flex min-w-0 items-center gap-2 rounded-md border border-border/60 bg-paper/60 px-2.5 py-2.5 transition-colors hover:border-primary/50 hover:bg-primary/5 sm:gap-3 sm:px-4 sm:py-3"
               >
-                <Icon className="h-4 w-4 text-foreground/75 transition-colors group-hover:text-primary" />
-                <span className="text-sm text-foreground/85">{item.label}</span>
+                <Icon className="h-4 w-4 shrink-0 text-foreground/75 transition-colors group-hover:text-primary" />
+                <span className="min-w-0 truncate text-xs text-foreground/85 sm:text-sm">{item.label}</span>
               </a>
             );
           })}
