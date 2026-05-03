@@ -1,9 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { PostHogProvider } from "posthog-js/react";
 
 import appCss from "../styles.css?url";
 import browserIcon from "@/assets/desk/browser.ico";
-import { posthog } from "@/lib/posthog-client";
 
 function NotFoundComponent() {
   return (
@@ -73,9 +71,5 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return (
-    <PostHogProvider client={posthog}>
-      <Outlet />
-    </PostHogProvider>
-  );
+  return <Outlet />;
 }
