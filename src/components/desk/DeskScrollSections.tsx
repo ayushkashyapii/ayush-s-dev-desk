@@ -732,6 +732,8 @@ export function WorkSection() {
   const activeProject = projectFolders.find((folder) => folder.id === activeProjectId) ?? null;
   const [activeBlogId, setActiveBlogId] = useState<(typeof blogFolders)[number]["id"] | null>(null);
   const activeBlog = blogFolders.find((blog) => blog.id === activeBlogId) ?? null;
+  const activeProjectKeyPoint = activeProject?.highlights[0] ?? null;
+  const activeBlogKeyPoint = activeBlog?.sections[0]?.bullets[0] ?? null;
   const [activeHistoryFolderId, setActiveHistoryFolderId] = useState<(typeof historyFolders)[number]["id"] | null>(
     null,
   );
@@ -858,6 +860,12 @@ export function WorkSection() {
                   </div>
 
                   <p className="mt-4 text-sm text-foreground/80">{activeProject.subtitle}</p>
+                  {activeProjectKeyPoint ? (
+                    <p className="mt-3 text-sm text-foreground/85">
+                      <span className="font-semibold">Key Point:</span>{" "}
+                      <span className="font-semibold">{activeProjectKeyPoint}</span>
+                    </p>
+                  ) : null}
                 {activeProject.note ? (
                   <div className="mt-3 flex items-start gap-2 rounded-md border border-primary/25 bg-primary/8 px-3 py-2 text-xs text-foreground/85">
                     <p className="flex-1">{activeProject.note}</p>
@@ -895,7 +903,7 @@ export function WorkSection() {
 
                   <div className="mt-5 grid gap-5 md:grid-cols-2">
                     <div>
-                      <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                      <p className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-mono uppercase tracking-[0.18em] text-foreground/95">
                         Key Highlights
                       </p>
                       <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
@@ -905,7 +913,7 @@ export function WorkSection() {
                       </ul>
                     </div>
                     <div>
-                      <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                      <p className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-mono uppercase tracking-[0.18em] text-foreground/95">
                         What I Learned
                       </p>
                       <ul className="mt-2 space-y-1.5 text-sm text-foreground/80">
@@ -917,7 +925,7 @@ export function WorkSection() {
                   </div>
 
                   <div className="mt-5">
-                    <p className="text-xs font-mono uppercase tracking-[0.18em] text-foreground/90">
+                    <p className="inline-block rounded bg-primary/10 px-2 py-0.5 text-xs font-mono uppercase tracking-[0.18em] text-foreground/95">
                       Tech Stack
                     </p>
                     <div className="mt-2 flex flex-wrap gap-2">
@@ -986,6 +994,12 @@ export function WorkSection() {
                   <h3 className="font-newsreader mt-3 text-3xl font-bold text-foreground">{activeBlog.title}</h3>
                   <p className="mt-1 text-sm text-foreground/75">{activeBlog.subtitle}</p>
                   <p className="mt-4 text-sm leading-6 text-foreground/80">{activeBlog.intro}</p>
+                  {activeBlogKeyPoint ? (
+                    <p className="mt-3 text-sm text-foreground/85">
+                      <span className="font-semibold">Key Point:</span>{" "}
+                      <span className="font-semibold">{activeBlogKeyPoint}</span>
+                    </p>
+                  ) : null}
                   {activeBlog.previews.length > 0 ? (
                     <div className="mt-4 grid grid-cols-1 gap-3">
                       {activeBlog.previews.map((preview) => (
@@ -1004,7 +1018,7 @@ export function WorkSection() {
 
                   {activeBlog.sections.map((section) => (
                     <div key={section.heading} className="mt-5">
-                      <h4 className="text-sm font-mono uppercase tracking-[0.14em] text-foreground/95">
+                      <h4 className="inline-block rounded bg-primary/10 px-2 py-0.5 text-sm font-mono uppercase tracking-[0.14em] text-foreground/95">
                         {section.heading}
                       </h4>
                       <p className="mt-2 text-sm leading-6 text-foreground/80">{section.content}</p>
