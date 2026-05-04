@@ -38,6 +38,8 @@ import terminalProjectImg from "@/assets/desk/terminal.png";
 import tetrisProjectImg from "@/assets/desk/tetris.png";
 import torrentProjectImg from "@/assets/desk/torrent.png";
 import constructureImg from "@/assets/desk/constructure.png";
+import minimaxImg from "@/assets/desk/minimax.jpg";
+import minimaxGif from "@/assets/desk/minimax_slower.gif";
 import { CutoutImage } from "./CutoutImage";
 
 const ABOUT_COPY =
@@ -565,6 +567,100 @@ export function WorkSection() {
       accent: "bg-[#f0b8a8] ring-[#df9c88]/70",
       iconTone: "text-[#8d4f3d]",
     },
+    {
+      id: "chess-engine",
+      title: "Chess Engine",
+      subtitle: "How I tried to make a computer “think”.",
+      previews: [{ src: minimaxGif, alt: "Minimax exploration animation" }],
+      intro:
+        "At some point, building crud apps stopped feeling exciting. Everything started looking the same — forms, APIs, dashboards. Useful, but not… interesting. I wanted something where the logic actually matters. Something where the system has to make decisions, not just move data around. Chess felt perfect.",
+      sections: [
+        {
+          heading: "Why I Built It",
+          content:
+            "Chess looks simple on the surface, but it’s basically pure decision-making. I didn’t want to use an existing engine — I wanted to understand what makes one feel intelligent.",
+          bullets: ["Simple rules", "Infinite depth", "Decision-making under constraints"],
+        },
+        {
+          heading: "Reality Check",
+          content:
+            "Chess is absurdly complex. The space of possible positions is often quoted around 10^120. Brute force is a fantasy — you need to be selective about what you explore and what you ignore.",
+          bullets: ["You can’t “try everything”", "Depth explodes fast", "Efficiency decides strength"],
+        },
+        {
+          heading: "The Core Loop",
+          content: "At its heart, an engine is doing two things: generating moves and choosing the best one.",
+          bullets: ["Generate legal moves", "Search future lines", "Evaluate positions at the leaves"],
+        },
+        {
+          heading: "Minimax: The Brain",
+          content:
+            "Minimax is the first real mental model: you maximize your advantage, your opponent minimizes it. Every move becomes a back-and-forth recursion: You → Opponent → You → Opponent…",
+          bullets: [
+            "Build a decision tree of moves",
+            "Score positions at the bottom",
+            "Propagate scores upward (MAX vs MIN)",
+          ],
+          image: { src: minimaxImg, alt: "Minimax search tree illustration" },
+        },
+        {
+          heading: "The Problem With Minimax",
+          content:
+            "Minimax works… but it’s slow. Even a few plies deep, branching factor turns the search into an explosion of possibilities.",
+          bullets: ["Too many nodes", "Too much wasted exploration", "Optimization isn’t optional"],
+        },
+        {
+          heading: "Alpha-Beta Pruning",
+          content:
+            "Alpha-Beta pruning was the first “wow” moment. While searching, α tracks the best score you can guarantee, β tracks the best score the opponent can force. If you find a line where α ≥ β, you can cut the entire branch.",
+          bullets: [
+            "Same result as minimax",
+            "Way fewer nodes explored",
+            "Practical depth becomes possible",
+          ],
+        },
+        {
+          heading: "Zobrist Hashing: Identifying Positions",
+          content:
+            "The same position can appear via different move orders. Without help, you end up recomputing the same analysis. Zobrist hashing gives each board state a fast, unique fingerprint using random numbers + XOR.",
+          bullets: ["Piece + square random keys", "XOR to combine", "Fast incremental updates"],
+        },
+        {
+          heading: "Transposition Tables: Memory",
+          content:
+            "Once positions have stable hashes, caching becomes obvious. A transposition table stores Position → Best line + evaluation so repeated positions reuse work instead of repeating it.",
+          bullets: ["Massive speed-up in real games", "Less duplicated search", "Engine starts to “remember”"],
+        },
+        {
+          heading: "Quiescence Search",
+          content:
+            "Sometimes evaluations happen at the worst possible moment — right before a capture or check — causing the horizon effect. Quiescence search extends the search only in “noisy” positions until things stabilize.",
+          bullets: ["Detect unstable positions", "Search captures/checks deeper", "More stable evaluations"],
+        },
+        {
+          heading: "Making It Fast (Browser Edition)",
+          content:
+            "I wanted it to feel fast, not just be correct. So I pushed performance where it mattered: compiled parts to WebAssembly and parallelized move evaluation with Web Workers.",
+          bullets: ["WebAssembly for near-native speed", "Web Workers for parallel search", "Smooth, responsive UI"],
+        },
+        {
+          heading: "Evaluation Function",
+          content:
+            "Search is useless without a gut feeling. At the leaves, the engine needs to answer: is this position good or bad? Material is the baseline — but positional factors matter too.",
+          bullets: ["Material values (P=1, N/B=3, R=5, Q=9)", "Piece activity + board control", "Positional advantages"],
+        },
+        {
+          heading: "What It Taught Me",
+          content:
+            "This wasn’t just a chess project — it was systems thinking. Breaking problems into state, transitions, evaluation, then dealing with the trade-offs: depth vs speed, accuracy vs compute.",
+          bullets: ["Pruning", "Caching", "Parallelism", "Trade-offs everywhere"],
+        },
+      ],
+      takeaway:
+        "Intelligence isn’t magic. It’s structured decision-making under constraints — and chess is the perfect place to feel that in code.",
+      accent: "bg-[#9ecdf1] ring-[#86badf]/70",
+      iconTone: "text-[#2b6289]",
+    },
   ] as const;
   const historyFolders = [
     {
@@ -858,18 +954,19 @@ export function WorkSection() {
                   >
                     ← Back to blogs
                   </button>
-                  <h3 className="font-newsreader mt-3 text-3xl font-bold text-foreground">
-                    BitTorrent: The Protocol That Quietly Solved Internet-Scale File Distribution
-                  </h3>
+                  <h3 className="font-newsreader mt-3 text-3xl font-bold text-foreground">{activeBlog.title}</h3>
+                  <p className="mt-1 text-sm text-foreground/75">{activeBlog.subtitle}</p>
                   <p className="mt-4 text-sm leading-6 text-foreground/80">{activeBlog.intro}</p>
                   {activeBlog.previews.length > 0 ? (
-                    <div className="mt-4">
+                    <div className="mt-4 grid grid-cols-1 gap-3">
                       {activeBlog.previews.map((preview) => (
                         <img
                           key={preview.alt}
                           src={preview.src}
                           alt={preview.alt}
-                          className="h-64 w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 sm:h-72"
+                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 ${
+                            activeBlog.id === "chess-engine" ? "h-72 sm:h-[26rem]" : "h-64 sm:h-72"
+                          }`}
                           draggable={false}
                         />
                       ))}
@@ -887,6 +984,14 @@ export function WorkSection() {
                           <li key={item}>- {item}</li>
                         ))}
                       </ul>
+                      {"image" in section && section.image ? (
+                        <img
+                          src={section.image.src}
+                          alt={section.image.alt}
+                          className="mt-3 h-64 w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 sm:h-[22rem]"
+                          draggable={false}
+                        />
+                      ) : null}
                     </div>
                   ))}
 
