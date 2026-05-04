@@ -4,6 +4,11 @@
       "source": "/resume",
       "destination": "/resume.pdf",
       "permanent": false
+    },
+    {
+      "source": "/chess",
+      "destination": "https://chess-dzbr1y3df-ayush-kashyaps-projects-9064ed5b.vercel.app",
+      "permanent": false
     }
   ]
 }
