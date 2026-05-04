@@ -490,6 +490,8 @@ export function WorkSection() {
       title: "BitTorrent Protocol",
       subtitle: "The protocol that quietly solved internet-scale file distribution.",
       previews: [{ src: torrentProjectImg, alt: "BitTorrent protocol blog visual" }],
+      githubUrl: null,
+      liveUrl: null,
       intro:
         "When most people hear BitTorrent, they immediately think of piracy. But once you actually study the protocol, you realize BitTorrent is one of the most elegant distributed systems ever designed - a system that fundamentally rethought how large-scale data distribution should work on the internet.",
       sections: [
@@ -572,6 +574,8 @@ export function WorkSection() {
       title: "Chess Engine",
       subtitle: "How I tried to make a computer “think”.",
       previews: [{ src: minimaxGif, alt: "Minimax exploration animation" }],
+      githubUrl: "https://github.com/AyushKashyapII/Chess",
+      liveUrl: "https://chess-dzbr1y3df-ayush-kashyaps-projects-9064ed5b.vercel.app",
       intro:
         "At some point, building crud apps stopped feeling exciting. Everything started looking the same — forms, APIs, dashboards. Useful, but not… interesting. I wanted something where the logic actually matters. Something where the system has to make decisions, not just move data around. Chess felt perfect.",
       sections: [
@@ -947,13 +951,38 @@ export function WorkSection() {
                 </div>
               ) : (
                 <div className="max-h-[min(72vh,640px)] min-h-[200px] overflow-y-auto rounded-lg border border-border/60 bg-paper/70 p-4 sm:p-5 md:h-full md:max-h-none">
-                  <button
-                    type="button"
-                    onClick={() => setActiveBlogId(null)}
-                    className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
-                  >
-                    ← Back to blogs
-                  </button>
+                  <div className="flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setActiveBlogId(null)}
+                      className="text-[11px] font-mono uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+                    >
+                      ← Back to blogs
+                    </button>
+                    <div className="flex items-center gap-3">
+                      {activeBlog.liveUrl ? (
+                        <a
+                          href={activeBlog.liveUrl}
+                          className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Live
+                        </a>
+                      ) : null}
+                      {activeBlog.githubUrl ? (
+                        <a
+                          href={activeBlog.githubUrl}
+                          className="inline-flex items-center gap-1.5 text-[11px] text-primary hover:underline"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Star className="h-3.5 w-3.5" />
+                          GitHub
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
                   <h3 className="font-newsreader mt-3 text-3xl font-bold text-foreground">{activeBlog.title}</h3>
                   <p className="mt-1 text-sm text-foreground/75">{activeBlog.subtitle}</p>
                   <p className="mt-4 text-sm leading-6 text-foreground/80">{activeBlog.intro}</p>
