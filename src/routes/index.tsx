@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { CenterIdentity } from "@/components/desk/CenterIdentity";
 // import { Terminal } from "@/components/desk/Terminal";
 // import { CurlPanel } from "@/components/desk/CurlPanel";
@@ -13,6 +15,7 @@ import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { AboutSection, WorkSection, ContactSection, SkillsSection } from "@/components/desk/DeskScrollSections";
 import { MobileDeskHero } from "@/components/desk/MobileDeskHero";
 import { MobileSiteHeader } from "@/components/desk/MobileSiteHeader";
+import { IntroLoader } from "@/components/desk/IntroLoader";
 import tornPaperImg from "@/assets/desk/tornpaper.png";
 
 export const Route = createFileRoute("/")({
@@ -23,7 +26,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore — terminal, polaroids, vinyl, and more.",
+          "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore - terminal, polaroids, vinyl, and more.",
       },
       { property: "og:title", content: "Ayush Kashyap -Software Engineer" },
       {
@@ -35,71 +38,82 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [introDone, setIntroDone] = useState(false);
+
   return (
     <div className="relative min-h-screen w-full max-w-full overflow-x-hidden overflow-y-auto scroll-smooth">
-      <MobileSiteHeader />
+      <IntroLoader onFinished={() => setIntroDone(true)} />
+      <motion.div
+        initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+        animate={{
+          opacity: introDone ? 1 : 0.18,
+          y: introDone ? 0 : 18,
+          filter: introDone ? "blur(0px)" : "blur(6px)",
+        }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <MobileSiteHeader />
 
-      <section id="hero" className="relative scroll-mt-2" aria-label="Portfolio hero">
-        {/* md+ — fixed canvas interactive desk */}
-        <div
-          className="relative hidden md:block"
-          style={{ width: 1280, minWidth: "100%", height: 1080 }}
-          aria-label="Hero desk"
-        >
-          <a
-            href="#hero"
-            className="absolute top-4 left-6 z-[30] handwritten text-xl text-foreground/80 transition-opacity hover:opacity-80"
+        <section id="hero" className="relative scroll-mt-2" aria-label="Portfolio hero">
+          <div
+            className="relative hidden md:block"
+            style={{ width: 1280, minWidth: "100%", height: 1080 }}
+            aria-label="Hero desk"
           >
-            Ayush
-          </a>
-          <nav
-            className="absolute top-5 right-8 z-[30] flex gap-6 text-xs font-mono text-muted-foreground/80"
-            aria-label="Page sections"
-          >
-            <a href="#about" className="transition-colors hover:text-foreground">
-              About
+            <a
+              href="#hero"
+              className="absolute top-4 left-6 z-[30] handwritten text-xl text-foreground/80 transition-opacity hover:opacity-80"
+            >
+              Ayush
             </a>
-            <a href="#work" className="transition-colors hover:text-foreground">
-              Work
-            </a>
-            <a href="#contact" className="transition-colors hover:text-foreground">
-              Contact
-            </a>
-          </nav>
+            <nav
+              className="absolute top-5 right-8 z-[30] flex gap-6 text-xs font-mono text-muted-foreground/80"
+              aria-label="Page sections"
+            >
+              <a href="#about" className="transition-colors hover:text-foreground">
+                About
+              </a>
+              <a href="#work" className="transition-colors hover:text-foreground">
+                Work
+              </a>
+              <a href="#contact" className="transition-colors hover:text-foreground">
+                Contact
+              </a>
+            </nav>
 
-          <CenterIdentity />
+            <CenterIdentity />
 
-          <div className="absolute inset-0">
-            <LanyardBadge />
-            <Vase />
-            <PixelDisplay />
-            <VinylCard />
-            <MusicSticker />
-            <Moodboard />
-            <TablePlant />
-            <DeskExtraPhotos />
+            <div className="absolute inset-0">
+              <LanyardBadge />
+              <Vase />
+              <PixelDisplay />
+              <VinylCard />
+              <MusicSticker />
+              <Moodboard />
+              <TablePlant />
+              <DeskExtraPhotos />
+            </div>
+
+            <div className="pointer-events-none absolute bottom-[-8px] left-1/2 z-[25] w-[min(82vw,980px)] -translate-x-1/2">
+              <img src={tornPaperImg} alt="" className="h-auto w-full opacity-95" draggable={false} />
+              <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-mono text-[13px] uppercase tracking-[0.38em] text-foreground/85 sm:text-[15px]">
+                I think, then I build
+              </p>
+            </div>
           </div>
 
-          <div className="pointer-events-none absolute bottom-[-8px] left-1/2 z-[25] w-[min(82vw,980px)] -translate-x-1/2">
-            <img src={tornPaperImg} alt="" className="h-auto w-full opacity-95" draggable={false} />
-            <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-mono text-[13px] uppercase tracking-[0.38em] text-foreground/85 sm:text-[15px]">
-              I think, then I build
-            </p>
+          <div className="block md:hidden">
+            <MobileDeskHero />
           </div>
-        </div>
+        </section>
 
-        {/* Narrow screens: same brand, fluid layout, no fixed-size desk */}
-        <div className="block md:hidden">
-          <MobileDeskHero />
+        <div className="mx-auto w-full max-w-[1280px] border-x border-border/30 border-dashed">
+          <AboutSection />
+          <SkillsSection />
+          <WorkSection />
+          <ContactSection />
         </div>
-      </section>
-
-      <div className="mx-auto w-full max-w-[1280px] border-x border-border/30 border-dashed">
-        <AboutSection />
-        <SkillsSection />
-        <WorkSection />
-        <ContactSection />
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -176,13 +176,17 @@ export function EdgeMattedImage({
   feather?: number;
 }) {
   const [processedSrc, setProcessedSrc] = useState(src);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let alive = true;
-    setProcessedSrc(src);
+    setReady(false);
 
     stripEdgeMatte(src, { threshold, feather }).then((cleanSrc) => {
-      if (alive) setProcessedSrc(cleanSrc);
+      if (alive) {
+        setProcessedSrc(cleanSrc);
+        setReady(true);
+      }
     });
 
     return () => {
@@ -190,7 +194,15 @@ export function EdgeMattedImage({
     };
   }, [src, threshold, feather]);
 
-  return <img src={processedSrc} alt={alt} className={className} style={style} draggable={draggable} />;
+  return (
+    <img
+      src={processedSrc}
+      alt={alt}
+      className={className}
+      style={{ ...style, opacity: ready ? style?.opacity : 0 }}
+      draggable={draggable}
+    />
+  );
 }
 
 export function CutoutImage({
@@ -201,13 +213,17 @@ export function CutoutImage({
   draggable = false,
 }: CutoutImageProps) {
   const [processedSrc, setProcessedSrc] = useState(src);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let alive = true;
-    setProcessedSrc(src);
+    setReady(false);
 
     stripCheckerboard(src).then((cleanSrc) => {
-      if (alive) setProcessedSrc(cleanSrc);
+      if (alive) {
+        setProcessedSrc(cleanSrc);
+        setReady(true);
+      }
     });
 
     return () => {
@@ -220,7 +236,7 @@ export function CutoutImage({
       src={processedSrc}
       alt={alt}
       className={className}
-      style={style}
+      style={{ ...style, opacity: ready ? style?.opacity : 0 }}
       draggable={draggable}
     />
   );
