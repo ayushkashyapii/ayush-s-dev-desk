@@ -13,6 +13,7 @@ import { DeskExtraPhotos } from "@/components/desk/DeskExtraPhotos";
 import { AboutSection, WorkSection, ContactSection, SkillsSection } from "@/components/desk/DeskScrollSections";
 import { MobileDeskHero } from "@/components/desk/MobileDeskHero";
 import { MobileSiteHeader } from "@/components/desk/MobileSiteHeader";
+import { IntroLoader } from "@/components/desk/IntroLoader";
 import tornPaperImg from "@/assets/desk/tornpaper.png";
 
 export const Route = createFileRoute("/")({
@@ -37,6 +38,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="relative min-h-screen w-full max-w-full overflow-x-hidden overflow-y-auto scroll-smooth">
+      <IntroLoader />
       <MobileSiteHeader />
 
       <section id="hero" className="relative scroll-mt-2" aria-label="Portfolio hero">
