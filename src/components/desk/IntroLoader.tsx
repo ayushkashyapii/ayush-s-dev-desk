@@ -79,7 +79,7 @@ export function IntroLoader({ onFinished }: { onFinished?: () => void }) {
     <AnimatePresence>
       {visible ? (
         <motion.div
-          className="fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-background"
+          className="pointer-events-none fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-background"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, filter: "blur(10px)", scale: 1.015 }}
           transition={{ duration: 0.82, ease: [0.22, 1, 0.36, 1] }}
