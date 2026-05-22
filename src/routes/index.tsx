@@ -14,7 +14,8 @@ import { AboutSection, WorkSection, ContactSection, SkillsSection } from "@/comp
 import { MobileDeskHero } from "@/components/desk/MobileDeskHero";
 import { MobileSiteHeader } from "@/components/desk/MobileSiteHeader";
 import { IntroLoader } from "@/components/desk/IntroLoader";
-import tornPaperImg from "@/assets/desk/tornpaper.png";
+import anchorImg from "@/assets/desk/anchor.png";
+import { CutoutImage } from "@/components/desk/CutoutImage";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -81,11 +82,8 @@ function Index() {
             <DeskExtraPhotos />
           </div>
 
-          <div className="pointer-events-none absolute bottom-[-8px] left-1/2 z-[25] w-[min(82vw,980px)] -translate-x-1/2">
-            <img src={tornPaperImg} alt="" className="h-auto w-full opacity-95" draggable={false} />
-            <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-mono text-[13px] uppercase tracking-[0.38em] text-foreground/85 sm:text-[15px]">
-              I think, then I build
-            </p>
+          <div className="pointer-events-none absolute bottom-0 left-1/2 z-[5] -translate-x-1/2" style={{ width: 1030 }}>
+            <CutoutImage src={anchorImg} alt="Anchor" className="h-auto w-full opacity-95 desk-image-soft" draggable={false} />
           </div>
         </div>
 

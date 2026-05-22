@@ -1,6 +1,6 @@
 import { CenterIdentity } from "@/components/desk/CenterIdentity";
-import { EdgeMattedImage } from "@/components/desk/CutoutImage";
-import tornPaperImg from "@/assets/desk/tornpaper.png";
+import { EdgeMattedImage, CutoutImage } from "@/components/desk/CutoutImage";
+import anchorPhoneImg from "@/assets/desk/anchor-phone.png";
 import tokyoImg from "@/assets/desk/tokyo.jpg";
 import musicImg from "@/assets/desk/music.png";
 import plantImg from "@/assets/desk/plant.webp";
@@ -89,12 +89,9 @@ export function MobileDeskHero() {
         </div>
       </div>
 
-      {/* <div className="pointer-events-none relative z-[25] mx-auto mt-4 w-[min(92vw,480px)] px-2">
-        <img src={tornPaperImg} alt="" className="h-auto w-full opacity-95" draggable={false} />
-        <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-2 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/85 sm:text-[12px]">
-          I think, then I build
-        </p>
-      </div> */}
+      <div className="pointer-events-none relative z-[25] mx-auto mt-4 flex justify-center w-[min(92vw,340px)] px-2">
+        <CutoutImage src={anchorPhoneImg} alt="Anchor" className="h-auto w-full opacity-95 desk-image-soft" draggable={false} />
+      </div>
     </div>
   );
 }
