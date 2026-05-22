@@ -9,7 +9,7 @@ const deskAssetModules = import.meta.glob("../../assets/desk/*.{png,jpg,jpeg,web
 
 const MIN_VISIBLE_MS = 2400;
 const MAX_VISIBLE_MS = 4800;
-const GREETINGS = ["hello", "ciao", "hola", "bonjour", "namaste", "こんにちは", "01001000 01001001" ,"你好" ,"Olá"];
+const GREETINGS = ["hello", "ciao", "hola", "bonjour", "नमस्ते", "こんにちは", "01001000 01001001" ,"你好" ,"Olá"];
 
 function preloadImage(src: string) {
   return new Promise<void>((resolve) => {

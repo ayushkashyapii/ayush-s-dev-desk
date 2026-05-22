@@ -1,12 +1,11 @@
 import { useState, type ReactNode } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, FileText, Folder, Github, History, Linkedin, Mail, Star, Twitter } from "lucide-react";
+import { BookOpen, FileText, Folder, History, Mail, Star,Twitter,Github,Linkedin } from "lucide-react";
 import type { IconType } from "react-icons";
 import {
   SiCplusplus,
   SiDocker,
-  SiSharp,
   SiExpress,
   SiFirebase,
   SiGit,
@@ -26,7 +25,6 @@ import {
   SiVercel,
   SiWebassembly,
 } from "react-icons/si";
-import { FaJava } from "react-icons/fa";
 import catImg from "@/assets/desk/cat.jpg";
 import chessProjectImg from "@/assets/desk/chess.png";
 import laptop from "@/assets/desk/sticker-laptop.webp";
@@ -52,8 +50,6 @@ const SKILL_ICONS: Record<string, IconType> = {
   Go: SiGo,
   Python: SiPython,
   "C++": SiCplusplus,
-  "C#": SiSharp,
-  Java: FaJava,
   React: SiReact,
   "Next.js": SiNextdotjs,
   "Node.js": SiNodedotjs,
@@ -77,7 +73,7 @@ const SKILL_ICONS: Record<string, IconType> = {
 const SKILL_GROUPS = [
   {
     title: "Languages",
-    items: ["JavaScript", "TypeScript", "Go", "Python", "C++", "C#", "Java"],
+    items: ["JavaScript", "TypeScript", "Go", "Python", "C++"],
   },
   {
     title: "Frameworks",
