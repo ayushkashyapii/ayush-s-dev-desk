@@ -57,13 +57,13 @@ function Index() {
             className="absolute top-5 right-8 z-[30] flex gap-6 text-xs font-mono text-muted-foreground/80"
             aria-label="Page sections"
           >
-            <a href="#about" className="transition-colors hover:text-foreground">
+            <a href="#about" className="nav-link transition-colors hover:text-foreground">
               About
             </a>
-            <a href="#work" className="transition-colors hover:text-foreground">
+            <a href="#work" className="nav-link transition-colors hover:text-foreground">
               Work
             </a>
-            <a href="#contact" className="transition-colors hover:text-foreground">
+            <a href="#contact" className="nav-link transition-colors hover:text-foreground">
               Contact
             </a>
           </nav>
