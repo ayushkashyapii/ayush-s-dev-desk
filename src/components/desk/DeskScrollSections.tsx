@@ -32,6 +32,7 @@ import books from "@/assets/desk/sticker-books.webp";
 import folderOpenImg from "@/assets/desk/folderopen.png";
 import folderCloseImg from "@/assets/desk/folderclose.png";
 import pacmanProjectImg from "@/assets/desk/pacman.png";
+import pacmanRlImg from "@/assets/desk/pacmanrl.png";
 import terminalProjectImg from "@/assets/desk/terminal.png";
 import tetrisProjectImg from "@/assets/desk/tetris.png";
 import torrentProjectImg from "@/assets/desk/torrent.png";
@@ -388,7 +389,18 @@ export function WorkSection() {
         "Improved policy stability through iterative tuning",
       ],
       tech: ["Python", "TensorFlow", "Reinforcement Learning", "OpenCV"],
-      previews: [{ src: pacmanProjectImg, alt: "Pacman AI gameplay preview" }],
+      previews: [
+        {
+          src: pacmanProjectImg,
+          alt: "Pacman AI gameplay preview",
+          className: "w-full sm:w-[200px] md:w-[240px] h-56 sm:h-72 md:h-80 object-contain mx-auto sm:mx-0 shrink-0",
+        },
+        {
+          src: pacmanRlImg,
+          alt: "Pacman AI reinforcement learning training preview",
+          className: "flex-1 w-full min-w-0 h-56 sm:h-72 md:h-80 object-contain",
+        },
+      ],
       learned: [
         "Reinforcement learning systems",
         "Agent optimization",
@@ -423,8 +435,16 @@ export function WorkSection() {
       ],
       tech: ["Go", "Bubble Tea", "Lip Gloss", "HTTP Servers", "Docker", "Fly.io", "ANSI Rendering"],
       previews: [
-        { src: terminalProjectImg, alt: "Terminal portfolio interface" },
-        { src: tetrisProjectImg, alt: "Embedded terminal tetris mode" },
+        {
+          src: terminalProjectImg,
+          alt: "Terminal portfolio interface",
+          className: "flex-1 w-full min-w-0 h-56 sm:h-72 md:h-80 object-contain",
+        },
+        {
+          src: tetrisProjectImg,
+          alt: "Embedded terminal tetris mode",
+          className: "w-full sm:w-[200px] md:w-[240px] h-56 sm:h-72 md:h-80 object-contain mx-auto sm:mx-0 shrink-0",
+        },
       ],
       learned: [
         "Terminal UI architecture",
@@ -884,7 +904,11 @@ export function WorkSection() {
 
                   {activeProject.previews.length > 0 ? (
                     <div
-                      className={`mt-4 grid gap-3 ${activeProject.previews.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}
+                      className={`mt-4 flex flex-col gap-3 ${
+                        activeProject.previews.length === 1
+                          ? ""
+                          : "sm:flex-row items-stretch"
+                      }`}
                     >
                       {activeProject.previews.map((preview) => (
                         <img
@@ -892,8 +916,12 @@ export function WorkSection() {
                           src={preview.src}
                           alt={preview.alt}
                           onClick={() => setLightboxImage(preview)}
-                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 cursor-zoom-in transition-all duration-200 hover:border-primary/50 hover:shadow-md ${
-                            activeProject.previews.length === 1 ? "h-64 sm:h-96 md:h-[400px]" : "h-48 sm:h-56"
+                          className={`rounded-md border border-border/60 bg-white/80 p-2 cursor-zoom-in transition-all duration-200 hover:border-primary/50 hover:shadow-md ${
+                            'className' in preview
+                              ? (preview as any).className
+                              : activeProject.previews.length === 1
+                                ? "w-full object-contain h-64 sm:h-96 md:h-[400px]"
+                                : "w-full sm:w-1/2 object-contain h-56 sm:h-72 md:h-80"
                           }`}
                           draggable={false}
                         />
