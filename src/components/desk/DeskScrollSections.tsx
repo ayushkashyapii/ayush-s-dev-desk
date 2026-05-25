@@ -38,6 +38,7 @@ import torrentProjectImg from "@/assets/desk/torrent.png";
 import constructureImg from "@/assets/desk/constructure.png";
 import minimaxImg from "@/assets/desk/minimax.jpg";
 import minimaxGif from "@/assets/desk/minimax_slower.gif";
+import pygitProjectImg from "@/assets/desk/pygit.png";
 import { CutoutImage } from "./CutoutImage";
 import { RamenBowl } from "./RamenBowl";
 
@@ -350,7 +351,7 @@ export function WorkSection() {
         "Developed practical understanding of versioned file systems",
       ],
       tech: ["Python", "Git Internals", "SHA-1", "CLI Development", "File Systems"],
-      previews: [],
+      previews: [{ src: pygitProjectImg, alt: "PyGit architectural workflow and structure diagram" }],
       learned: [
         "Version control internals",
         "Hashing systems",
@@ -735,6 +736,7 @@ export function WorkSection() {
     null,
   );
   const activeHistoryFolder = historyFolders.find((folder) => folder.id === activeHistoryFolderId) ?? null;
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
 
   return (
     <SectionShell id="work" title="Work" containerClassName="max-w-6xl">
@@ -889,7 +891,10 @@ export function WorkSection() {
                           key={preview.alt}
                           src={preview.src}
                           alt={preview.alt}
-                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 ${activeProject.previews.length === 1 ? "h-64 sm:h-72" : "h-48 sm:h-56"}`}
+                          onClick={() => setLightboxImage(preview)}
+                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 cursor-zoom-in transition-all duration-200 hover:border-primary/50 hover:shadow-md ${
+                            activeProject.previews.length === 1 ? "h-64 sm:h-96 md:h-[400px]" : "h-48 sm:h-56"
+                          }`}
                           draggable={false}
                         />
                       ))}
@@ -1004,7 +1009,8 @@ export function WorkSection() {
                           key={preview.alt}
                           src={preview.src}
                           alt={preview.alt}
-                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 ${
+                          onClick={() => setLightboxImage(preview)}
+                          className={`w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 cursor-zoom-in transition-all duration-200 hover:border-primary/50 hover:shadow-md ${
                             activeBlog.id === "chess-engine" ? "h-72 sm:h-[26rem]" : "h-64 sm:h-72"
                           }`}
                           draggable={false}
@@ -1028,7 +1034,8 @@ export function WorkSection() {
                         <img
                           src={section.image.src}
                           alt={section.image.alt}
-                          className="mt-3 h-64 w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 sm:h-[22rem]"
+                          onClick={() => setLightboxImage(section.image)}
+                          className="mt-3 h-64 w-full rounded-md border border-border/60 bg-white/80 object-contain p-2 sm:h-[22rem] cursor-zoom-in transition-all duration-200 hover:border-primary/50 hover:shadow-md"
                           draggable={false}
                         />
                       ) : null}
@@ -1168,6 +1175,44 @@ export function WorkSection() {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxImage(null)}
+            className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black/85 p-4 backdrop-blur-md cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-5xl w-full max-h-[85vh] flex flex-col items-center"
+            >
+              <img
+                src={lightboxImage.src}
+                alt={lightboxImage.alt}
+                className="max-w-full max-h-[80vh] rounded-lg shadow-2xl object-contain bg-white/5 border border-white/10"
+                draggable={false}
+              />
+              <p className="mt-3 text-center text-xs font-mono text-white/70 select-none">
+                {lightboxImage.alt}
+              </p>
+              <button
+                type="button"
+                onClick={() => setLightboxImage(null)}
+                className="absolute -top-10 right-0 text-white/70 hover:text-white font-mono text-xs tracking-wider flex items-center gap-1 bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded"
+              >
+                close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </SectionShell>
   );
 }
