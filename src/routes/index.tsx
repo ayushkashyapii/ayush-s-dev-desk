@@ -82,7 +82,7 @@ function Index() {
             <DeskExtraPhotos />
           </div>
 
-          <div className="pointer-events-none absolute bottom-0 left-1/2 z-[5] -translate-x-1/2" style={{ width: 1030 }}>
+          <div className="pointer-events-none absolute bottom-0 left-1/2 z-[5] -translate-x-1/2" style={{ width: 1060 }}>
             <CutoutImage src={anchorImg} alt="Anchor" className="h-auto w-full opacity-95 desk-image-soft" draggable={false} />
           </div>
         </div>
