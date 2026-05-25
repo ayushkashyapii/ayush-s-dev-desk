@@ -39,6 +39,7 @@ import constructureImg from "@/assets/desk/constructure.png";
 import minimaxImg from "@/assets/desk/minimax.jpg";
 import minimaxGif from "@/assets/desk/minimax_slower.gif";
 import { CutoutImage } from "./CutoutImage";
+import { RamenBowl } from "./RamenBowl";
 
 const ABOUT_COPY =
   "Software engineer and systems builder focused on scalable backend infrastructure, AI-powered applications, and developer-first products. Experienced in full-stack development, LLM systems, and performance-driven engineering, with a passion for building thoughtful, high-impact technology.";
@@ -1230,44 +1231,62 @@ export function ContactSection() {
 
 export function SkillsSection() {
   return (
-    <SectionShell id="skills" title="Skills" className="pt-6 sm:pt-8">
-      <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
-        Tech stack
-      </p>
-      <p className="mt-4 text-foreground/80">
-        A compact map of the languages, frameworks, and tools I use to build products.
-      </p>
+    <section
+      id="skills"
+      className="scroll-mt-2 border-t border-border/60 px-6 py-12 sm:px-10 sm:py-14 pt-6 sm:pt-8"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="grid items-start gap-10 grid-cols-1 lg:grid-cols-[220px_1fr] lg:gap-12">
+          {/* Left column: Ramen bowl (centered at top on mobile, left on desktop) */}
+          <div className="flex flex-col items-center justify-center pt-4 lg:pt-30 order-first lg:order-none">
+            <RamenBowl />
+          </div>
 
-      <div className="mt-8 space-y-6">
-        {SKILL_GROUPS.map((group) => (
-          <div key={group.title}>
-            <h3 className="text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground/90">
-              {group.title}
-            </h3>
-            <div className="mt-3 flex flex-wrap gap-2.5">
-              {group.items.map((skill) => (
-                <span
-                  key={skill}
-                  className="inline-flex items-center rounded-md border border-border/65 bg-paper/70 px-3 py-1.5 text-xs text-foreground/85 shadow-[0_1px_0_oklch(0_0_0_/0.04)] transition-colors hover:border-primary/45 hover:bg-primary/6 hover:text-foreground"
-                >
-                  {(() => {
-                    const SkillIcon = SKILL_ICONS[skill];
-                    return SkillIcon ? (
-                      <SkillIcon className="mr-2 h-3.5 w-3.5 text-foreground/70" aria-hidden />
-                    ) : (
+          {/* Right column: Skills Content */}
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-mono uppercase tracking-[0.2em] text-muted-foreground">
+              Tech stack
+            </p>
+            <h2 className="handwritten mt-2 text-4xl leading-[0.95] text-foreground sm:text-5xl md:text-[3.35rem]">
+              Skills
+            </h2>
+            <p className="mt-4 text-foreground/80">
+              A compact map of the languages, frameworks, and tools I use to build products.
+            </p>
+
+            <div className="mt-8 space-y-6">
+              {SKILL_GROUPS.map((group) => (
+                <div key={group.title}>
+                  <h3 className="text-[11px] font-mono uppercase tracking-[0.22em] text-muted-foreground/90">
+                    {group.title}
+                  </h3>
+                  <div className="mt-3 flex flex-wrap gap-2.5">
+                    {group.items.map((skill) => (
                       <span
-                        className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary/55"
-                        aria-hidden
-                      />
-                    );
-                  })()}
-                  {skill}
-                </span>
+                        key={skill}
+                        className="inline-flex items-center rounded-md border border-border/65 bg-paper/70 px-3 py-1.5 text-xs text-foreground/85 shadow-[0_1px_0_oklch(0_0_0_/0.04)] transition-colors hover:border-primary/45 hover:bg-primary/6 hover:text-foreground"
+                      >
+                        {(() => {
+                          const SkillIcon = SKILL_ICONS[skill];
+                          return SkillIcon ? (
+                            <SkillIcon className="mr-2 h-3.5 w-3.5 text-foreground/70" aria-hidden />
+                          ) : (
+                            <span
+                              className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary/55"
+                              aria-hidden
+                            />
+                          );
+                        })()}
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-        ))}
+        </div>
       </div>
-    </SectionShell>
+    </section>
   );
 }
