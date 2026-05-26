@@ -21,16 +21,24 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Ayush Kashyap - Software Engineer" },
+      { title: "Ayush Kashyap | Software Engineer Portfolio" },
       {
         name: "description",
         content:
-          "An interactive desk portfolio of Ayush Kashyap. Drag, click, explore - terminal, polaroids, vinyl, and more.",
+          "Explore Ayush Kashyap's software engineering portfolio, featuring interactive web apps, systems projects, terminal tools, games, skills, resume, and contact links.",
       },
-      { property: "og:title", content: "Ayush Kashyap -Software Engineer" },
+      { property: "og:title", content: "Ayush Kashyap | Software Engineer Portfolio" },
       {
         property: "og:description",
-        content: "A calm, tactile developer workspace. Drag windows, run commands, explore.",
+        content:
+          "Explore Ayush Kashyap's software engineering portfolio, projects, skills, resume, and contact links.",
+      },
+      { property: "og:url", content: "https://ayushkashyap.me" },
+      { name: "twitter:title", content: "Ayush Kashyap | Software Engineer Portfolio" },
+      {
+        name: "twitter:description",
+        content:
+          "Explore Ayush Kashyap's software engineering portfolio, projects, skills, resume, and contact links.",
       },
     ],
   }),

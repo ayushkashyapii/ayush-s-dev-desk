@@ -3,6 +3,25 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 import browserIcon from "@/assets/desk/browser.ico";
 
+const siteUrl = "https://ayushkashyap.me";
+const siteTitle = "Ayush Kashyap | Software Engineer Portfolio";
+const siteDescription =
+  "Personal portfolio of Ayush Kashyap, a software engineer building interactive web apps, systems projects, terminal tools, games, and developer experiences.";
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ayush Kashyap",
+  url: siteUrl,
+  jobTitle: "Software Engineer",
+  email: "mailto:kashyap11ayush02@gmail.com",
+  sameAs: [
+    "https://github.com/AyushKashyapII",
+    "https://www.linkedin.com/in/ayush-kashyap-9492422a8/",
+    "https://x.com/AyushKashyapII",
+  ],
+  knowsAbout: ["Software Engineering", "Web Development", "React", "TypeScript", "Go", "Systems Programming"],
+};
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -30,16 +49,27 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ayush Kashyap — Desk" },
-      { name: "description", content: "Interactive portfolio desk of Ayush Kashyap." },
+      { title: siteTitle },
+      { name: "description", content: siteDescription },
       { name: "author", content: "Ayush Kashyap" },
-      { property: "og:title", content: "Ayush Kashyap — Desk" },
-      { property: "og:description", content: "Interactive portfolio desk of Ayush Kashyap." },
+      { name: "robots", content: "index, follow" },
+      {
+        name: "keywords",
+        content:
+          "Ayush Kashyap, AyushKashyap, Ayush Kashyap portfolio, software engineer, web developer, React developer, TypeScript developer",
+      },
+      { property: "og:title", content: siteTitle },
+      { property: "og:description", content: siteDescription },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@ayushbuilds" },
+      { property: "og:url", content: siteUrl },
+      { property: "og:site_name", content: "Ayush Kashyap" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@AyushKashyapII" },
+      { name: "twitter:title", content: siteTitle },
+      { name: "twitter:description", content: siteDescription },
     ],
     links: [
+      { rel: "canonical", href: siteUrl },
       { rel: "icon", type: "image/x-icon", href: browserIcon },
       { rel: "shortcut icon", type: "image/x-icon", href: browserIcon },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -61,6 +91,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd),
+          }}
+        />
       </head>
       <body>
         {children}
