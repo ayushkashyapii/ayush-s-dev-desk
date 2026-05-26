@@ -4,8 +4,8 @@ import { Draggable } from "./Draggable";
 //import flower from "@/assets/desk/sticker-flower.webp";
 import laptop from "@/assets/desk/sticker-laptop.webp";
 import books from "@/assets/desk/sticker-books.webp";
-import folderOpenImg from "@/assets/desk/folderopen.png";
-import folderCloseImg from "@/assets/desk/folderclose.png";
+import folderOpenImg from "@/assets/desk/folderopen.webp";
+import folderCloseImg from "@/assets/desk/folderclose.webp";
 import { CutoutImage } from "./CutoutImage";
 
 type PanelType = "laptop" | "books" | null;

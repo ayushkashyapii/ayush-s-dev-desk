@@ -1,5 +1,5 @@
 import { Draggable } from "./Draggable";
-import musicImg from "@/assets/desk/music.png";
+import musicImg from "@/assets/desk/music.webp";
 
 export function MusicSticker() {
   return (

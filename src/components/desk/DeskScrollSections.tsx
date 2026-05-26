@@ -26,17 +26,17 @@ import {
   SiWebassembly,
 } from "react-icons/si";
 import catImg from "@/assets/desk/cat.jpg";
-import chessProjectImg from "@/assets/desk/chess.png";
+import chessProjectImg from "@/assets/desk/chess.webp";
 import laptop from "@/assets/desk/sticker-laptop.webp";
 import books from "@/assets/desk/sticker-books.webp";
-import folderOpenImg from "@/assets/desk/folderopen.png";
-import folderCloseImg from "@/assets/desk/folderclose.png";
+import folderOpenImg from "@/assets/desk/folderopen.webp";
+import folderCloseImg from "@/assets/desk/folderclose.webp";
 import pacmanProjectImg from "@/assets/desk/pacman.png";
 import pacmanRlImg from "@/assets/desk/pacmanrl.png";
 import terminalProjectImg from "@/assets/desk/terminal.png";
 import tetrisProjectImg from "@/assets/desk/tetris.png";
 import torrentProjectImg from "@/assets/desk/torrent.png";
-import constructureImg from "@/assets/desk/constructure.png";
+import constructureImg from "@/assets/desk/constructure.webp";
 import minimaxImg from "@/assets/desk/minimax.jpg";
 import minimaxGif from "@/assets/desk/minimax_slower.gif";
 import pygitProjectImg from "@/assets/desk/pygit.png";

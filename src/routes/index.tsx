@@ -14,7 +14,7 @@ import { AboutSection, WorkSection, ContactSection, SkillsSection } from "@/comp
 import { MobileDeskHero } from "@/components/desk/MobileDeskHero";
 import { MobileSiteHeader } from "@/components/desk/MobileSiteHeader";
 import { IntroLoader } from "@/components/desk/IntroLoader";
-import anchorImg from "@/assets/desk/anchor.png";
+import anchorImg from "@/assets/desk/anchor.webp";
 import { CutoutImage } from "@/components/desk/CutoutImage";
 
 export const Route = createFileRoute("/")({

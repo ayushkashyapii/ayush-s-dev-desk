@@ -2,7 +2,7 @@ import { Draggable } from "./Draggable";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { User } from "lucide-react";
-import ayushImg from "@/assets/desk/ayush.png";
+import ayushImg from "@/assets/desk/ayush.webp";
 import badgeHoverImg from "@/assets/desk/badgehover.jpg";
 
 export function LanyardBadge() {

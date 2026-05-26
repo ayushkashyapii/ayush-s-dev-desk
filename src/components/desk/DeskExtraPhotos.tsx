@@ -1,7 +1,7 @@
 import { Draggable } from "./Draggable";
 import tokyoImg from "@/assets/desk/tokyo.jpg";
-import coffeeImg from "@/assets/desk/coffee.png";
-import libertyImg from "@/assets/desk/liberty.png";
+import coffeeImg from "@/assets/desk/coffee.webp";
+import libertyImg from "@/assets/desk/liberty.webp";
 
 function PolaroidFrame({ src, alt, width }: { src: string; alt: string; width: number }) {
   return (
