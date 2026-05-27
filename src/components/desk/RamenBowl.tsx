@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ramenImg from "@/assets/desk/ramen.png";
+import ramenImg from "@/assets/desk/ramen.webp";
 import { EdgeMattedImage } from "./CutoutImage";
 
 export function RamenBowl() {

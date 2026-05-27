@@ -1,7 +1,7 @@
 import { Draggable } from "./Draggable";
-import polaroid1 from "@/assets/desk/Polaroid.png";
-import polaroid2 from "@/assets/desk/Polaroid2.png";
-import polaroid3 from "@/assets/desk/Polaroid3.png";
+import polaroid1 from "@/assets/desk/Polaroid.webp";
+import polaroid2 from "@/assets/desk/Polaroid2.webp";
+import polaroid3 from "@/assets/desk/Polaroid3.webp";
 import polaroid4 from "@/assets/desk/Polaroid4.jpg";
 
 const POLAROIDS = [
