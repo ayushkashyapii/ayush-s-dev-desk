@@ -332,7 +332,7 @@ export function WorkSection() {
       note: null,
       curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Chess",
-      liveUrl: "https://chess-dzbr1y3df-ayush-kashyaps-projects-9064ed5b.vercel.app",
+      liveUrl: "https://chess-inky.vercel.app",
       accent: "bg-[#9ecdf1] ring-[#86badf]/70",
       iconTone: "text-[#2b6289]",
     },
@@ -593,7 +593,7 @@ export function WorkSection() {
       subtitle: "How I tried to make a computer “think”.",
       previews: [{ src: minimaxGif, alt: "Minimax exploration animation" }],
       githubUrl: "https://github.com/AyushKashyapII/Chess",
-      liveUrl: "https://chess-dzbr1y3df-ayush-kashyaps-projects-9064ed5b.vercel.app",
+      liveUrl: "https://chess-inky.vercel.app",
       intro:
         "At some point, building crud apps stopped feeling exciting. Everything started looking the same — forms, APIs, dashboards. Useful, but not… interesting. I wanted something where the logic actually matters. Something where the system has to make decisions, not just move data around. Chess felt perfect.",
       sections: [
