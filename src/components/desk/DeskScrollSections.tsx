@@ -1,7 +1,24 @@
 import { useState, type ReactNode } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, FileText, Folder, History, Mail, Star,Twitter,Github,Linkedin } from "lucide-react";
+import {
+  BookOpen,
+  Briefcase,
+  Crown,
+  FileText,
+  Folder,
+  Gamepad2,
+  GitBranch,
+  History,
+  Mail,
+  Network,
+  Star,
+  Terminal,
+  Twitter,
+  Github,
+  Linkedin,
+  type LucideIcon,
+} from "lucide-react";
 import type { IconType } from "react-icons";
 import {
   SiCplusplus,
@@ -91,6 +108,18 @@ const SKILL_GROUPS = [
     items: ["Git", "Docker", "Redis", "PostgreSQL", "Firebase", "Vercel", "WebAssembly"],
   },
 ] as const;
+
+function WorkspaceFolderIcon({
+  icon: Icon,
+  tone,
+  title,
+}: {
+  icon: LucideIcon;
+  tone: string;
+  title: string;
+}) {
+  return <Icon aria-label={title} className={`h-8 w-8 ${tone}`} strokeWidth={1.75} />;
+}
 
 function SectionShell({
   id,
@@ -333,6 +362,7 @@ export function WorkSection() {
       curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Chess",
       liveUrl: "https://chess-inky.vercel.app",
+      icon: Crown,
       accent: "bg-[#9ecdf1] ring-[#86badf]/70",
       iconTone: "text-[#2b6289]",
     },
@@ -370,6 +400,7 @@ export function WorkSection() {
       curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Git_Local",
       liveUrl: null,
+      icon: GitBranch,
       accent: "bg-[#eacaa0] ring-[#d6b183]/70",
       iconTone: "text-[#8b6431]",
     },
@@ -413,6 +444,7 @@ export function WorkSection() {
       curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/Pacman",
       liveUrl: null,
+      icon: Gamepad2,
       accent: "bg-[#c7b7e9] ring-[#b09ad8]/70",
       iconTone: "text-[#5f4c86]",
     },
@@ -461,6 +493,7 @@ export function WorkSection() {
       curlCommand: "curl.exe -sS https://ayush-terminal.fly.dev/terminal",
       githubUrl: "https://github.com/AyushKashyapII/Terminal",
       liveUrl: "https://ayush-terminal.fly.dev/terminal",
+      icon: Terminal,
       accent: "bg-[#9fc4b9] ring-[#87ad9f]/70",
       iconTone: "text-[#365f53]",
     },
@@ -498,6 +531,7 @@ export function WorkSection() {
       curlCommand: null,
       githubUrl: "https://github.com/AyushKashyapII/BitTorrent",
       liveUrl: null,
+      icon: Network,
       accent: "bg-[#f0b8a8] ring-[#df9c88]/70",
       iconTone: "text-[#8d4f3d]",
     },
@@ -584,6 +618,7 @@ export function WorkSection() {
       ],
       takeaway:
         "BitTorrent didn't just make downloads faster. It redefined how the internet could distribute data.",
+      icon: Network,
       accent: "bg-[#f0b8a8] ring-[#df9c88]/70",
       iconTone: "text-[#8d4f3d]",
     },
@@ -682,6 +717,7 @@ export function WorkSection() {
         "Intelligence isn’t magic. It’s structured decision-making under constraints — and chess is the perfect place to feel that in code.",
       accent: "bg-[#9ecdf1] ring-[#86badf]/70",
       iconTone: "text-[#2b6289]",
+      icon: Crown,
     },
   ] as const;
   const historyFolders = [
@@ -689,6 +725,7 @@ export function WorkSection() {
       id: "work-ex",
       title: "Work Ex",
       subtitle: "Internships and professional experience",
+      icon: Briefcase,
       accent: "bg-[#c7b7e9] ring-[#b09ad8]/70",
       iconTone: "text-[#5f4c86]",
       entries: [
@@ -723,6 +760,7 @@ export function WorkSection() {
       id: "resume",
       title: "Resume",
       subtitle: "View and download resume",
+      icon: FileText,
       accent: "bg-[#9ecdf1] ring-[#86badf]/70",
       iconTone: "text-[#2b6289]",
       entries: [
@@ -830,7 +868,7 @@ export function WorkSection() {
                         <div
                           className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${project.accent}`}
                         >
-                          <Folder className={`h-5 w-5 ${project.iconTone}`} />
+                          <WorkspaceFolderIcon icon={project.icon} tone={project.iconTone} title={project.title} />
                         </div>
                         <p className="handwritten mt-2 text-[1.15rem] leading-none text-foreground/90">{project.title}</p>
                       </button>
@@ -981,7 +1019,7 @@ export function WorkSection() {
                       className="group w-full min-h-[132px] rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                     >
                       <div className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${blog.accent}`}>
-                        <BookOpen className={`h-5 w-5 ${blog.iconTone}`} />
+                        <WorkspaceFolderIcon icon={blog.icon} tone={blog.iconTone} title={blog.title} />
                       </div>
                       <p className="handwritten mt-2 text-[1.15rem] leading-none text-foreground/90">{blog.title}</p>
                     </button>
@@ -1086,7 +1124,7 @@ export function WorkSection() {
                     className="group w-full min-h-[132px] rounded-lg border border-border/65 bg-paper/60 p-3 text-left transition-transform hover:-translate-y-0.5 hover:bg-paper"
                   >
                     <div className={`flex h-16 w-full items-center justify-center rounded-md ring-1 ${folder.accent}`}>
-                      <Folder className={`h-5 w-5 ${folder.iconTone}`} />
+                      <WorkspaceFolderIcon icon={folder.icon} tone={folder.iconTone} title={folder.title} />
                     </div>
                     <p className="handwritten mt-2 text-[1.15rem] leading-none text-foreground/90">{folder.title}</p>
                   </button>
