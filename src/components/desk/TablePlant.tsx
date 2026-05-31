@@ -1,6 +1,6 @@
 import { Draggable } from "./Draggable";
 import { EdgeMattedImage } from "./CutoutImage";
-import tablePlantImg from "@/assets/desk/tableplant.jpg";
+import tablePlantImg from "@/assets/desk/tableplant.webp";
 
 export function TablePlant() {
   return (

@@ -1,5 +1,5 @@
 import { Draggable } from "./Draggable";
-import tokyoImg from "@/assets/desk/tokyo.jpg";
+import tokyoImg from "@/assets/desk/tokyo.webp";
 import coffeeImg from "@/assets/desk/coffee.webp";
 import libertyImg from "@/assets/desk/liberty.webp";
 

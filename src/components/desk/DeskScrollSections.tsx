@@ -25,7 +25,7 @@ import {
   SiVercel,
   SiWebassembly,
 } from "react-icons/si";
-import catImg from "@/assets/desk/cat.jpg";
+import catImg from "@/assets/desk/cat.webp";
 import chessProjectImg from "@/assets/desk/chess.webp";
 import laptop from "@/assets/desk/sticker-laptop.webp";
 import books from "@/assets/desk/sticker-books.webp";
@@ -37,7 +37,7 @@ import terminalProjectImg from "@/assets/desk/terminal.webp";
 import tetrisProjectImg from "@/assets/desk/tetris.webp";
 import torrentProjectImg from "@/assets/desk/torrent.webp";
 import constructureImg from "@/assets/desk/constructure.webp";
-import minimaxImg from "@/assets/desk/minimax.jpg";
+import minimaxImg from "@/assets/desk/minimax.webp";
 import minimaxGif from "@/assets/desk/minimax_slower.gif";
 import pygitProjectImg from "@/assets/desk/pygit.webp";
 import { CutoutImage } from "./CutoutImage";

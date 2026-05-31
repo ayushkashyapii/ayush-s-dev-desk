@@ -1,7 +1,7 @@
 import { CenterIdentity } from "@/components/desk/CenterIdentity";
 import { EdgeMattedImage, CutoutImage } from "@/components/desk/CutoutImage";
 import anchorPhoneImg from "@/assets/desk/anchor-phone.webp";
-import tokyoImg from "@/assets/desk/tokyo.jpg";
+import tokyoImg from "@/assets/desk/tokyo.webp";
 import musicImg from "@/assets/desk/music.webp";
 import plantImg from "@/assets/desk/plant.webp";
 import coffeeImg from "@/assets/desk/coffee.webp";
